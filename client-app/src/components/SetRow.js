@@ -21,8 +21,7 @@ export default function SetRow({ set }) {
     return (
         <tr>
             <td>{ set.name }</td>
-            <td>{ set.email }</td>
-            <td>{ set.phone }</td>
+
             <td>
                 <button className="btn btn-danger btn-sm" onClick={deleteSet}>
                     <FaTrash />

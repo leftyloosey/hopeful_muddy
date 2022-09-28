@@ -17,8 +17,7 @@ export default function Sets() {
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
+
                         <th></th>
                     </tr>
                 </thead>

@@ -6,11 +6,11 @@ import { GET_SETS } from '../queries/setQueries';
 
 export default function AddSetModal() {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  console.log(name)
+
 
   const [addSet] = useMutation(ADD_SET, {
-    variables: { name, email, phone },
+    variables: { name },
     update(cache, { data: { addSet } }) {
       const { sets } = cache.readQuery({ query: GET_SETS });
 
@@ -24,15 +24,14 @@ export default function AddSetModal() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (name === '' || email === '' || phone === '') {
+    if (name === '') {
       return alert('Please fill in all fields');
     }
 
-    addSet(name, email, phone);
+    addSet(name);
 
     setName('');
-    setEmail('');
-    setPhone('');
+
   };
 
   return (
@@ -80,26 +79,7 @@ export default function AddSetModal() {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
-                <div className='mb-3'>
-                  <label className='form-label'>Email</label>
-                  <input
-                    type='email'
-                    className='form-control'
-                    id='email'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className='mb-3'>
-                  <label className='form-label'>Phone</label>
-                  <input
-                    type='text'
-                    className='form-control'
-                    id='phone'
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
-                </div>
+
 
                 <button
                   type='submit'

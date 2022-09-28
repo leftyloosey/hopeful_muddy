@@ -20,8 +20,7 @@ const ADD_SONG = gql`
       set {
         id
         name
-        email
-        phone
+
       }
     }
   }
@@ -55,8 +54,7 @@ const UPDATE_SONG = gql`
       set {
         id
         name
-        email
-        phone
+
       }
     }
   }

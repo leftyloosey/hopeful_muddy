@@ -19,15 +19,20 @@ const cache = new InMemoryCache({
           merge(existing, incoming) {
           return incoming
           }
-        }
+        },
+        // users: {
+        //   merge(existing, incoming) {
+        //   return incoming
+        //   }
+        // }
       }
     }
   }
 })
 
 const client = new ApolloClient({
-  // uri: 'http://localhost:8000/graphql',
-  uri: '/graphql',
+  uri: 'http://localhost:8000/graphql',
+  // uri: '/graphql',
   cache,
 })
 

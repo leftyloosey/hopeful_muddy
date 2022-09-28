@@ -8,6 +8,7 @@ const {
     GraphQLEnumType } = require('graphql');
 const Song = require('../models/Song')
 const Set = require('../models/Set')
+const User = require('../models/User')
 
 const UserType = new GraphQLObjectType({
     name: 'User',
@@ -102,12 +103,12 @@ const mutation = new GraphQLObjectType({
             type: SetType,
             args: {
                 name: { type: GraphQLNonNull(GraphQLString) },
-                email: { type: GraphQLNonNull(GraphQLString) },
-                setId: { type: GraphQLNonNull(GraphQLID) }            },
+                
+                userId: { type: GraphQLNonNull(GraphQLID) }            },
             resolve(parent, args) {
                 const set = new Set({
                     name: args.name,
-                    email: args.email,
+                    
                     userId: args.userId,
                 })
                 return set.save()
@@ -220,8 +221,25 @@ const mutation = new GraphQLObjectType({
                 },
                   { new: true }
           );
-      },
-    },
+            },
+            },
+            addUser: {
+                type: UserType,
+                args: {
+                    name: { type: GraphQLNonNull(GraphQLString) },
+                    email: { type: GraphQLNonNull(GraphQLString) },
+                    
+                    userId: { type: GraphQLNonNull(GraphQLID) }            
+                },
+                resolve(parent, args) {
+                    const user = new User({
+                        name: args.name,
+                        email: args.email,
+                        userId: args.userId,
+                    })
+                    return user.save()
+                }
+            },
   },
 })
 

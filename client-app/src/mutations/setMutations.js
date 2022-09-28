@@ -1,14 +1,12 @@
 import { gql } from '@apollo/client'
 
 const ADD_SET = gql`
-  mutation addSet($name: String!, $email: String!,
-    $phone: String!) {
-        addSet(name: $name, email: $email, phone: $phone)
+  mutation addSet($name: String!) {
+        addSet(name: $name)
         {
             id
             name
-            email
-            phone
+
         }
     }
 `
@@ -17,8 +15,7 @@ const DELETE_SET = gql`
       deleteSet(id: $id) {
           id
           name
-          email
-          phone
+
         }
     }
 `

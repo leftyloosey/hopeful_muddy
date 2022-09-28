@@ -19,8 +19,7 @@ const GET_SONGS = gql`
         set {
             id
             name
-            email 
-            phone
+
         }
     }
   }
