@@ -171,75 +171,73 @@ const mutation = new GraphQLObjectType({
             }
         },
 
-        deleteSong: {
-            type: SetType,
-            args: {
-                id: { type: GraphQLNonNull(GraphQLID) },
-            },
-            resolve(parent, args) {
-                
-
-                return Song.findByIdAndRemove(args.id)
-            },
-    },
-        updateSong: {
-            type: SongType,
-            args: {
-            id: { type: GraphQLNonNull(GraphQLID) },
-            name: { type: GraphQLString },
-            description: { type: GraphQLString },
-            status: {
-                type: new GraphQLEnumType({
-                name: 'SongStatusUpdate',
-                values: {
-                    'closer': { value: 'closer' },
-                    'opener': { value: 'opener' },
-                    'other': { value: 'other' }
-                },
-                }),
-            },
-            length: {
-                type: new GraphQLEnumType({
-                name: 'SongLengthUpdate',
-                values: {
-                    'short': { value: 'short' },
-                    'long': { value: 'long' },
-                },
-                }),
-            },
-            },
-            resolve(parent, args) {
-            return Song.findByIdAndUpdate(
-                args.id,
-                {
-                  $set: {
-                    name: args.name,
-                    description: args.description,
-                    status: args.status,
-                    length: args.length,
-                  },
-                },
-                  { new: true }
-          );
-            },
-            },
-            addUser: {
-                type: UserType,
+            deleteSong: {
+                type: SetType,
                 args: {
-                    name: { type: GraphQLNonNull(GraphQLString) },
-                    email: { type: GraphQLNonNull(GraphQLString) },
-                    
-                    userId: { type: GraphQLNonNull(GraphQLID) }            
+                    id: { type: GraphQLNonNull(GraphQLID) },
                 },
                 resolve(parent, args) {
-                    const user = new User({
+                    
+
+                    return Song.findByIdAndRemove(args.id)
+                },
+        },
+            updateSong: {
+                type: SongType,
+                args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+                name: { type: GraphQLString },
+                description: { type: GraphQLString },
+                status: {
+                    type: new GraphQLEnumType({
+                    name: 'SongStatusUpdate',
+                    values: {
+                        'closer': { value: 'closer' },
+                        'opener': { value: 'opener' },
+                        'other': { value: 'other' }
+                    },
+                    }),
+                },
+                length: {
+                    type: new GraphQLEnumType({
+                    name: 'SongLengthUpdate',
+                    values: {
+                        'short': { value: 'short' },
+                        'long': { value: 'long' },
+                    },
+                    }),
+                },
+                },
+                resolve(parent, args) {
+                return Song.findByIdAndUpdate(
+                    args.id,
+                    {
+                    $set: {
                         name: args.name,
-                        email: args.email,
-                        userId: args.userId,
-                    })
-                    return user.save()
-                }
-            },
+                        description: args.description,
+                        status: args.status,
+                        length: args.length,
+                    },
+                    },
+                    { new: true }
+            );
+                },
+                },
+                addUser: {
+                    type: UserType,
+                    args: {
+                        name: { type: GraphQLNonNull(GraphQLString) },
+                        email: { type: GraphQLNonNull(GraphQLString) },           
+                    },
+                    resolve(parent, args) {
+                        const user = new User({
+                            name: args.name,
+                            email: args.email,
+                            // userId: args.userId,
+                        })
+                        return user.save()
+                    }
+                },
   },
 })
 

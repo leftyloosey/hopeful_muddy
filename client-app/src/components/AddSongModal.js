@@ -24,7 +24,7 @@ export default function AddSongModal() {
 
   // Get Sets for select
   const { loading, error, data } = useQuery(GET_SETS);
-
+  
   const onSubmit = (e) => {
     e.preventDefault();
 

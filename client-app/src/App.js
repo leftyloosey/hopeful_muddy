@@ -20,11 +20,11 @@ const cache = new InMemoryCache({
           return incoming
           }
         },
-        // users: {
-        //   merge(existing, incoming) {
-        //   return incoming
-        //   }
-        // }
+        users: {
+          merge(existing, incoming) {
+          return incoming
+          }
+        }
       }
     }
   }
