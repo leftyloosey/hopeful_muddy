@@ -7,9 +7,13 @@ const SongSchema = new mongoose.Schema({
     description: {
         type: String,
     },
+    length: {
+        type: String,
+        enum: ['short', 'long']
+    },
     status: {
         type: String,
-        enum: ['not started', 'in progress', 'completed']
+        enum: ['closer', 'opener', 'other']
     },
     setId: {
         type: mongoose.Schema.Types.ObjectId,

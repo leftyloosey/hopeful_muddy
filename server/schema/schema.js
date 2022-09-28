@@ -9,18 +9,29 @@ const {
 const Song = require('../models/Song')
 const Set = require('../models/Set')
 
-//Set type
+const UserType = new GraphQLObjectType({
+    name: 'User',
+    fields: () => ({
+        id: { type: GraphQLID },
+        name: { type: GraphQLString },
+        email: { type: GraphQLString }
+    })
+});
+
 const SetType = new GraphQLObjectType({
     name: 'Set',
     fields: () => ({
         id: { type: GraphQLID },
         name: { type: GraphQLString },
-        email: { type: GraphQLString },
-        phone: { type: GraphQLString }
+        user: {
+            type: UserType,
+            resolve(parent, args) {
+                return User.findById(parent.userId)
+            }
+        }
     })
 });
 
-//song type
 const SongType = new GraphQLObjectType({
     name: 'Song',
     fields: () => ({
@@ -28,6 +39,7 @@ const SongType = new GraphQLObjectType({
         name: { type: GraphQLString },
         status: {type: GraphQLString},
         description: { type: GraphQLString },
+        length: { type: GraphQLString },
         set: {
             type: SetType,
             resolve(parent, args) {
@@ -46,6 +58,13 @@ const RootQuery = new GraphQLObjectType({
                 return Set.find()
             }
         },
+        set: {
+            type: SetType,
+            args: { id: { type: GraphQLID } },
+            resolve(parent, args) {
+                return Set.findById(args.id)
+            }
+        },
         songs: {
             type: new GraphQLList(SongType),
             resolve(parent, args) {
@@ -56,18 +75,22 @@ const RootQuery = new GraphQLObjectType({
             type: SongType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
-                //eventually mongoose function would go here
                 return Song.findById(args.id)
             }
         },
-        set: {
-            type: SetType,
+        users: {
+            type: new GraphQLList(UserType),
+            resolve(parent, args) {
+                return User.find()
+            }
+        },
+        user: {
+            type: UserType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
-                //eventually mongoose function would go here
-                return Set.findById(args.id)
+                return User.findById(args.id)
             }
-        }
+        },
     }
 
 });
@@ -80,13 +103,12 @@ const mutation = new GraphQLObjectType({
             args: {
                 name: { type: GraphQLNonNull(GraphQLString) },
                 email: { type: GraphQLNonNull(GraphQLString) },
-                phone: { type: GraphQLNonNull(GraphQLString) }
-            },
+                setId: { type: GraphQLNonNull(GraphQLID) }            },
             resolve(parent, args) {
                 const set = new Set({
                     name: args.name,
                     email: args.email,
-                    phone: args.phone,
+                    userId: args.userId,
                 })
                 return set.save()
             }
@@ -108,7 +130,6 @@ const mutation = new GraphQLObjectType({
                 return Set.findByIdAndRemove(args.id)
             }
         },
-
         addSong: {
             type: SongType,
             args: {
@@ -118,12 +139,22 @@ const mutation = new GraphQLObjectType({
                     type: new GraphQLEnumType({
                         name: 'SongStatus',
                         values: {
-                            'new': { value: 'not started' },
-                            'progress': { value: 'in progress' },
-                            'completed': { value: 'completed' }
+                            'closer': { value: 'closer' },
+                            'opener': { value: 'opener' },
+                            'other': { value: 'other' }
                         }
                     }),
                     defaultValue: 'not started',
+                },
+                length: { 
+                    type: new GraphQLEnumType({
+                        name: 'SongLength',
+                        values: {
+                            'short': { value: 'short' },
+                            'long': { value: 'long' },
+                        }
+                    }),
+                    defaultValue: 'short',
                 },
                 setId: { type: GraphQLNonNull(GraphQLID) }
             },
@@ -131,6 +162,7 @@ const mutation = new GraphQLObjectType({
                 const song = new Song({
                     name: args.name,
                     description: args.description,
+                    length: args.length,
                     status: args.status,
                     setId: args.setId,
                   });
@@ -159,9 +191,18 @@ const mutation = new GraphQLObjectType({
                 type: new GraphQLEnumType({
                 name: 'SongStatusUpdate',
                 values: {
-                    new: { value: 'Not Started' },
-                    progress: { value: 'In Progress' },
-                    completed: { value: 'Completed' },
+                    'closer': { value: 'closer' },
+                    'opener': { value: 'opener' },
+                    'other': { value: 'other' }
+                },
+                }),
+            },
+            length: {
+                type: new GraphQLEnumType({
+                name: 'SongLengthUpdate',
+                values: {
+                    'short': { value: 'short' },
+                    'long': { value: 'long' },
                 },
                 }),
             },
@@ -174,6 +215,7 @@ const mutation = new GraphQLObjectType({
                     name: args.name,
                     description: args.description,
                     status: args.status,
+                    length: args.length,
                   },
                 },
                   { new: true }

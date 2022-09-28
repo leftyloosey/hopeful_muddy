@@ -4,12 +4,10 @@ const SetSchema = new mongoose.Schema({
     name: {
         type: String,
     },
-    email: {
-        type: String,
-    },
-    phone: {
-        type: String,
-    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }
 })
 
 module.exports = mongoose.model('Set', SetSchema)
