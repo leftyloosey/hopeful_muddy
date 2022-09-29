@@ -10,9 +10,10 @@ export default function EditSongForm({ song }) {
   const [length, setLength] = useState('')
 
   const [updateSong] = useMutation(UPDATE_SONG, {
-    variables: { id: song.id, name, description, status },
+    variables: { id: song.id, name, description, status, length },
     refetchQueries: [{ query: GET_SONG, variables: { id: song.id } }]
   })
+
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -20,10 +21,10 @@ export default function EditSongForm({ song }) {
     if ( !name || !description || !status || !length) {
         return alert('please complete fields.')
     }
-
+    console.log(name,description,status,length)
     updateSong(name, description, status, length)
   }
-
+  
   return (
     <div className="mt-5">
         <h3>Update Song</h3>
@@ -56,16 +57,16 @@ export default function EditSongForm({ song }) {
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
                     >
-                    <option value='Opener'>Opener</option>
-                    <option value='Closer'>Closer</option>
-                    <option value='Other'>Other</option>
+                    <option value='opener'>opener</option>
+                    <option value='closer'>closer</option>
+                    <option value='other'>other</option>
                 </select>
             </div>
 
             <div className='mb-3'>
                     <label className='form-label'>Length</label>
                     <select
-                    id='status'
+                    id='length'
                     className='form-select'
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
