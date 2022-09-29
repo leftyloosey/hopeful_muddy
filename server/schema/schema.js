@@ -15,7 +15,8 @@ const UserType = new GraphQLObjectType({
     fields: () => ({
         id: { type: GraphQLID },
         name: { type: GraphQLString },
-        email: { type: GraphQLString }
+        email: { type: GraphQLString },
+        password: { type: GraphQLString },
     })
 });
 
@@ -172,74 +173,93 @@ const mutation = new GraphQLObjectType({
             }
         },
 
-            deleteSong: {
-                type: SetType,
+        deleteSong: {
+            type: SetType,
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+            },
+            resolve(parent, args) {
+                
+
+                return Song.findByIdAndRemove(args.id)
+            },
+        },
+        updateSong: {
+            type: SongType,
+            args: {
+            id: { type: GraphQLNonNull(GraphQLID) },
+            name: { type: GraphQLString },
+            description: { type: GraphQLString },
+            status: {
+                type: new GraphQLEnumType({
+                name: 'SongStatusUpdate',
+                values: {
+                    'closer': { value: 'closer' },
+                    'opener': { value: 'opener' },
+                    'other': { value: 'other' }
+                },
+              }
+            ),
+            },
+            length: {
+                type: new GraphQLEnumType({
+                name: 'SongLengthUpdate',
+                values: {
+                    'short': { value: 'short' },
+                    'long': { value: 'long' },
+                },
+                }),
+              },
+            },
+            resolve(parent, args) {
+            return Song.findByIdAndUpdate(
+                args.id,
+                {
+                $set: {
+                    name: args.name,
+                    description: args.description,
+                    status: args.status,
+                    length: args.length,
+                },
+                },
+                { new: true }
+                );
+              },
+            },
+            addUser: {
+                type: UserType,
+                args: {
+                    name: { type: GraphQLNonNull(GraphQLString) },
+                    email: { type: GraphQLNonNull(GraphQLString) },           
+                    password: { type: GraphQLNonNull(GraphQLString) },           
+                },
+                resolve(parent, args) {
+                    const user = new User({
+                        name: args.name,
+                        email: args.email,
+                        password: args.password,
+                    })
+                    return user.save()
+                    }
+                },
+            },
+            deleteUser: {
+                type: UserType,
                 args: {
                     id: { type: GraphQLNonNull(GraphQLID) },
                 },
                 resolve(parent, args) {
-                    
-
-                    return Song.findByIdAndRemove(args.id)
-                },
-        },
-            updateSong: {
-                type: SongType,
-                args: {
-                id: { type: GraphQLNonNull(GraphQLID) },
-                name: { type: GraphQLString },
-                description: { type: GraphQLString },
-                status: {
-                    type: new GraphQLEnumType({
-                    name: 'SongStatusUpdate',
-                    values: {
-                        'closer': { value: 'closer' },
-                        'opener': { value: 'opener' },
-                        'other': { value: 'other' }
-                    },
-                    }),
-                },
-                length: {
-                    type: new GraphQLEnumType({
-                    name: 'SongLengthUpdate',
-                    values: {
-                        'short': { value: 'short' },
-                        'long': { value: 'long' },
-                    },
-                    }),
-                },
-                },
-                resolve(parent, args) {
-                return Song.findByIdAndUpdate(
-                    args.id,
-                    {
-                    $set: {
-                        name: args.name,
-                        description: args.description,
-                        status: args.status,
-                        length: args.length,
-                    },
-                    },
-                    { new: true }
-            );
-                },
-                },
-                addUser: {
-                    type: UserType,
-                    args: {
-                        name: { type: GraphQLNonNull(GraphQLString) },
-                        email: { type: GraphQLNonNull(GraphQLString) },           
-                    },
-                    resolve(parent, args) {
-                        const user = new User({
-                            name: args.name,
-                            email: args.email,
-                            // userId: args.userId,
-                        })
-                        return user.save()
-                    }
-                },
-  },
+                    User.find({ userId: args.id }).then(
+                        (Set) => {
+                            Set.forEach(set => {
+                                set.remove()
+                            })
+                        }
+                    )
+    
+                    return Set.findByIdAndRemove(args.id)
+                }
+            }
 })
 
 module.exports = new GraphQLSchema({

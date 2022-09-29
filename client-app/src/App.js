@@ -6,6 +6,15 @@ import NotFound from "./pages/NotFound";
 import { ApolloProvider, ApolloClient, InMemoryCache }
 from '@apollo/client'
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import Login from './components/Login';
+import { setContext } from '@apollo/client/link/context';
+import { AUTH_TOKEN } from './constants';
+import { HttpLink } from '@apollo/client';
+
+const httpLink = new HttpLink({
+  uri: "http://localhost:8000/graphql"
+  // Additional options
+});
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -31,9 +40,21 @@ const cache = new InMemoryCache({
   }
 })
 
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem(AUTH_TOKEN);
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  };
+});
+
 const client = new ApolloClient({
   uri: 'http://localhost:8000/graphql',
   // uri: '/graphql',
+  link: authLink.concat(httpLink),
+
   cache,
 })
 
@@ -48,6 +69,13 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/song/:id' element={<Song />} />
               <Route path='*' element={<NotFound />} />
+
+              {/* <Route
+                path="/create"
+                element={<CreateLink/>}
+              /> */}
+              <Route path="/login" element={<Login/>} />
+
             </Routes>
           </div>
       </Router>
