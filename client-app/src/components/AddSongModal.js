@@ -9,10 +9,11 @@ export default function AddSongModal() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [setId, setSetId] = useState('');
-  const [status, setStatus] = useState('new');
+  const [status, setStatus] = useState('');
+  const [length, setLength] = useState('');
 
   const [addSong] = useMutation(ADD_SONG, {
-    variables: { name, description, setId, status },
+    variables: { name, description, setId, status, length },
     update(cache, { data: { addSong } }) {
       const { songs } = cache.readQuery({ query: GET_SONGS });
       cache.writeQuery({
@@ -28,23 +29,28 @@ export default function AddSongModal() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (name === '' || description === '' || status === '') {
+    if (name === '' || description === '' || status === '' || length === '') {
       return alert('Please fill in all fields');
     }
 
-    addSong(name, description, setId, status);
+    console.log(name, description, setId, status, length);
+
+    
+    addSong(name, description, setId, status, length).catch(error)
 
     setName('');
     setDescription('');
-    setStatus('new');
+    setStatus('');
     setSetId('');
+    setLength('');
   };
 
   if (loading) return null;
-  if (error) return 'Something Went Wrong';
+  if (error) return 'something went wrong';
 
   return (
     <>
+  
       {!loading && !error && (
         <>
           <button
@@ -107,11 +113,24 @@ export default function AddSongModal() {
                         value={status}
                         onChange={(e) => setStatus(e.target.value)}
                       >
-                        <option value='new'>Not Started</option>
-                        <option value='progress'>In Progress</option>
-                        <option value='completed'>Completed</option>
+                        <option value='opener'>opener</option>
+                        <option value='closer'>closer</option>
+                        <option value='other'>other</option>
                       </select>
                     </div>
+
+                    <div className='mb-3'>
+                    <label className='form-label'>Length</label>
+                    <select
+                    id='length'
+                    className='form-select'
+                    value={length}
+                    onChange={(e) => setLength(e.target.value)}
+                    >
+                    <option value='short'>short</option>
+                    <option value='long'>long</option>
+                </select>
+            </div>
 
                     <div className='mb-3'>
                       <label className='form-label'>Set</label>

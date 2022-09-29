@@ -7,6 +7,7 @@ export default function EditSongForm({ song }) {
   const [name, setName] = useState(song.name)
   const [description, setDescription] = useState(song.description)
   const [status, setStatus] = useState('')
+  const [length, setLength] = useState('')
 
   const [updateSong] = useMutation(UPDATE_SONG, {
     variables: { id: song.id, name, description, status },
@@ -16,11 +17,11 @@ export default function EditSongForm({ song }) {
   const onSubmit = (e) => {
     e.preventDefault()
 
-    if ( !name || !description || !status ) {
+    if ( !name || !description || !status || !length) {
         return alert('please complete fields.')
     }
 
-    updateSong(name, description, status)
+    updateSong(name, description, status, length)
   }
 
   return (
@@ -46,6 +47,7 @@ export default function EditSongForm({ song }) {
                     onChange={(e) => setDescription(e.target.value)}
                     ></textarea>
                 </div>
+
                 <div className='mb-3'>
                     <label className='form-label'>Status</label>
                     <select
@@ -54,9 +56,22 @@ export default function EditSongForm({ song }) {
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
                     >
-                    <option value='new'>Not Started</option>
-                    <option value='progress'>In Progress</option>
-                    <option value='completed'>Completed</option>
+                    <option value='Opener'>Opener</option>
+                    <option value='Closer'>Closer</option>
+                    <option value='Other'>Other</option>
+                </select>
+            </div>
+
+            <div className='mb-3'>
+                    <label className='form-label'>Length</label>
+                    <select
+                    id='status'
+                    className='form-select'
+                    value={length}
+                    onChange={(e) => setLength(e.target.value)}
+                    >
+                    <option value='short'>short</option>
+                    <option value='long'>long</option>
                 </select>
             </div>
 

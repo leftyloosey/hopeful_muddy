@@ -5,7 +5,6 @@ const GET_SETS = gql`
         sets {
             id
             name
-
         }
     }
 `

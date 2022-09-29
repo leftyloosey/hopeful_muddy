@@ -24,12 +24,12 @@ const SetType = new GraphQLObjectType({
     fields: () => ({
         id: { type: GraphQLID },
         name: { type: GraphQLString },
-        user: {
-            type: UserType,
-            resolve(parent, args) {
-                return User.findById(parent.userId)
-            }
-        }
+        // user: {
+        //     type: UserType,
+        //     resolve(parent, args) {
+        //         return User.findById(parent.userId)
+        //     }
+        // }
     })
 });
 
@@ -104,12 +104,13 @@ const mutation = new GraphQLObjectType({
             args: {
                 name: { type: GraphQLNonNull(GraphQLString) },
                 
-                userId: { type: GraphQLNonNull(GraphQLID) }            },
+                // userId: { type: GraphQLNonNull(GraphQLID) }            
+            },
             resolve(parent, args) {
                 const set = new Set({
                     name: args.name,
                     
-                    userId: args.userId,
+                    // userId: args.userId,
                 })
                 return set.save()
             }
@@ -145,7 +146,7 @@ const mutation = new GraphQLObjectType({
                             'other': { value: 'other' }
                         }
                     }),
-                    defaultValue: 'not started',
+                    defaultValue: 'opener',
                 },
                 length: { 
                     type: new GraphQLEnumType({

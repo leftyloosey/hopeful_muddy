@@ -12,6 +12,7 @@ export default function SongCard({ song }) {
                     </div>
                     <p className="small">
                         Status: <strong>{song.status}</strong>
+                        {song.description}
                     </p>
                 </div>
             </div>

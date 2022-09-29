@@ -1,3 +1,4 @@
+// import { hot } from 'react-hot-loader/root';
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Song from "./pages/Song";

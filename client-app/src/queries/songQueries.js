@@ -6,6 +6,7 @@ const GET_SONGS = gql`
         id
         name
         status
+        length
     }
   }
   `
@@ -15,6 +16,7 @@ const GET_SONGS = gql`
         id
         name
         status
+        length
         description
         set {
             id

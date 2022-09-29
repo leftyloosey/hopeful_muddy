@@ -1,15 +1,11 @@
 import { gql } from '@apollo/client'
 
 const ADD_SET = gql`
-  mutation AddSet($name: String! $userId: ID!) {
-        addSet(name: $name userId: $userId)
+  mutation addSet($name: String!, ) {
+        addSet(name: $name)
         {
             id
             name
-            user {
-                id
-                name
-            }
         }
     }
 `
