@@ -2,10 +2,16 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, gql } from '@apollo/client';
 import { AUTH_TOKEN } from '../constants';
+// import { useJwt } from "react-jwt";
+
+// const token = "Your JWT";
+
 
 const Login = () => {
-
-
+    // const token = "Your JWT";
+    // console.log(useJwt(token))
+    // console.log(token)
+    // console.log(decodedToken, isExpired)
     // const [name, setName] = useState('');
     // const [password, setPassword] = useState('');
     // const [email, setEmail] = useState('');
@@ -67,6 +73,8 @@ const LOGIN_MUTATION = gql`
 `;
 
 
+  
+
   const navigate = useNavigate();
   const [formState, setFormState] = useState({
     login: true,
@@ -83,10 +91,12 @@ const LOGIN_MUTATION = gql`
     //   password: formState.password
     },
     
-    // onCompleted: ({ login }) => {
-    onCompleted: () => {
+    onCompleted: ({ login }) => {
+    // onCompleted: () => {
     //   localStorage.setItem(AUTH_TOKEN, login.token);
-      localStorage.setItem(AUTH_TOKEN, 'julaby');
+
+    
+      localStorage.setItem(AUTH_TOKEN, 'JWT');
       console.log("he missed!")
       console.log(AUTH_TOKEN)
       console.log("ERROR",error, data)
@@ -102,13 +112,35 @@ const LOGIN_MUTATION = gql`
       email: formState.email,
       password: formState.password
     },
-    onCompleted: ({ signup }) => {
+    onCompleted: ({ data }) => {
     //   localStorage.setItem(AUTH_TOKEN, signup.token);
-      localStorage.setItem(AUTH_TOKEN, "julab");
-      console.log(AUTH_TOKEN, signup)
+
+
+      localStorage.setItem(AUTH_TOKEN, "JWT");
+      console.log(AUTH_TOKEN)
       navigate('/');
     }
   });
+
+//   async function handleSubmit (a) {
+//     //...
+//     // Make the login API call
+
+//     // const greet = 'hello'
+//     const response = await fetch(`/path`, {
+//       method: 'POST',
+//       body: JSON.stringify({ a })
+//     })
+//     //...
+//     // Extract the JWT from the response
+//     const { jwt_token } = await response.json()
+
+//     console.log(response, jwt_token)
+//     //...
+//     // Do something the token in the login method
+//     // await login({ jwt_token })
+//   }
+  
 
   return (
     <div>
@@ -138,7 +170,7 @@ const LOGIN_MUTATION = gql`
             })
           }
           type="text"
-          placeholder="Your email address"
+          placeholder="your email address"
         />
         <input
           value={formState.password}
@@ -149,7 +181,7 @@ const LOGIN_MUTATION = gql`
             })
           }
           type="password"
-          placeholder="Choose a safe password"
+          placeholder="a password"
         />
       </div>
       <div className="flex mt3">
@@ -169,7 +201,7 @@ const LOGIN_MUTATION = gql`
           }
         >
           {formState.login
-            ? 'need to create an account?'
+            ? 'create an account?'
             : 'already have an account?'}
         </button>
       </div>

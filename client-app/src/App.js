@@ -1,5 +1,6 @@
 // import { hot } from 'react-hot-loader/root';
 import Header from "./components/Header";
+import Where from "./components/Where";
 import Home from "./pages/Home";
 import Song from "./pages/Song";
 import NotFound from "./pages/NotFound";
@@ -43,12 +44,13 @@ const cache = new InMemoryCache({
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem(AUTH_TOKEN);
   console.log("HI TOKEN",token)
-  return {
+  console.log(headers)
+  return ({
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : ''
     }
-  };
+  })
 });
 
 const client = new ApolloClient({
@@ -76,12 +78,12 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/song/:id' element={<Song />} />
               <Route path='*' element={<NotFound />} />
-
+              <Route path='/where' element={<Where />} />
               {/* <Route
                 path="/create"
                 element={<CreateLink/>}
               /> */}
-              <Route path="/login" element={<Login/>} />
+              <Route path="/login" element={<Login />} />
 
             </Routes>
           </div>

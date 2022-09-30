@@ -7,7 +7,11 @@ const connectDB = require('./server/config/db')
 const colors = require('colors')
 const cors = require('cors')
 const path = require('path');
-
+const { expressjwt: jwt } = require("express-jwt");
+const router = require('express').Router();
+const mongoose = require('mongoose')
+const User = require('./server/models/User')
+const { signToken } = require('./server/utils/auth');
 
 const app = express();
 
@@ -27,6 +31,41 @@ const context = async () => {
 
 // })) 
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// app.get(
+//   "/path",
+//   jwt({ secret: "shhhhhhared-secret", algorithms: ["HS256"] }),
+//   function (req, res) {
+
+    
+//     if (!req.auth.admin) return res.sendStatus(401);
+//     res.sendStatus(200);
+//   }
+// );
+const name ='bob' 
+const email = 'bob@email.com'
+const password = 'bob'
+
+const user = User.create({ name, email, password });
+
+const token = signToken(user);
+console.log(token)
+
+
+app.get('/path', (req, res) => {
+  // Using model in route to find all documents that are instances of that model
+  User.find({}, (err, result) => {
+    if (result) {
+      res.status(200).json(result);
+    } else {
+      console.log('Uh Oh, something went wrong');
+      res.status(500).json({ message: 'something went wrong' });
+    }
+  });
+});
+
 app.use(
     '/graphql',
     graphqlHTTP({
@@ -36,16 +75,11 @@ app.use(
     })
   );
 
-// app.use('/login', (req, res) => {
-//   res.send({
-//     token: 'test123'
-//   });
+
+// app.use(express.static('public'));
+
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
 // });
-
-app.use(express.static('public'));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
-});
 
 app.listen(port, console.log(`server running on ${port}`))
