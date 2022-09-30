@@ -44,7 +44,6 @@ const cache = new InMemoryCache({
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem(AUTH_TOKEN);
   console.log("HI TOKEN",token)
-  console.log(headers)
   return ({
     headers: {
       ...headers,
@@ -62,11 +61,6 @@ const client = new ApolloClient({
 })
 
 function App() {
-  // const [token, setToken] = useState();
-
-  // if(!token) {
-  //   return <Login setToken={setToken} />
-  // }
 
   return (
     <>
@@ -79,12 +73,7 @@ function App() {
               <Route path='/song/:id' element={<Song />} />
               <Route path='*' element={<NotFound />} />
               <Route path='/where' element={<Where />} />
-              {/* <Route
-                path="/create"
-                element={<CreateLink/>}
-              /> */}
               <Route path="/login" element={<Login />} />
-
             </Routes>
           </div>
       </Router>

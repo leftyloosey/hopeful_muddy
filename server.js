@@ -45,40 +45,42 @@ app.use(express.json());
 //   }
 // );
 
+app.post('/login', (req, res) => {
 
-// const name ='bob' 
-// const email = 'bob@email.com'
-// const password = 'bob'
+  const obj = req.body
+  const obj1 = JSON.stringify({obj})
+  const obj2 = JSON.parse(obj1)
+  const { email } = obj2.obj
+ 
+  
 
-// const user = User.create({ name, email, password });
-
-// const token = signToken(user);
-// console.log(token)
-
-
-app.get('/path', (req, res) => {
-  console.log(req.body)
-  User.find({}, (err, result) => {
+  User.findOne({email}, (err, result) => {
     if (result) {
-      res.status(200).json(result);
+      const jwt = signToken(result)
+      res.status(200).json(jwt);
     } else {
-      console.log('Uh Oh, something went wrong');
-      res.status(500).json({ message: 'something went wrong' });
+      console.log('oh no!');
+      res.status(500).json({ message: 'oh no!' });
     }
   });
-app.post('/path', (req, res) => {
-  console.log("REQ BODY:",req.body)
-  // res.send(req.body)
-  });
+});
 
+app.post('/create', (req, res) => {
 
+  const obj = req.body
+  const obj1 = JSON.stringify({obj})
+  const obj2 = JSON.parse(obj1)
+  const { email } = obj2.obj
+  const jwt = signToken(email)
+  res.status(200).json(jwt);
 
-  // User.findOne({req}, (err, result) => {
+  // User.findOne({email}, (err, result) => {
   //   if (result) {
-  //     res.status(200).json(result);
+  //     const jwt = signToken(result)
+  //     res.status(200).json(jwt);
   //   } else {
-  //     console.log('Uh Oh, something went wrong');
-  //     res.status(500).json({ message: 'something went wrong' });
+  //     console.log('oh no!');
+  //     res.status(500).json({ message: 'oh no!' });
   //   }
   // });
 });
