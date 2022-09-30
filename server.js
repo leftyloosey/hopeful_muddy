@@ -44,6 +44,8 @@ app.use(express.json());
 //     res.sendStatus(200);
 //   }
 // );
+
+
 const name ='bob' 
 const email = 'bob@email.com'
 const password = 'bob'

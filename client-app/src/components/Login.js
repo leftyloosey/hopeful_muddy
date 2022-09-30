@@ -122,25 +122,6 @@ const LOGIN_MUTATION = gql`
     }
   });
 
-//   async function handleSubmit (a) {
-//     //...
-//     // Make the login API call
-
-//     // const greet = 'hello'
-//     const response = await fetch(`/path`, {
-//       method: 'POST',
-//       body: JSON.stringify({ a })
-//     })
-//     //...
-//     // Extract the JWT from the response
-//     const { jwt_token } = await response.json()
-
-//     console.log(response, jwt_token)
-//     //...
-//     // Do something the token in the login method
-//     // await login({ jwt_token })
-//   }
-  
 
   return (
     <div>
