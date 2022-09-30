@@ -67,8 +67,8 @@ app.get('/path', (req, res) => {
     }
   });
 app.post('/path', (req, res) => {
-  console.log(req.body)
-
+  console.log("REQ BODY:",req.body)
+  // res.send(req.body)
   });
 
 

@@ -2,16 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, gql } from '@apollo/client';
 import { AUTH_TOKEN } from '../constants';
-// import { useJwt } from "react-jwt";
-
-// const token = "Your JWT";
-
 
 const Login = () => {
-    // const token = "Your JWT";
-    // console.log(useJwt(token))
-    // console.log(token)
-    // console.log(decodedToken, isExpired)
+
     // const [name, setName] = useState('');
     // const [password, setPassword] = useState('');
     // const [email, setEmail] = useState('');
@@ -49,24 +42,26 @@ const Login = () => {
     }
     `;
   
-//   const LOGIN_MUTATION = gql`
-//     mutation LoginMutation(
-//       $email: String!
-//       $password: String!
-//     ) {
-//       loginMutation(email: $email, password: $password) {
-//         token
-//       }
-//     }
-//   `;
+  // const LOGIN_MUTATION = gql`
+  //   mutation LoginMutation(
+      
+  //     $password: String!
+  //   ) {
+  //     loginMutation(email: $email, password: $password) {
+        
+  //       password
+  //     }
+  //   }
+  // `;
 
+//works
 const LOGIN_MUTATION = gql`
   mutation logUser(
     $email: String!
 
   ) {
     logUser(email: $email) {
-      
+      password
       email
     }
   }
@@ -82,27 +77,49 @@ const LOGIN_MUTATION = gql`
     password: '',
     name: ''
   });
+// console.log(formState)
 
-
-  const [login, { error, data }] = useMutation(LOGIN_MUTATION, {
+  // const [login, { error, data }] = useMutation(LOGIN_MUTATION, {
+  const [login] = useMutation(LOGIN_MUTATION, {
     
     variables: {
       email: formState.email,
-    //   password: formState.password
+      // password: formState.password
     },
     
-    onCompleted: ({ login }) => {
-    // onCompleted: () => {
-    //   localStorage.setItem(AUTH_TOKEN, login.token);
+    // onCompleted: (data) => {
 
-    
-      localStorage.setItem(AUTH_TOKEN, 'JWT');
-      console.log("he missed!")
-      console.log(AUTH_TOKEN)
-      console.log("ERROR",error, data)
+      // const { password } = data.logUser
+      // const { email } = data.logUser
+
+    onCompleted: async (data) => {
+        // const { password } = data.logUser
+        const { email } = data.logUser
+        console.log(email)
+        const rawResponse = await fetch('http://localhost:8000/path', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ x: 5, y: 6 })
+          // body: JSON.stringify(email)
+            // body: email
+        });
+        const content = await rawResponse.json();
       
-      navigate('/');
-    }
+        console.log(content);
+      }
+      
+    
+
+      // localStorage.setItem(AUTH_TOKEN, 'JWT');
+      // console.log("he missed!")
+      // console.log(AUTH_TOKEN)
+      // console.log("ERROR",error, data)
+      
+      // navigate('/');
+    // }
   });
 //   console.log(error, data)
   const [signup] = useMutation(ADD_USER , {

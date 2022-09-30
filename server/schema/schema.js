@@ -125,11 +125,15 @@ const mutation = new GraphQLObjectType({
             args: {
                 // id: { type: GraphQLNonNull(GraphQLID) },
                 email: { type: GraphQLString },
+                // password: { type: GraphQLString },
             },
             resolve(parent, args) {
                 // User.find({ email: args.email })
                 // return User.findOne({ id: args.id })
-                return User.findOne({ email: args.email }).exec();
+                return User.findOne({ 
+                    email: args.email, 
+                    // password: args.password 
+                }).exec();
                 // return User.findOne(
                     
                 //     args.email,

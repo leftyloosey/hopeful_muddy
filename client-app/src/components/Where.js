@@ -2,9 +2,6 @@
 
   async function handleSubmit () {
 
-    // const name = ''
-    // const email = ''
-
   // const response = await  fetch('http://localhost:8000/path')
   // .then((response) => response.json())
   // .then((data) => console.log(data));
