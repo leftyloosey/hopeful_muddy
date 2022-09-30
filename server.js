@@ -46,18 +46,18 @@ app.use(express.json());
 // );
 
 
-const name ='bob' 
-const email = 'bob@email.com'
-const password = 'bob'
+// const name ='bob' 
+// const email = 'bob@email.com'
+// const password = 'bob'
 
-const user = User.create({ name, email, password });
+// const user = User.create({ name, email, password });
 
-const token = signToken(user);
-console.log(token)
+// const token = signToken(user);
+// console.log(token)
 
 
 app.get('/path', (req, res) => {
-  // Using model in route to find all documents that are instances of that model
+  console.log(req.body)
   User.find({}, (err, result) => {
     if (result) {
       res.status(200).json(result);
@@ -66,6 +66,21 @@ app.get('/path', (req, res) => {
       res.status(500).json({ message: 'something went wrong' });
     }
   });
+app.post('/path', (req, res) => {
+  console.log(req.body)
+
+  });
+
+
+
+  // User.findOne({req}, (err, result) => {
+  //   if (result) {
+  //     res.status(200).json(result);
+  //   } else {
+  //     console.log('Uh Oh, something went wrong');
+  //     res.status(500).json({ message: 'something went wrong' });
+  //   }
+  // });
 });
 
 app.use(
