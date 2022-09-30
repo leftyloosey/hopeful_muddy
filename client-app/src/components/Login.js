@@ -5,6 +5,7 @@ import { AUTH_TOKEN } from '../constants';
 
 const Login = () => {
 
+
     // const [name, setName] = useState('');
     // const [password, setPassword] = useState('');
     // const [email, setEmail] = useState('');
@@ -26,7 +27,6 @@ const Login = () => {
 //     }
 //   `;
 
-
     const ADD_USER = gql`
     mutation AddUser(
     $email: String!
@@ -43,16 +43,29 @@ const Login = () => {
     }
     `;
   
-  const LOGIN_MUTATION = gql`
-    mutation LoginMutation(
-      $email: String!
-      $password: String!
-    ) {
-      login(email: $email, password: $password) {
-        token
-      }
+//   const LOGIN_MUTATION = gql`
+//     mutation LoginMutation(
+//       $email: String!
+//       $password: String!
+//     ) {
+//       loginMutation(email: $email, password: $password) {
+//         token
+//       }
+//     }
+//   `;
+
+const LOGIN_MUTATION = gql`
+  mutation logUser(
+    $email: String!
+
+  ) {
+    logUser(email: $email) {
+      
+      email
     }
-  `;
+  }
+`;
+
 
   const navigate = useNavigate();
   const [formState, setFormState] = useState({
@@ -63,17 +76,25 @@ const Login = () => {
   });
 
 
-  const [login] = useMutation(LOGIN_MUTATION, {
+  const [login, { error, data }] = useMutation(LOGIN_MUTATION, {
+    
     variables: {
       email: formState.email,
-      password: formState.password
+    //   password: formState.password
     },
-    onCompleted: ({ login }) => {
-      localStorage.setItem(AUTH_TOKEN, login.token);
+    
+    // onCompleted: ({ login }) => {
+    onCompleted: () => {
+    //   localStorage.setItem(AUTH_TOKEN, login.token);
+      localStorage.setItem(AUTH_TOKEN, 'julaby');
+      console.log("he missed!")
+      console.log(AUTH_TOKEN)
+      console.log("ERROR",error, data)
+      
       navigate('/');
     }
   });
-  
+//   console.log(error, data)
   const [signup] = useMutation(ADD_USER , {
     variables: {
         // name, password, email
@@ -82,8 +103,9 @@ const Login = () => {
       password: formState.password
     },
     onCompleted: ({ signup }) => {
-      localStorage.setItem(AUTH_TOKEN, signup.token);
-      console.log(AUTH_TOKEN, signup.token)
+    //   localStorage.setItem(AUTH_TOKEN, signup.token);
+      localStorage.setItem(AUTH_TOKEN, "julab");
+      console.log(AUTH_TOKEN, signup)
       navigate('/');
     }
   });

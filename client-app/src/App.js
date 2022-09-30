@@ -42,6 +42,7 @@ const cache = new InMemoryCache({
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem(AUTH_TOKEN);
+  console.log("HI TOKEN",token)
   return {
     headers: {
       ...headers,
@@ -59,6 +60,12 @@ const client = new ApolloClient({
 })
 
 function App() {
+  // const [token, setToken] = useState();
+
+  // if(!token) {
+  //   return <Login setToken={setToken} />
+  // }
+
   return (
     <>
     <ApolloProvider client={client}>

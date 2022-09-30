@@ -20,6 +20,19 @@ const UserType = new GraphQLObjectType({
     })
 });
 
+const AuthType = new GraphQLObjectType({
+    name: 'Auth',
+    fields: () => ({
+        token: { type: GraphQLID },
+        user: {
+            type: UserType,
+            resolve(parent, args) {
+                return User.findById(parent.userId)
+            }
+        }
+    })
+});
+
 const SetType = new GraphQLObjectType({
     name: 'Set',
     fields: () => ({
@@ -93,6 +106,13 @@ const RootQuery = new GraphQLObjectType({
                 return User.findById(args.id)
             }
         },
+        oGuser: {
+            type: UserType,
+            args: { email: { type: GraphQLString } },
+            resolve(parent, args) {
+                return User.find()
+            }
+        },
     }
 
 });
@@ -100,6 +120,29 @@ const RootQuery = new GraphQLObjectType({
 const mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: {
+        logUser: {
+            type: UserType,
+            args: {
+                // id: { type: GraphQLNonNull(GraphQLID) },
+                email: { type: GraphQLString },
+            },
+            resolve(parent, args) {
+                // User.find({ email: args.email })
+                // return User.findOne({ id: args.id })
+                return User.findOne({ email: args.email }).exec();
+                // return User.findOne(
+                    
+                //     args.email,
+                //     // {
+                //     // $match: {
+                //     //     email: args.email,
+                        
+                //     // },
+                //     // },
+                //     { new: true }
+                //     );
+                  },
+        },
         addSet: {
             type: SetType,
             args: {
@@ -243,23 +286,8 @@ const mutation = new GraphQLObjectType({
                     }
                 },
             },
-            deleteUser: {
-                type: UserType,
-                args: {
-                    id: { type: GraphQLNonNull(GraphQLID) },
-                },
-                resolve(parent, args) {
-                    User.find({ userId: args.id }).then(
-                        (Set) => {
-                            Set.forEach(set => {
-                                set.remove()
-                            })
-                        }
-                    )
-    
-                    return Set.findByIdAndRemove(args.id)
-                }
-            }
+
+
 })
 
 module.exports = new GraphQLSchema({
