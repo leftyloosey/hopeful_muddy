@@ -13,7 +13,8 @@ import { AUTH_TOKEN } from './constants';
 import { HttpLink } from '@apollo/client';
 
 const httpLink = new HttpLink({
-  uri: "http://localhost:8000/graphql"
+  // uri: "http://localhost:8000/graphql"
+  uri: '/graphql',
   // Additional options
 });
 
