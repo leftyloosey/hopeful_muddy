@@ -1,1 +1,1 @@
-web: cd client-app && npm start
+web: npm start && npm run hk 
