@@ -80,7 +80,7 @@ const LOGIN_MUTATION = gql`
     onCompleted: async (data) => {
         const { email } = data.logUser
         console.log(email)
-        const rawResponse = await fetch('http://localhost:8000/login', {
+        const rawResponse = await fetch('/login', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -105,7 +105,7 @@ const LOGIN_MUTATION = gql`
     },
     onCompleted: async ( data ) => {
       const { email } = data.addUser
-      const rawResponse = await fetch('http://localhost:8000/create', {
+      const rawResponse = await fetch('/create', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
