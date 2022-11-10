@@ -30,7 +30,6 @@ export default function Header() {
         <div>
           {authToken ? (
             <div
-              className='ml1 pointer black'
               onClick={() => {
                 localStorage.removeItem(AUTH_TOKEN)
                 navigate(`/login`)
@@ -39,9 +38,7 @@ export default function Header() {
               logout
             </div>
           ) : (
-            <Link to='/login' className='ml1 no-underline black'>
-              login
-            </Link>
+            <Link to='/login'>login</Link>
           )}
         </div>
       </div>

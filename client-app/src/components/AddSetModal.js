@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FaUser } from 'react-icons/fa'
+import { FaList } from 'react-icons/fa'
 import { useMutation } from '@apollo/client'
 import { ADD_SET } from '../mutations/setMutations'
 import { GET_SETS } from '../queries/setQueries'
@@ -51,8 +51,8 @@ export default function AddSetModal(props) {
         data-target='#addSetModal'
       >
         <div className='d-flex align-items-center'>
-          <FaUser className='icon' />
-          <div>Add Set</div>
+          <FaList className='icon' />
+          <div>New Set</div>
         </div>
       </button>
 

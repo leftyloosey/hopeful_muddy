@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FaList } from 'react-icons/fa'
+import { FaMusic } from 'react-icons/fa'
 import { useMutation, useQuery } from '@apollo/client'
 import { ADD_SONG } from '../mutations/songMutations'
 import { GET_SONGS } from '../queries/songQueries'
@@ -59,8 +59,8 @@ export default function AddSongModal() {
             data-target='#addSongModal'
           >
             <div className='d-flex align-items-center'>
-              <FaList className='icon' />
-              <div>New Song</div>
+              <FaMusic className='icon' />
+              <div>Add Song</div>
             </div>
           </button>
           {/* 
