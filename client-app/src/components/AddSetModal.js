@@ -1,53 +1,52 @@
-import { useState } from 'react';
-import { FaUser } from 'react-icons/fa';
-import { useMutation } from '@apollo/client';
-import { ADD_SET } from '../mutations/setMutations';
-import { GET_SETS } from '../queries/setQueries';
+import { useState } from 'react'
+import { FaUser } from 'react-icons/fa'
+import { useMutation } from '@apollo/client'
+import { ADD_SET } from '../mutations/setMutations'
+import { GET_SETS } from '../queries/setQueries'
 // import { GET_USERS } from '../queries/userQueries';
+
+import { container2, container3, button } from '../../src/styles/headerStyles'
 
 export default function AddSetModal(props) {
   // const { data } = useQuery(GET_USERS);
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState('')
   // const [userId, setUserId] = useState('');
 
+  const [addSet] = useMutation(
+    ADD_SET,
+    {
+      variables: { name },
+      update(cache, { data: { addSet } }) {
+        const { sets } = cache.readQuery({ query: GET_SETS })
 
-
-  const [addSet] = useMutation(ADD_SET, {
-    variables: { name },
-    update(cache, { data: { addSet } }) {
-      const { sets } = cache.readQuery({ query: GET_SETS });
-
-      cache.writeQuery({
-        query: GET_SETS,
-        data: { sets: [...sets, addSet] },
-      });
-    },
-  },
-  // useQuery(GET_USERS)
-  );
-
- 
+        cache.writeQuery({
+          query: GET_SETS,
+          data: { sets: [...sets, addSet] },
+        })
+      },
+    }
+    // useQuery(GET_USERS)
+  )
 
   const onSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (name === '') {
-      return alert('Please fill in all fields');
+      return alert('Please fill in all fields')
     }
 
-    addSet(name);
+    addSet(name)
 
-    setName('');
+    setName('')
     // setUserId('');
-
-  };
+  }
 
   return (
     <>
       <button
         type='button'
-        className='btn btn-secondary'
+        style={button}
         data-toggle='modal'
         data-target='#addSetModal'
       >
@@ -57,7 +56,7 @@ export default function AddSetModal(props) {
         </div>
       </button>
 
-      <div
+      {/* <div
         className='modal fade'
         id='addSetModal'
         aria-labelledby='addSetModalLabel'
@@ -88,23 +87,6 @@ export default function AddSetModal(props) {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
- 
-                {/* <div className='mb-3'>
-                      <label className='form-label'>Set</label>
-                      <select
-                        id='setId'
-                        className='form-select'
-                        value={userId}
-                        onChange={(e) => setUserId(e.target.value)}
-                      >
-                        <option value=''>Select Set</option>
-                        {props.users.map((user) => (
-                          <option key={user.id} value={user.id}>
-                            {user.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>  */}
 
                 <button
                   type='submit'
@@ -117,7 +99,7 @@ export default function AddSetModal(props) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
-  );
+  )
 }

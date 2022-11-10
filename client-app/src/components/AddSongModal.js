@@ -1,61 +1,60 @@
-import { useState } from 'react';
-import { FaList } from 'react-icons/fa';
-import { useMutation, useQuery } from '@apollo/client';
-import { ADD_SONG } from '../mutations/songMutations';
-import { GET_SONGS } from '../queries/songQueries';
-import { GET_SETS } from '../queries/setQueries';
+import { useState } from 'react'
+import { FaList } from 'react-icons/fa'
+import { useMutation, useQuery } from '@apollo/client'
+import { ADD_SONG } from '../mutations/songMutations'
+import { GET_SONGS } from '../queries/songQueries'
+import { GET_SETS } from '../queries/setQueries'
+import { container2, container3, button } from '../../src/styles/headerStyles'
 
 export default function AddSongModal() {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [setId, setSetId] = useState('');
-  const [status, setStatus] = useState('');
-  const [length, setLength] = useState('');
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [setId, setSetId] = useState('')
+  const [status, setStatus] = useState('')
+  const [length, setLength] = useState('')
 
   const [addSong] = useMutation(ADD_SONG, {
     variables: { name, description, setId, status, length },
     update(cache, { data: { addSong } }) {
-      const { songs } = cache.readQuery({ query: GET_SONGS });
+      const { songs } = cache.readQuery({ query: GET_SONGS })
       cache.writeQuery({
         query: GET_SONGS,
         data: { songs: [...songs, addSong] },
-      });
+      })
     },
-  });
+  })
 
   // Get Sets for select
-  const { loading, error, data } = useQuery(GET_SETS);
-  
+  const { loading, error, data } = useQuery(GET_SETS)
+
   const onSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (name === '' || description === '' || status === '' || length === '') {
-      return alert('Please fill in all fields');
+      return alert('Please fill in all fields')
     }
 
-    console.log(name, description, setId, status, length);
+    console.log(name, description, setId, status, length)
 
-    
     addSong(name, description, setId, status, length).catch(error)
 
-    setName('');
-    setDescription('');
-    setStatus('');
-    setSetId('');
-    setLength('');
-  };
+    setName('')
+    setDescription('')
+    setStatus('')
+    setSetId('')
+    setLength('')
+  }
 
-  if (loading) return null;
-  if (error) return 'something went wrong';
+  if (loading) return null
+  if (error) return 'something went wrong'
 
   return (
     <>
-  
       {!loading && !error && (
         <>
           <button
             type='button'
-            className='btn btn-primary'
+            style={button}
             data-toggle='modal'
             data-target='#addSongModal'
           >
@@ -64,7 +63,7 @@ export default function AddSongModal() {
               <div>New Song</div>
             </div>
           </button>
-
+          {/* 
           <div
             className='modal fade'
             id='addSongModal'
@@ -160,9 +159,9 @@ export default function AddSongModal() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </>
       )}
     </>
-  );
+  )
 }
