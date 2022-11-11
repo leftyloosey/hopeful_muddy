@@ -3,31 +3,52 @@ import { FaList } from 'react-icons/fa'
 import { useMutation } from '@apollo/client'
 import { ADD_SET } from '../mutations/setMutations'
 import { GET_SETS } from '../queries/setQueries'
+import { setModal } from '../../src/styles/headerStyles'
+
+import Modal from 'react-modal'
+
 // import { GET_USERS } from '../queries/userQueries';
 
-import { container2, container3, button } from '../../src/styles/headerStyles'
+import { button } from '../../src/styles/headerStyles'
+
+Modal.setAppElement('#root')
 
 export default function AddSetModal(props) {
-  // const { data } = useQuery(GET_USERS);
-
   const [name, setName] = useState('')
-  // const [userId, setUserId] = useState('');
+  const [modalIsOpen, setIsOpen] = useState(false)
 
-  const [addSet] = useMutation(
-    ADD_SET,
-    {
-      variables: { name },
-      update(cache, { data: { addSet } }) {
-        const { sets } = cache.readQuery({ query: GET_SETS })
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  }
 
-        cache.writeQuery({
-          query: GET_SETS,
-          data: { sets: [...sets, addSet] },
-        })
-      },
-    }
-    // useQuery(GET_USERS)
-  )
+  const [addSet] = useMutation(ADD_SET, {
+    variables: { name },
+    update(cache, { data: { addSet } }) {
+      const { sets } = cache.readQuery({ query: GET_SETS })
+
+      cache.writeQuery({
+        query: GET_SETS,
+        data: { sets: [...sets, addSet] },
+      })
+    },
+  })
+
+  function openModal() {
+    setIsOpen(true)
+  }
+
+  function afterOpenModal() {}
+
+  function closeModal() {
+    setIsOpen(false)
+  }
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -39,67 +60,43 @@ export default function AddSetModal(props) {
     addSet(name)
 
     setName('')
-    // setUserId('');
+    closeModal()
   }
 
   return (
     <>
-      <button
-        type='button'
-        style={button}
-        data-toggle='modal'
-        data-target='#addSetModal'
-      >
-        <div className='d-flex align-items-center'>
+      <button type='button' style={button} onClick={openModal}>
+        <div>
           <FaList className='icon' />
           <div>New Set</div>
         </div>
       </button>
 
-      {/* <div
-        className='modal fade'
-        id='addSetModal'
-        aria-labelledby='addSetModalLabel'
-        aria-hidden='true'
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
       >
-        <div className='modal-dialog'>
-          <div className='modal-content'>
-            <div className='modal-header'>
-              <h5 className='modal-title' id='addSetModalLabel'>
-                Add Set
-              </h5>
-              <button
-                type='button'
-                className='btn-close'
-                data-dismiss='modal'
-                aria-label='Close'
-              ></button>
-            </div>
-            <div className='modal-body'>
-              <form onSubmit={onSubmit}>
-                <div className='mb-3'>
-                  <label className='form-label'>Name</label>
-                  <input
-                    type='text'
-                    className='form-control'
-                    id='name'
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
+        <div>
+          <div style={setModal}>
+            <form onSubmit={onSubmit}>
+              <div>
+                <label className='form-label'>Set Name: </label>
+                <input
+                  type='text'
+                  className='form-control'
+                  id='name'
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
 
-                <button
-                  type='submit'
-                  data-bs-dismiss='modal'
-                  className='btn btn-secondary'
-                >
-                  Submit
-                </button>
-              </form>
-            </div>
+              <button type='submit'>Submit</button>
+            </form>
           </div>
         </div>
-      </div> */}
+      </Modal>
     </>
   )
 }

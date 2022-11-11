@@ -2,24 +2,9 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useMutation, gql } from '@apollo/client'
 import { AUTH_TOKEN } from '../constants'
+import { loginStyles } from '../../src/styles/headerStyles'
 
 const Login = () => {
-  //     const ADD_USER = gql`
-  //     mutation AddUser(
-  //       $email: String!
-  //       $password: String!
-  //       $name: String!
-  //     ) {
-  //       addUser(
-  //         email: $email
-  //         password: $password
-  //         name: $name
-  //       ) {
-  //         token
-  //       }
-  //     }
-  //   `;
-
   const ADD_USER = gql`
     mutation AddUser($email: String!, $password: String!, $name: String!) {
       addUser(email: $email, password: $password, name: $name) {
@@ -29,20 +14,6 @@ const Login = () => {
       }
     }
   `
-
-  // const LOGIN_MUTATION = gql`
-  //   mutation LoginMutation(
-
-  //     $password: String!
-  //   ) {
-  //     loginMutation(email: $email, password: $password) {
-
-  //       password
-  //     }
-  //   }
-  // `;
-
-  //works
   const LOGIN_MUTATION = gql`
     mutation logUser($email: String!) {
       logUser(email: $email) {
@@ -108,21 +79,23 @@ const Login = () => {
   })
 
   return (
-    <div>
-      <h4 className='mv3'>{formState.login ? 'Login' : 'Sign Up'}</h4>
-      <div className='flex flex-column'>
+    <div style={loginStyles}>
+      <h4>{formState.login ? 'Login' : 'Sign Up'}</h4>
+      <div>
         {!formState.login && (
-          <input
-            value={formState.name}
-            onChange={(e) =>
-              setFormState({
-                ...formState,
-                name: e.target.value,
-              })
-            }
-            type='text'
-            placeholder='your name'
-          />
+          <div>
+            <input
+              value={formState.name}
+              onChange={(e) =>
+                setFormState({
+                  ...formState,
+                  name: e.target.value,
+                })
+              }
+              type='text'
+              placeholder='your name'
+            />
+          </div>
         )}
         <input
           value={formState.email}
@@ -135,6 +108,8 @@ const Login = () => {
           type='text'
           placeholder='your email address'
         />
+      </div>
+      <div>
         <input
           value={formState.password}
           onChange={(e) =>
@@ -163,7 +138,7 @@ const Login = () => {
             })
           }
         >
-          {formState.login ? 'create an account?' : 'already have an account?'}
+          {formState.login ? 'create an account?' : 'have an account?'}
         </button>
       </div>
     </div>

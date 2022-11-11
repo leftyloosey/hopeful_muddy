@@ -1,37 +1,49 @@
-import { Link, useParams } from "react-router-dom"
-import Spinner from "../components/Spinner"
-import { useQuery } from "@apollo/client"
-import { GET_SONG } from "../queries/songQueries"
-import SetInfo from "../components/SetInfo"
-import DeleteSongButton from "../components/DeleteSongButton"
+import { Link, useParams } from 'react-router-dom'
+import Spinner from '../components/Spinner'
+import { useQuery } from '@apollo/client'
+import { GET_SONG } from '../queries/songQueries'
+import SetInfo from '../components/SetInfo'
+import DeleteSongButton from '../components/DeleteSongButton'
 import EditSongForm from '../components/EditSongForm'
+import { songPage } from '../styles/headerStyles'
 
 export default function Song() {
   const { id } = useParams()
-  const { loading, error, data } = useQuery(GET_SONG,
-    { variables: { id } })
+  const { loading, error, data } = useQuery(GET_SONG, { variables: { id } })
 
+  const buttonStyle = {
+    marginLeft: '1em',
+    // paddingBottom: '5px',
+    textDecoration: 'none',
+  }
   if (loading) return <Spinner />
   if (error) return <p>nope. something wrong.</p>
 
-  return <>
-    {!loading && !error && (
-      <div className="mx-auto w-75 card p-5">
-        <Link to='/' className="btn btn-light btn-sm w-25 d-inline ms-auto">
+  return (
+    <>
+      {!loading && !error && (
+        <div>
+          <Link style={buttonStyle} to='/'>
             Back
-        </Link>
+          </Link>
+          <div style={songPage}>
+            <span>
+              Title: <strong> {data.song.name}</strong>
+            </span>
+            <span>Description: {data.song.description}</span>
 
-        <h1>{data.song.name}</h1>
-        <p>{data.song.description}</p>
-
-        <h5 className="mt-3">Song Status</h5>
-        <p className="lead">{data.song.status}</p>
-
-        <SetInfo set={data.song.set} />
-        <DeleteSongButton songId={data.song.id} />
-        <EditSongForm song={data.song}/>
-      </div>
-
-    )}
-  </>
+            <span>
+              {' '}
+              Status: <i>{data.song.status}</i>
+            </span>
+          </div>
+          <div style={songPage}>
+            <SetInfo set={data.song.set} />
+            <DeleteSongButton songId={data.song.id} />
+            <EditSongForm song={data.song} />
+          </div>
+        </div>
+      )}
+    </>
+  )
 }

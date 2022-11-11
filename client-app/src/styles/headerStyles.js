@@ -14,15 +14,16 @@ const navBarLeft = {
   // justifyContent: 'flex-end',
   paddingLeft: '8px',
   alignItems: 'center',
-  boxShadow: '1px 2px 2px #435c81',
+  boxShadow: '1px 2px 2px black',
   borderRadius: '15px',
   width: '6rem',
 }
 const navBarRight = {
   display: 'flex',
   alignItems: 'center',
-  boxShadow: '1px 2px 2px #435c81',
+  boxShadow: '1px 2px 2px black',
   borderRadius: '15px',
+  padding: '5px',
   // width: '4em',
   // height: '4em',
   // display: 'flex',
@@ -57,7 +58,7 @@ const rightBody = {
   backgroundColor: 'white',
   borderWidth: '2px',
   borderStyle: 'solid',
-  boxShadow: '1px 2px 2px #435c81',
+  boxShadow: '1px 2px 2px black',
   marginBottom: '-10px',
   marginTop: '20px',
   marginRight: '10px',
@@ -73,7 +74,8 @@ const button = {
   marginLeft: '20%',
   paddingTop: '5%',
   backgroundColor: 'white',
-  boxShadow: '1px 2px 2px #435c81',
+  // boxShadow: '1px 2px 2px #435c81',
+  boxShadow: '1px 2px 2px black',
   borderRadius: '15px',
 }
 
@@ -124,6 +126,50 @@ const linkStylesEnter = {
   fontWeight: 'bold',
 }
 
+const songModal = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-end',
+  alignItems: 'flex-start',
+  width: '10%',
+}
+
+const songModal2 = {
+  display: 'flex',
+  padding: '5px',
+  // margin: '1px',
+  flexDirection: 'column',
+  alignItems: 'flex-end',
+}
+
+const setModal = {
+  display: 'flex',
+}
+
+const loginStyles = {
+  display: 'flex',
+  flexDirection: 'column',
+  marginLeft: '10px',
+}
+
+const songPage = {
+  display: 'flex',
+  flexDirection: 'column',
+  marginLeft: '2rem',
+}
+const songPage1 = {
+  display: 'flex',
+  flexDirection: 'column',
+  marginLeft: '2rem',
+}
+const songPage2 = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'flex-start',
+  width: '67%',
+}
+
 export {
   navbar,
   navBarLeft,
@@ -138,4 +184,11 @@ export {
   outerSong,
   linkStyles,
   linkStylesEnter,
+  songModal,
+  songModal2,
+  setModal,
+  loginStyles,
+  songPage,
+  songPage1,
+  songPage2,
 }

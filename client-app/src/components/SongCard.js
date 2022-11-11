@@ -7,12 +7,12 @@ import {
 import { FaMusic } from 'react-icons/fa'
 
 export default function SongCard({ song }) {
-  const enter = (e) => {
-    e.target.style.color = 'lightgrey'
-  }
-  const leave = (e) => {
-    e.target.style.color = 'black'
-  }
+  //   const enter = (e) => {
+  //     e.target.style.color = 'lightgrey'
+  //   }
+  //   const leave = (e) => {
+  //     e.target.style.color = 'black'
+  //   }
 
   return (
     <div style={outerSong}>
@@ -22,8 +22,8 @@ export default function SongCard({ song }) {
 
           <a
             style={linkStyles}
-            onMouseEnter={enter}
-            onMouseLeave={leave}
+            // onMouseEnter={enter}
+            // onMouseLeave={leave}
             href={`/song/${song.id}`}
           >
             {song.name}
