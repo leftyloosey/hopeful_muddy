@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { GET_SONG } from '../queries/songQueries'
 import { UPDATE_SONG } from '../mutations/songMutations'
-import { songPage2 } from '../styles/headerStyles'
+import { editSong } from '../styles/headerStyles'
 
 export default function EditSongForm({ song }) {
   const [name, setName] = useState(song.name)
@@ -26,10 +26,9 @@ export default function EditSongForm({ song }) {
   }
 
   return (
-    <div style={songPage2}>
-      <h5>edit song:</h5>
+    <div style={editSong}>
       <form onSubmit={onSubmit}>
-        <div>
+        <div style={editSong}>
           <label className='form-label'>new name: </label>
           <input
             type='text'
@@ -39,7 +38,7 @@ export default function EditSongForm({ song }) {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-        <div className='mb-3'>
+        <div style={editSong}>
           <label className='form-label'>description: </label>
           <input
             className='form-control'
@@ -49,7 +48,7 @@ export default function EditSongForm({ song }) {
           ></input>
         </div>
 
-        <div className='mb-3'>
+        <div>
           <label className='form-label'>Status</label>
           <select
             id='status'
@@ -63,7 +62,7 @@ export default function EditSongForm({ song }) {
           </select>
         </div>
 
-        <div className='mb-3'>
+        <div>
           <label className='form-label'>Length</label>
           <select
             id='length'
