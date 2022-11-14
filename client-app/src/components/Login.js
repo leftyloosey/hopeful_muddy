@@ -38,7 +38,8 @@ const Login = () => {
     onCompleted: async (data) => {
       const { email } = data.logUser
       console.log(email)
-      const rawResponse = await fetch('http://localhost:8000/graphql/', {
+      const rawResponse = await fetch('/login', {
+        // const rawResponse = await fetch('http://localhost:8000/login', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -62,7 +63,8 @@ const Login = () => {
     },
     onCompleted: async (data) => {
       const { email } = data.addUser
-      const rawResponse = await fetch('http://localhost:8000/graphql/create', {
+      // const rawResponse = await fetch('http://localhost:8000/create', {
+      const rawResponse = await fetch('/create', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -72,7 +74,7 @@ const Login = () => {
       })
       const content = await rawResponse.json()
 
-      console.log(content)
+      console.log('rawResponse:', content)
       localStorage.setItem(AUTH_TOKEN, content)
       navigate('/')
     },

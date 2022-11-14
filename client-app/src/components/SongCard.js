@@ -2,7 +2,7 @@ import {
   songTitle,
   outerSong,
   linkStyles,
-  linkStylesEnter,
+  // linkStylesEnter,
 } from '../../src/styles/headerStyles'
 import { FaMusic } from 'react-icons/fa'
 
@@ -29,7 +29,7 @@ export default function SongCard({ song }) {
             {song.name}
           </a>
 
-          <strong> {song.status}</strong>
+          <strong> | {song.status}</strong>
           {song.description}
         </span>
       </div>
