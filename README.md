@@ -1,5 +1,3 @@
-## Project 3 - Simple MERN Stack
-
 ### Set Lists
 
 This is a React app. Mongoose, Express, Apollo, graphQL.
