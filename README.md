@@ -11,4 +11,4 @@ The backend is an express server with two protected authentication routes but ot
 [deployed to heroku here](https://hopeful-muddy.herokuapp.com/)
 
 Screen:
-![screen](./client-app/src/assets/screen.png)
+![screen](/client-app/src/assets/screen.png)
