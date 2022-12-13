@@ -2,19 +2,13 @@
 
 ### Set Lists
 
-This is a simple React app. Mongoose, Apollo etc. It's got an express-graphql schema 
-overlaying the database, which is intentionally simple for to serve as a kind of stem 
-cell for other applications. Right now it's acting as a set list organiser for musicians 
-who want to group their songs into different orders while performing. 
+This is a React app. Mongoose, Express, Apollo, graphQL.
 
-But the idea is that I can scale it up and out to become many potential things. 
-It could be a blog, a messageboard, a recipe site. Etc. The hard part of getting 
-all the components to talk to each other is worked out. The database supports 
-set and song and user, which authenticates with a json webtoken, but could 
-potentially these could be anything. 
+My final project for school. Right now it's acting as a set list organiser for musicians to make lists of songs and organise those songs into set lists. It is an intentionally simple pattern, because this stem cell is the starting point for the two freelance projects I've got underway right now, a barbershop's gallery and calendar and an insurance brokerage's site. It could be a blog, a messageboard, a recipe site. Etc. It is still my model to refine, and barrage with test-cases and minor adjustments to code in the name of scientific inquiry.
 
-Link:
-[heroku](https://hopeful-muddy.herokuapp.com/)
+The backend is an express server with two protected authentication routes but other than that the data layer is graphQL. It talks to my Mongoose cluster on Atlas. Apollo gives context to React on the frontend. Database information flows to the front where the authenticated user can add, delete, edit songs and sets. I'm in the process of fleshing this out as an individual experience for each user, something unrequired for MVP delivery to deadline. For fun and practice, styling is pure CSS.
+
+[deployed to heroku here](https://hopeful-muddy.herokuapp.com/)
 
 Screen:
-![screen](screen.png)
+![screen](./client-app/src/assets/screen.png)
