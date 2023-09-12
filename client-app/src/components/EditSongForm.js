@@ -18,10 +18,10 @@ export default function EditSongForm({ song }) {
   const onSubmit = (e) => {
     e.preventDefault()
 
-    if (!name || !description || !status || !length) {
-      return alert('please complete fields.')
-    }
-    console.log(name, description, status, length)
+    // if (!name || !description || !status || !length) {
+    //   return alert('please complete fields.')
+    // }
+    // console.log(name, description, status, length)
     updateSong(name, description, status, length)
   }
 

@@ -8,7 +8,6 @@ export default function Sets() {
 
   if (loading) return <Spinner />
   if (error) return <p>something wrong</p>
-  // if (error) return console.log(error)
 
   return (
     <>
