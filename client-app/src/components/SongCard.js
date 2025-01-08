@@ -19,7 +19,6 @@ export default function SongCard({ song }) {
       <div style={songTitle}>
         <span>
           <FaMusic className='icon' />
-
           <a
             style={linkStyles}
             // onMouseEnter={enter}
@@ -28,9 +27,10 @@ export default function SongCard({ song }) {
           >
             {song.name}
           </a>
-
-          <strong> | {song.status}</strong>
-          {song.description}
+          | <i> {song.status}</i>|{' '}
+          <p>
+            <strong>{song.set.name}</strong>
+          </p>
         </span>
       </div>
     </div>

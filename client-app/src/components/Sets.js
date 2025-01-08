@@ -18,7 +18,7 @@ export default function Sets() {
           </thead>
           <tbody>
             {data.sets.map((set) => (
-              <SetRow key={set.id} set={set} />
+              <SetRow key={set.id} set={set} songs={data} />
             ))}
           </tbody>
         </table>
