@@ -10,7 +10,9 @@ import { songPage, songPage2 } from '../styles/headerStyles'
 export default function Song() {
   const { id } = useParams()
   const { loading, error, data } = useQuery(GET_SONG, { variables: { id } })
-
+  console.log(data)
+  // console.log(data.song)
+  // console.log(data.song.name)
   const buttonStyle = {
     marginLeft: '1em',
     // paddingBottom: '5px',
@@ -49,7 +51,11 @@ export default function Song() {
               <DeleteSongButton songId={data.song.id} />
               <div style={border}></div>
 
-              <EditSongForm song={data.song} />
+              <EditSongForm
+                songTitle={data.song.name}
+                song={data.song}
+                filteredArray={data}
+              />
             </div>
           </div>
         </div>

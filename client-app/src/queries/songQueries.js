@@ -5,6 +5,7 @@ const GET_SONGS = gql`
     songs {
       id
       name
+      description
       status
       length
       set {

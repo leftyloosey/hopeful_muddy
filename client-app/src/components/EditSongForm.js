@@ -1,17 +1,26 @@
 import { useState } from 'react'
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { GET_SONG } from '../queries/songQueries'
+import { GET_SETS } from '../queries/setQueries'
 import { UPDATE_SONG } from '../mutations/songMutations'
 import { editSong } from '../styles/headerStyles'
 
-export default function EditSongForm({ song }) {
+export default function EditSongForm({ songTitle, filteredArray, song }) {
+  const { data } = useQuery(GET_SETS)
+
+  function byTitle(song) {
+    return song.name === songTitle
+  }
+  if (filteredArray.length) song = filteredArray.find(byTitle)
+
   const [name, setName] = useState(song.name)
   const [description, setDescription] = useState(song.description)
-  const [status, setStatus] = useState('')
-  const [length, setLength] = useState('')
+  const [status, setStatus] = useState(song.status)
+  const [length, setLength] = useState(song.length)
+  const [set, setSet] = useState(song.set.name)
 
   const [updateSong] = useMutation(UPDATE_SONG, {
-    variables: { id: song.id, name, description, status, length },
+    variables: { id: song.id, name, description, status, length, setId: set },
     refetchQueries: [{ query: GET_SONG, variables: { id: song.id } }],
   })
 
@@ -21,8 +30,7 @@ export default function EditSongForm({ song }) {
     // if (!name || !description || !status || !length) {
     //   return alert('please complete fields.')
     // }
-    // console.log(name, description, status, length)
-    updateSong(name, description, status, length)
+    updateSong(name, description, status, length, set)
   }
 
   return (
@@ -72,6 +80,22 @@ export default function EditSongForm({ song }) {
           >
             <option value='short'>short</option>
             <option value='long'>long</option>
+          </select>
+        </div>
+
+        <div>
+          <label className='form-label'>Set</label>
+          <select
+            id='set'
+            value={set}
+            className='form-select'
+            onChange={(e) => setSet(e.target.value)}
+          >
+            {data?.sets?.map((set, index) => (
+              <option key={set.id} value={set.id}>
+                {set.name}
+              </option>
+            ))}
           </select>
         </div>
 

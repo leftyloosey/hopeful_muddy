@@ -7,7 +7,7 @@ import { GET_SONGS } from '../queries/songQueries'
 import { useQuery } from '@apollo/client'
 import Modal from 'react-modal'
 
-import Whatin from './SetSongsModal'
+import SetSongsModal from './SetSongsModal'
 
 Modal.setAppElement('#root')
 
@@ -62,7 +62,7 @@ export default function SetRow({ set }) {
             onAfterOpen={afterOpenModal}
             onRequestClose={closeModal}
           >
-            <Whatin filteredArray={filteredArray} />
+            <SetSongsModal filteredArray={filteredArray} />
           </Modal>
           <td>
             <button className='btn btn-danger btn-sm' onClick={deleteSet}>

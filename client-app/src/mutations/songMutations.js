@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from '@apollo/client'
 
 // const ADD_SONG = gql`
 //   mutation AddSong(
@@ -29,22 +29,22 @@ import { gql } from '@apollo/client';
 //   }
 // `;
 
-
 const DELETE_SONG = gql`
   mutation DeleteSong($id: ID!) {
     deleteSong(id: $id) {
       id
     }
   }
-`;
+`
 
 const UPDATE_SONG = gql`
   mutation UpdateSong(
     $id: ID!
-    $name: String!
-    $length: SongLengthUpdate!
-    $description: String!
-    $status: SongStatusUpdate!
+    $name: String
+    $length: SongLengthUpdate
+    $description: String
+    $status: SongStatusUpdate
+    $setId: ID
   ) {
     updateSong(
       id: $id
@@ -52,6 +52,7 @@ const UPDATE_SONG = gql`
       length: $length
       description: $description
       status: $status
+      setId: $setId
     ) {
       id
       name
@@ -61,11 +62,39 @@ const UPDATE_SONG = gql`
       set {
         id
         name
-
       }
     }
   }
-`;
+`
+// const UPDATE_SONG = gql`
+//   mutation UpdateSong(
+//     $id: ID!
+//     $name: String!
+//     $length: SongLengthUpdate!
+//     $description: String!
+//     $status: SongStatusUpdate!
+//     $setId: ID!
+//   ) {
+//     updateSong(
+//       id: $id
+//       name: $name
+//       length: $length
+//       description: $description
+//       status: $status
+//       setId: $ID
+//     ) {
+//       id
+//       name
+//       length
+//       description
+//       status
+//       set {
+//         id
+//         name
+//       }
+//     }
+//   }
+// `
 
 const ADD_SONG = gql`
   mutation AddSong(
@@ -93,7 +122,6 @@ const ADD_SONG = gql`
       }
     }
   }
-`;
+`
 
-
-export { ADD_SONG, DELETE_SONG, UPDATE_SONG };
+export { ADD_SONG, DELETE_SONG, UPDATE_SONG }
