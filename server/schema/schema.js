@@ -39,14 +39,22 @@ const SetType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
-    // user: {
-    //     type: UserType,
-    //     resolve(parent, args) {
-    //         return User.findById(parent.userId)
-    //     }
-    // }
+    userId: {
+      // user: {
+      type: UserType,
+      resolve(parent, args) {
+        return User.findById(parent.userId)
+      },
+    },
   }),
 })
+// const SetType = new GraphQLObjectType({
+//   name: 'Set',
+//   fields: () => ({
+//     id: { type: GraphQLID },
+//     name: { type: GraphQLString },
+//   }),
+// })
 
 const SongType = new GraphQLObjectType({
   name: 'Song',
@@ -54,7 +62,7 @@ const SongType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     status: { type: GraphQLString },
-    description: { type: GraphQLString },
+    lyrics: { type: GraphQLString },
     length: { type: GraphQLString },
     set: {
       type: SetType,
@@ -81,6 +89,13 @@ const RootQuery = new GraphQLObjectType({
         return Set.findById(args.id)
       },
     },
+    setByUser: {
+      type: new GraphQLList(SetType),
+      args: { userId: { type: GraphQLID } },
+      resolve(parent, args) {
+        return Set.find({ userId: args.userId })
+      },
+    },
     songs: {
       type: new GraphQLList(SongType),
       resolve(parent, args) {
@@ -94,6 +109,13 @@ const RootQuery = new GraphQLObjectType({
         return Song.findById(args.id)
       },
     },
+    songBySet: {
+      type: new GraphQLList(SongType),
+      args: { set: { type: GraphQLID } },
+      resolve(parent, args) {
+        return Song.find({ setId: args.set })
+      },
+    },
     users: {
       type: new GraphQLList(UserType),
       resolve(parent, args) {
@@ -105,13 +127,6 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return User.findById(args.id)
-      },
-    },
-    oGuser: {
-      type: UserType,
-      args: { email: { type: GraphQLString } },
-      resolve(parent, args) {
-        return User.find()
       },
     },
   },
@@ -152,13 +167,13 @@ const mutation = new GraphQLObjectType({
       args: {
         name: { type: GraphQLNonNull(GraphQLString) },
 
-        // userId: { type: GraphQLNonNull(GraphQLID) }
+        userId: { type: GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
         const set = new Set({
           name: args.name,
 
-          // userId: args.userId,
+          userId: args.userId,
         })
         return set.save()
       },
@@ -182,7 +197,7 @@ const mutation = new GraphQLObjectType({
       type: SongType,
       args: {
         name: { type: GraphQLNonNull(GraphQLString) },
-        description: { type: GraphQLNonNull(GraphQLString) },
+        lyrics: { type: GraphQLNonNull(GraphQLString) },
         status: {
           type: new GraphQLEnumType({
             name: 'SongStatus',
@@ -209,7 +224,7 @@ const mutation = new GraphQLObjectType({
       resolve(parent, args) {
         const song = new Song({
           name: args.name,
-          description: args.description,
+          lyrics: args.lyrics,
           length: args.length,
           status: args.status,
           setId: args.setId,
@@ -233,7 +248,7 @@ const mutation = new GraphQLObjectType({
         id: { type: GraphQLNonNull(GraphQLID) },
         setId: { type: GraphQLID },
         name: { type: GraphQLString },
-        description: { type: GraphQLString },
+        lyrics: { type: GraphQLString },
         status: {
           type: new GraphQLEnumType({
             name: 'SongStatusUpdate',
@@ -260,7 +275,7 @@ const mutation = new GraphQLObjectType({
           {
             $set: {
               name: args.name,
-              description: args.description,
+              lyrics: args.lyrics,
               status: args.status,
               length: args.length,
               setId: args.setId,

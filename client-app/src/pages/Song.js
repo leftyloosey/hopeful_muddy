@@ -39,7 +39,7 @@ export default function Song() {
               <span>
                 Title: <strong> {data.song.name}</strong>
               </span>
-              <span>Description: {data.song.description}</span>
+              <span>Lyrics: {data.song.lyrics}</span>
 
               <span>
                 Status: <i>{data.song.status}</i>

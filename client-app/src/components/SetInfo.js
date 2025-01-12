@@ -6,7 +6,7 @@ export default function SetInfo({ set }) {
     <>
       <ul className='list-group'>
         <li className='list-group-item'>
-          <FaList className='icon' /> {set.name}
+          <FaList className='icon' /> {set}
         </li>
       </ul>
     </>

@@ -69,15 +69,15 @@ app.post('/create', (req, res) => {
   const jwt = signToken(email)
   res.status(200).json(jwt)
 
-  // User.findOne({email}, (err, result) => {
-  //   if (result) {
-  //     const jwt = signToken(result)
-  //     res.status(200).json(jwt);
-  //   } else {
-  //     console.log('oh no!');
-  //     res.status(500).json({ message: 'oh no!' });
-  //   }
-  // });
+  User.findOne({ email }, (err, result) => {
+    if (result) {
+      const jwt = signToken(result)
+      res.status(200).json(jwt)
+    } else {
+      console.log('oh no!')
+      res.status(500).json({ message: 'oh no!' })
+    }
+  })
 })
 
 app.use(

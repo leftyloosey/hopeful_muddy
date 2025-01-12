@@ -57,16 +57,17 @@ const client = new ApolloClient({
   // uri: '/graphql',
   link: authLink.concat(httpLink),
 
-  cache,
+  cache: cache,
 })
 
 function App() {
   return (
-    <>
+    <div>
       <ApolloProvider client={client}>
         <Router>
-          <Header />
-          <div className='container'>
+          <div className='container font-grotesk'>
+            {/* <div className='container h-dvh bg-stone-700 flex-col items-center'> */}
+            {/* <div className='container h-dvh bg-gradient-to-b from-cyan-600 to-white'> */}
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/song/:id' element={<Song />} />
@@ -74,10 +75,11 @@ function App() {
               <Route path='/where' element={<Where />} />
               <Route path='/login' element={<Login />} />
             </Routes>
+            {/* <Header /> */}
           </div>
         </Router>
       </ApolloProvider>
-    </>
+    </div>
   )
 }
 

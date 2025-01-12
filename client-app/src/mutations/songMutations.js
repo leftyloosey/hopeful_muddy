@@ -42,7 +42,7 @@ const UPDATE_SONG = gql`
     $id: ID!
     $name: String
     $length: SongLengthUpdate
-    $description: String
+    $lyrics: String
     $status: SongStatusUpdate
     $setId: ID
   ) {
@@ -50,14 +50,14 @@ const UPDATE_SONG = gql`
       id: $id
       name: $name
       length: $length
-      description: $description
+      lyrics: $lyrics
       status: $status
       setId: $setId
     ) {
       id
       name
       length
-      description
+      lyrics
       status
       set {
         id
@@ -99,21 +99,21 @@ const UPDATE_SONG = gql`
 const ADD_SONG = gql`
   mutation AddSong(
     $name: String!
-    $description: String!
+    $lyrics: String!
     $status: SongStatus!
     $setId: ID!
     $length: SongLength!
   ) {
     addSong(
       name: $name
-      description: $description
+      lyrics: $lyrics
       status: $status
       length: $length
       setId: $setId
     ) {
       id
       name
-      description
+      lyrics
       status
       length
       set {

@@ -5,7 +5,7 @@ const GET_SONGS = gql`
     songs {
       id
       name
-      description
+      lyrics
       status
       length
       set {
@@ -22,7 +22,22 @@ const GET_SONG = gql`
       name
       status
       length
-      description
+      lyrics
+      set {
+        id
+        name
+      }
+    }
+  }
+`
+const GET_SONGS_BY_SET = gql`
+  query songBySet($set: ID!) {
+    songBySet(set: $set) {
+      id
+      name
+      status
+      length
+      lyrics
       set {
         id
         name
@@ -31,4 +46,4 @@ const GET_SONG = gql`
   }
 `
 
-export { GET_SONGS, GET_SONG }
+export { GET_SONGS, GET_SONG, GET_SONGS_BY_SET }

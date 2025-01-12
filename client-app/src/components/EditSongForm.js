@@ -5,14 +5,19 @@ import { GET_SETS } from '../queries/setQueries'
 import { UPDATE_SONG } from '../mutations/songMutations'
 import { editSong } from '../styles/headerStyles'
 
-export default function EditSongForm({ songTitle, filteredArray, song }) {
+export default function EditSongForm({ songTitle, song }) {
+  // export default function EditSongForm({ songTitle, filteredArray, song }) {
   const { data } = useQuery(GET_SETS)
-
-  function byTitle(song) {
-    return song.name === songTitle
+  console.log('SONG in EDITSONG', song)
+  console.log('SongTitle in EDITSONG', songTitle)
+  if (songTitle) {
+    function byTitle(song) {
+      return song.name === songTitle
+    }
+    song = song.find(byTitle)
   }
-  if (filteredArray.length) song = filteredArray.find(byTitle)
 
+  // console.log(song)
   const [name, setName] = useState(song.name)
   const [description, setDescription] = useState(song.description)
   const [status, setStatus] = useState(song.status)
@@ -34,7 +39,7 @@ export default function EditSongForm({ songTitle, filteredArray, song }) {
   }
 
   return (
-    <div style={editSong}>
+    <div key={song.id} style={editSong}>
       <form onSubmit={onSubmit}>
         <div style={editSong}>
           <label className='form-label'>new name: </label>

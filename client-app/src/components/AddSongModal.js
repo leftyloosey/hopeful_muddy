@@ -4,35 +4,25 @@ import { useMutation, useQuery } from '@apollo/client'
 import { ADD_SONG } from '../mutations/songMutations'
 import { GET_SONGS } from '../queries/songQueries'
 import { GET_SETS } from '../queries/setQueries'
-import { button } from '../../src/styles/headerStyles'
 import Modal from 'react-modal'
-import { songModal, songModal2 } from '../../src/styles/headerStyles'
+// import { songModal, songModal2 } from '../../src/styles/headerStyles'
 
 Modal.setAppElement('#root')
 
 export default function AddSongModal() {
   const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
+  const [lyrics, setLyrics] = useState('')
   const [setId, setSetId] = useState('')
-  const [status, setStatus] = useState('')
-  const [length, setLength] = useState('')
+  const [status, setStatus] = useState('opener')
+  const [length, setLength] = useState('short')
+
   const [modalIsOpen, setIsOpen] = useState(false)
-
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  }
-
   const [addSong] = useMutation(ADD_SONG, {
-    variables: { name, description, setId, status, length },
+    variables: { name, lyrics, setId, status, length },
     update(cache, { data: { addSong } }) {
+      console.log('SAWNG CASWHHHS', cache)
       const { songs } = cache.readQuery({ query: GET_SONGS })
+      console.log('SONGS CACHE: ', songs)
       cache.writeQuery({
         query: GET_SONGS,
         data: { songs: [...songs, addSong] },
@@ -55,16 +45,16 @@ export default function AddSongModal() {
   const onSubmit = (e) => {
     e.preventDefault()
 
-    if (name === '' || description === '' || status === '' || length === '') {
+    if (name === '' || lyrics === '' || status === '' || length === '') {
       return alert('Please fill in all fields')
     }
 
-    console.log(name, description, setId, status, length)
+    console.log(name, lyrics, setId, status, length)
 
-    addSong(name, description, setId, status, length).catch(error)
+    addSong(name, lyrics, setId, status, length).catch(error)
 
     setName('')
-    setDescription('')
+    setLyrics('')
     setStatus('')
     setSetId('')
     setLength('')
@@ -78,7 +68,7 @@ export default function AddSongModal() {
     <>
       {!loading && !error && (
         <>
-          <button type='button' onClick={openModal} style={button}>
+          <button type='button' onClick={openModal}>
             <div>
               <FaMusic className='icon' />
               <div>Add Song</div>
@@ -89,11 +79,11 @@ export default function AddSongModal() {
             isOpen={modalIsOpen}
             onAfterOpen={afterOpenModal}
             onRequestClose={closeModal}
-            style={customStyles}
+            // style={customStyles}
           >
             <div>
               <form onSubmit={onSubmit}>
-                <div style={songModal}>
+                <div>
                   <div className='mb-3'>
                     <label className='form-label'>Song Name: </label>
                     <input
@@ -105,17 +95,17 @@ export default function AddSongModal() {
                     />
                   </div>
                   <div>
-                    <label className='form-label'>Description: </label>
+                    <label className='form-label'>Lyrics: </label>
                     <input
                       className='form-control'
                       id='description'
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
+                      value={lyrics}
+                      onChange={(e) => setLyrics(e.target.value)}
                     ></input>
                   </div>
                 </div>
 
-                <div style={songModal2}>
+                <div>
                   <div>
                     <label className='form-label'>Status</label>
                     <select

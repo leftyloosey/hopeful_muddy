@@ -1,4 +1,5 @@
 import { useState } from 'react'
+// import { useNavigate } from 'react-router-dom'
 import { FaList } from 'react-icons/fa'
 import { useMutation } from '@apollo/client'
 import { ADD_SET } from '../mutations/setMutations'
@@ -7,36 +8,33 @@ import { setModal } from '../../src/styles/headerStyles'
 
 import Modal from 'react-modal'
 
-// import { GET_USERS } from '../queries/userQueries';
+// import { GET_USERS } from '../queries/userQueries'
 
-import { button } from '../../src/styles/headerStyles'
+// import { button } from '../../src/styles/headerStyles'
 
 Modal.setAppElement('#root')
 
-export default function AddSetModal(props) {
+export default function AddSetModal({ userId }) {
   const [name, setName] = useState('')
+  const [sluserId, setSluserId] = useState(userId)
   const [modalIsOpen, setIsOpen] = useState(false)
-
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  }
-
-  const [addSet] = useMutation(ADD_SET, {
-    variables: { name },
+  // setSluserId(userId)
+  // const navigate = useNavigate()
+  console.log('add set user id: ', userId)
+  const [addSet, { data, loading, error }] = useMutation(ADD_SET, {
+    variables: { name: name, userId: userId },
+    refetchQueries: [GET_SETS, 'slutByUser'],
+    onCompleted: () => console.log('data from addset cache: ', data),
     update(cache, { data: { addSet } }) {
-      const { sets } = cache.readQuery({ query: GET_SETS })
-
-      cache.writeQuery({
-        query: GET_SETS,
-        data: { sets: [...sets, addSet] },
-      })
+      console.log(data)
+      // const { sets } = cache.readQuery({ query: GET_SET_BY_USER })
+      // const { sets } = cache.readQuery({ query: GET_SETS })
+      console.log(cache.readQuery({ query: GET_SETS }))
+      // console.log('SETS cache: ', sets)
+      // cache.writeQuery({
+      //   query: GET_SETS,
+      //   data: { sets: [...sets, addSet] },
+      // })
     },
   })
 
@@ -57,46 +55,53 @@ export default function AddSetModal(props) {
       return alert('Please fill in all fields')
     }
 
-    addSet(name)
-
+    addSet(name, sluserId)
+    // addSet(name, userId)
     setName('')
+
     closeModal()
   }
+  if (loading) return null
+  if (error) return 'something went wrong'
 
   return (
     <>
-      <button type='button' style={button} onClick={openModal}>
-        <div>
-          <FaList className='icon' />
-          <div>New Set</div>
-        </div>
-      </button>
+      {!loading && !error && (
+        <>
+          <button type='button' onClick={openModal}>
+            <div className=''>
+              <FaList className='icon' />
+              <div>New Set</div>
+            </div>
+          </button>
 
-      <Modal
-        isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={customStyles}
-      >
-        <div>
-          <div style={setModal}>
-            <form onSubmit={onSubmit}>
-              <div>
-                <label className='form-label'>Set Name: </label>
-                <input
-                  type='text'
-                  className='form-control'
-                  id='name'
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
+          <Modal
+            isOpen={modalIsOpen}
+            onAfterOpen={afterOpenModal}
+            onRequestClose={closeModal}
+            // style={customStyles}
+          >
+            <div>
+              <div style={setModal}>
+                <form onSubmit={onSubmit}>
+                  <div>
+                    <label className='form-label'>Set Name: </label>
+                    <input
+                      type='text'
+                      className='form-control'
+                      id='name'
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </div>
+
+                  <button type='submit'>Submit</button>
+                </form>
               </div>
-
-              <button type='submit'>Submit</button>
-            </form>
-          </div>
-        </div>
-      </Modal>
+            </div>
+          </Modal>
+        </>
+      )}
     </>
   )
 }

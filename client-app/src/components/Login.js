@@ -37,7 +37,7 @@ const Login = () => {
     },
     onCompleted: async (data) => {
       const { email } = data.logUser
-      console.log(email)
+
       // const rawResponse = await fetch('/login', {
       const rawResponse = await fetch('http://localhost:8000/login', {
         method: 'POST',
@@ -49,7 +49,7 @@ const Login = () => {
       })
       const content = await rawResponse.json()
 
-      console.log(content)
+      console.log('CONTENT', content)
       localStorage.setItem(AUTH_TOKEN, content)
       navigate('/')
     },
