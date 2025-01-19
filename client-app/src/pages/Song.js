@@ -5,7 +5,7 @@ import { GET_SONG } from '../queries/songQueries'
 import SetInfo from '../components/SetInfo'
 import DeleteSongButton from '../components/DeleteSongButton'
 import EditSongForm from '../components/EditSongForm'
-import { songPage, songPage2 } from '../styles/headerStyles'
+// import { songPage, songPage2 } from '../styles/headerStyles'
 
 export default function Song() {
   const { id } = useParams()
@@ -35,7 +35,7 @@ export default function Song() {
             Back
           </Link>
           <div style={border}>
-            <div style={songPage}>
+            <div>
               <span>
                 Title: <strong> {data.song.name}</strong>
               </span>
@@ -46,7 +46,7 @@ export default function Song() {
               </span>
             </div>
 
-            <div style={songPage2}>
+            <div>
               <SetInfo set={data.song.set} />
               <DeleteSongButton songId={data.song.id} />
               <div style={border}></div>

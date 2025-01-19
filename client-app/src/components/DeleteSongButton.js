@@ -13,7 +13,12 @@ export default function DeleteSongButton({ songId }) {
     // onCompleted: () => alert('song deleted'),
     onCompleted: () => navigate('/'),
 
-    refetchQueries: [{ query: GET_SETS }, { query: GET_SONGS }],
+    refetchQueries: [
+      { query: GET_SET_BY_USER },
+      { query: GET_SETS },
+      { query: GET_SONGS },
+    ],
+    // refetchQueries: [{ query: GET_SETS }, { query: GET_SONGS }],
   })
 
   return (

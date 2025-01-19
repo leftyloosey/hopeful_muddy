@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useMutation, gql } from '@apollo/client'
 import { AUTH_TOKEN } from '../constants'
-import { loginStyles } from '../../src/styles/headerStyles'
+// import { loginStyles } from '../../src/styles/headerStyles'
 
 const Login = () => {
   const ADD_USER = gql`
@@ -81,7 +81,7 @@ const Login = () => {
   })
 
   return (
-    <div style={loginStyles}>
+    <div>
       <h4>{formState.login ? 'Login' : 'Sign Up'}</h4>
       <div>
         {!formState.login && (

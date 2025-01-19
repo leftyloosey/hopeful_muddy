@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { FaTrash } from 'react-icons/fa'
 import { useMutation } from '@apollo/client'
 import { DELETE_SET } from '../mutations/setMutations'
@@ -13,35 +13,16 @@ Modal.setAppElement('#root')
 
 export default function SetRow({ set }) {
   const [modalIsOpen, setIsOpen] = useState(false)
+  const [which, setWhich] = useState()
   // const [filteredSongs, setFilteredSongs] = useState()
 
   const { loading, error, data } = useQuery(GET_SONGS_BY_SET, {
     variables: { set: set.id },
   })
-  // setFilteredSongs(data)
-  // const { loading, error, data } = useQuery(GET_SONGS)
-  // console.log('SLOOOONG!!!:', data)
-  // let songArray = []
 
   const [deleteSet, { reset }] = useMutation(DELETE_SET, {
     variables: { id: set.id },
-    // refetchQueries: [
-    //   { query: GET_SETS },
-    //   { query: GET_SONGS },
-    //   { query: GET_SONGS_BY_SET },
-    // ],
-    // refetchQueries: [GET_SONGS_BY_SET, 'sets'],
-    refetchQueries: [
-      GET_SET_BY_USER,
-      'slutByUser',
-      // GET_SONGS,
-      // 'songBySet',
-      // 'getSongs',
-      // GET_SETS,
-      // 'sets',
-      // GET_SONGS_BY_SET,
-      // 'getSets',
-    ],
+    refetchQueries: [GET_SET_BY_USER, 'slutByUser'],
     // onCompleted: () => reset(),
     update(cache, { data: { deleteSet } }) {
       // console.log(cache.readQuery({ query: GET_SONGS_BY_SET }))
@@ -59,47 +40,41 @@ export default function SetRow({ set }) {
       // })
     },
   })
-
-  // function filterSongs() {
-  //   songArray = data.songs.filter((song) => {
-  //     return song.set.name === set.name
-  //   })
-  //   setFilteredSongs(songArray)
-  // }
-  function openModal() {
-    setIsOpen(true)
-  }
-
-  function closeModal() {
-    setIsOpen(false)
-  }
-
-  function afterOpenModal() {
-    // filterSongs()
+  const refWhich = useRef(null)
+  const refWhich2 = useRef(false)
+  const renderPage = (which) => {
+    return <SetSongsModal refWhich2={refWhich2} filteredSongs={which} />
   }
 
   return (
     <>
       {!loading && !error && (
-        <tr className='bg-white h-16  border-b-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl hover:border-b-0'>
-          <td className=''>
-            <button onClick={openModal}>{set.name}</button>
-          </td>
-          <Modal
-            isOpen={modalIsOpen}
-            onAfterOpen={afterOpenModal}
-            onRequestClose={closeModal}
-          >
-            <SetSongsModal filteredSongs={data} />
-            {/* <SetSongsModal filteredSongs={filteredSongs} /> */}
-          </Modal>
-          <td>
+        <div className='bg-white opacity-90 h-16 min-w-36 max-w-36 border-b-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl hover:border-b-0'>
+          <div className='flex flex-row justify-between pt-4'>
+            <button
+              ref={refWhich}
+              onFocus={() => {
+                console.log('SETROW DATA', data)
+                setWhich(data)
+                // refWhich.current.value = 'hello'
+                console.log(refWhich.current)
+              }}
+              onBlur={() => {
+                setWhich()
+                console.log(refWhich.current.value)
+                // refWhich.current.
+              }}
+            >
+              {set.name}
+            </button>
             <button className='' onClick={deleteSet}>
               <FaTrash />
             </button>
-          </td>
-        </tr>
+            {/* <div className='ml-16 bg-white'>{renderPage(which)}</div> */}
+          </div>
+        </div>
       )}
+      <div className='ml-16 bg-white'>{renderPage(which)}</div>
     </>
   )
 }

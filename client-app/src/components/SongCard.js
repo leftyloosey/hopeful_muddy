@@ -28,17 +28,18 @@ export default function SongCard({ song }) {
   function afterOpenModal() {}
   console.log(song)
   return (
-    <div className='bg-white h-16 border-b-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl hover:border-t-2 hover:border-solid'>
+    <div className='bg-white opacity-90 h-16 border-b-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl'>
       <div onClick={openModal}>
-        <span>
-          <FaMusic className='icon' />
+        <div className='flex flex-row gap-x-1 h-16 justify-evenly items-center'>
           {song?.name}
           <i>{song?.status}</i>
-          <p>
-            <strong>{song?.set.name}</strong>
+          <p className=''>
+            <strong className=''>{song?.set.name}</strong>
           </p>
-        </span>
+          <FaMusic className='icon' />
+        </div>
       </div>
+
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}

@@ -4,31 +4,31 @@ import { FaList } from 'react-icons/fa'
 import { useMutation } from '@apollo/client'
 import { ADD_SET } from '../mutations/setMutations'
 import { GET_SETS } from '../queries/setQueries'
-import { setModal } from '../../src/styles/headerStyles'
+// import { setModal } from '../../src/styles/headerStyles'
 
-import Modal from 'react-modal'
+// import Modal from 'react-modal'
 
 // import { GET_USERS } from '../queries/userQueries'
 
 // import { button } from '../../src/styles/headerStyles'
 
-Modal.setAppElement('#root')
+// Modal.setAppElement('#root')
 
-export default function AddSetModal({ userId }) {
+export default function AddSetModal({ data2, loading2, error2, userId }) {
   const [name, setName] = useState('')
   const [sluserId, setSluserId] = useState(userId)
-  const [modalIsOpen, setIsOpen] = useState(false)
+  // const [modalIsOpen, setIsOpen] = useState(false)
   // setSluserId(userId)
-  // const navigate = useNavigate()
   console.log('add set user id: ', userId)
+  console.log('add set data2: ', data2)
+
   const [addSet, { data, loading, error }] = useMutation(ADD_SET, {
     variables: { name: name, userId: userId },
     refetchQueries: [GET_SETS, 'slutByUser'],
     onCompleted: () => console.log('data from addset cache: ', data),
     update(cache, { data: { addSet } }) {
       console.log(data)
-      // const { sets } = cache.readQuery({ query: GET_SET_BY_USER })
-      // const { sets } = cache.readQuery({ query: GET_SETS })
+
       console.log(cache.readQuery({ query: GET_SETS }))
       // console.log('SETS cache: ', sets)
       // cache.writeQuery({
@@ -38,15 +38,15 @@ export default function AddSetModal({ userId }) {
     },
   })
 
-  function openModal() {
-    setIsOpen(true)
-  }
+  // function openModal() {
+  //   setIsOpen(true)
+  // }
 
-  function afterOpenModal() {}
+  // function afterOpenModal() {}
 
-  function closeModal() {
-    setIsOpen(false)
-  }
+  // function closeModal() {
+  //   setIsOpen(false)
+  // }
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -59,47 +59,48 @@ export default function AddSetModal({ userId }) {
     // addSet(name, userId)
     setName('')
 
-    closeModal()
+    // closeModal()
   }
-  if (loading) return null
-  if (error) return 'something went wrong'
+  if (loading2) return null
+  if (error2) return 'something went wrong'
 
   return (
     <>
       {!loading && !error && (
         <>
-          <button type='button' onClick={openModal}>
-            <div className=''>
-              <FaList className='icon' />
-              <div>New Set</div>
-            </div>
-          </button>
-
+          {/* <button type='button'>
+          <div className=''>
+            <FaList className='icon' />
+            <div>New Set</div>
+          </div>
+        </button> */}
+          {/* 
           <Modal
             isOpen={modalIsOpen}
             onAfterOpen={afterOpenModal}
             onRequestClose={closeModal}
             // style={customStyles}
-          >
+          > */}
+          <div>
+            <p className='text-white text-2xl'>EHEYEY</p>
             <div>
-              <div style={setModal}>
-                <form onSubmit={onSubmit}>
-                  <div>
-                    <label className='form-label'>Set Name: </label>
-                    <input
-                      type='text'
-                      className='form-control'
-                      id='name'
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                    />
-                  </div>
+              <form onSubmit={onSubmit}>
+                <div>
+                  <label className='form-label'>Set Name: </label>
+                  <input
+                    type='text'
+                    className='form-control'
+                    id='name'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
 
-                  <button type='submit'>Submit</button>
-                </form>
-              </div>
+                <button type='submit'>Submit</button>
+              </form>
             </div>
-          </Modal>
+          </div>
+          {/* </Modal> */}
         </>
       )}
     </>

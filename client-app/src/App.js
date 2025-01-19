@@ -1,5 +1,5 @@
 // import { hot } from 'react-hot-loader/root';
-import Header from './components/Header'
+// import Header from './components/Header'
 import Where from './components/Where'
 import Home from './pages/Home'
 import Song from './pages/Song'
@@ -65,7 +65,7 @@ function App() {
     <div>
       <ApolloProvider client={client}>
         <Router>
-          <div className='container font-grotesk'>
+          <div className='font-grotesk'>
             {/* <div className='container h-dvh bg-stone-700 flex-col items-center'> */}
             {/* <div className='container h-dvh bg-gradient-to-b from-cyan-600 to-white'> */}
             <Routes>

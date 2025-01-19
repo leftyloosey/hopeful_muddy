@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@apollo/client'
 import { GET_SONG } from '../queries/songQueries'
 import { GET_SETS } from '../queries/setQueries'
 import { UPDATE_SONG } from '../mutations/songMutations'
-import { editSong } from '../styles/headerStyles'
+// import { editSong } from '../styles/headerStyles'
 
 export default function EditSongForm({ songTitle, song }) {
   // export default function EditSongForm({ songTitle, filteredArray, song }) {
@@ -39,9 +39,9 @@ export default function EditSongForm({ songTitle, song }) {
   }
 
   return (
-    <div key={song.id} style={editSong}>
+    <div key={song.id}>
       <form onSubmit={onSubmit}>
-        <div style={editSong}>
+        <div>
           <label className='form-label'>new name: </label>
           <input
             type='text'
@@ -51,7 +51,7 @@ export default function EditSongForm({ songTitle, song }) {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-        <div style={editSong}>
+        <div>
           <label className='form-label'>description: </label>
           <input
             className='form-control'

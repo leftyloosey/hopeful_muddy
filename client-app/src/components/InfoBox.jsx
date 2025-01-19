@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Songs from './Songs'
 import Sets from './Sets'
 
-const InfoBox = ({ songValue, _id }) => {
+const InfoBox = ({ data, loading, error, songValue, _id }) => {
   // const [songValue, setSong] = useState(false)
   // const [setValue, setSet] = useState(true)
 
@@ -19,11 +19,16 @@ const InfoBox = ({ songValue, _id }) => {
 
   return (
     <>
-      <div className='flex flex-row'>
-        <div className='bg-slate-700'>
-          {songValue ? <Songs /> : <Sets userId={_id} />}
-        </div>
-        <div className='border-2 border-solid border-slate-600'>stuff</div>
+      <div className='border-2 border-solid border-slate-600 h-64 min-h-64 max-h-64 min-w-36 w-36 max-w-36 overflow-scroll'>
+        {/* <div className=''> */}
+        {songValue ? (
+          <Songs />
+        ) : (
+          // <Songs !!!! songs={songs}/>
+          <Sets data={data} loading={loading} error={error} userId={_id} />
+        )}
+        {/* {songValue ? <Songs /> : <Sets userId={_id} />} */}
+        {/* </div> */}
       </div>
     </>
   )

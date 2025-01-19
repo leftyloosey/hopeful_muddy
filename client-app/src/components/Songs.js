@@ -22,7 +22,7 @@ export default function Songs() {
   return (
     <>
       {data.songs.length > 0 ? (
-        <div className='overflow-scroll'>
+        <div className='min-w-36 w-36 max-w-36'>
           {data.songs.map((song) => (
             <SongCard key={song.id} song={song} />
           ))}
