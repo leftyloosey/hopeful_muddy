@@ -21,7 +21,16 @@ export default function Home() {
   console.log('home rerender')
 
   // console.log(songValue)
+
+  const token = localStorage.getItem(AUTH_TOKEN)
+  const stuff = dayCode(token)
+  console.log(stuff)
+  const { _id } = stuff.data
+  const { data, loading, error, refetch } = useQuery(GET_SET_BY_USER, {
+    variables: { userId: _id },
+  })
   const handleChange = () => {
+    refetch()
     if (setValue) {
       setSet(false)
       setSong(true)
@@ -30,14 +39,6 @@ export default function Home() {
       setSong(false)
     }
   }
-
-  const token = localStorage.getItem(AUTH_TOKEN)
-  const stuff = dayCode(token)
-  console.log(stuff)
-  const { _id } = stuff.data
-  const { data, loading, error } = useQuery(GET_SET_BY_USER, {
-    variables: { userId: _id },
-  })
   console.log('HOME SET_BY_USER: ', data)
   if (!token) {
     return <Login />

@@ -3,7 +3,7 @@ import { FaMusic } from 'react-icons/fa'
 import { useMutation, useQuery } from '@apollo/client'
 import { ADD_SONG } from '../mutations/songMutations'
 import { GET_SONGS } from '../queries/songQueries'
-import { GET_SETS } from '../queries/setQueries'
+import { GET_SET_BY_USER, GET_SETS } from '../queries/setQueries'
 import Modal from 'react-modal'
 // import { songModal, songModal2 } from '../../src/styles/headerStyles'
 
@@ -17,8 +17,16 @@ export default function AddSongModal({ loading, error, data }) {
   const [status, setStatus] = useState('opener')
   const [length, setLength] = useState('short')
 
-  const [modalIsOpen, setIsOpen] = useState(false)
+  // const [modalIsOpen, setIsOpen] = useState(false)
   const [addSong] = useMutation(ADD_SONG, {
+    refetchQueries: [
+      GET_SET_BY_USER,
+      'slutByUser',
+      GET_SETS,
+      'getSets',
+      GET_SONGS,
+      '',
+    ],
     variables: { name, lyrics, setId, status, length },
     update(cache, { data: { addSong } }) {
       console.log('SAWNG CASWHHHS', cache)
@@ -30,18 +38,30 @@ export default function AddSongModal({ loading, error, data }) {
       })
     },
   })
+  // const [addSong] = useMutation(ADD_SONG, {
+  //   variables: { name, lyrics, setId, status, length },
+  //   update(cache, { data: { addSong } }) {
+  //     console.log('SAWNG CASWHHHS', cache)
+  //     const { songs } = cache.readQuery({ query: GET_SONGS })
+  //     console.log('SONGS CACHE: ', songs)
+  //     cache.writeQuery({
+  //       query: GET_SONGS,
+  //       data: { songs: [...songs, addSong] },
+  //     })
+  //   },
+  // })
   // console.log('HOT SHOOT SONG MODAL', data)
   // const { loading, error, data } = useQuery(GET_SETS)
 
-  function openModal() {
-    setIsOpen(true)
-  }
+  // function openModal() {
+  //   setIsOpen(true)
+  // }
 
-  function afterOpenModal() {}
+  // function afterOpenModal() {}
 
-  function closeModal() {
-    setIsOpen(false)
-  }
+  // function closeModal() {
+  //   setIsOpen(false)
+  // }
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -59,7 +79,7 @@ export default function AddSongModal({ loading, error, data }) {
     setStatus('')
     setSetId('')
     setLength('')
-    closeModal()
+    // closeModal()
   }
 
   if (loading) return null
