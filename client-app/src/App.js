@@ -43,7 +43,7 @@ const cache = new InMemoryCache({
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem(AUTH_TOKEN)
-  console.log('HI TOKEN', token)
+  // console.log('HI TOKEN', token)
   return {
     headers: {
       ...headers,

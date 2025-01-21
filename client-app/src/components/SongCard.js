@@ -10,13 +10,7 @@ Modal.setAppElement('#root')
 
 export default function SongCard({ song }) {
   const [modalIsOpen, setIsOpen] = useState(false)
-  console.log('song card: ', song)
-  //   const enter = (e) => {
-  //     e.target.style.color = 'lightgrey'
-  //   }
-  //   const leave = (e) => {
-  //     e.target.style.color = 'black'
-  //   }
+
   function openModal() {
     setIsOpen(true)
   }
@@ -26,7 +20,7 @@ export default function SongCard({ song }) {
   }
 
   function afterOpenModal() {}
-  console.log(song)
+  // console.log(song)
   return (
     <div className='bg-white opacity-90 h-16 border-b-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl'>
       <div onClick={openModal}>

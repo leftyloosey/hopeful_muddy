@@ -1,11 +1,9 @@
 import { useState } from 'react'
-import { FaMusic } from 'react-icons/fa'
-import { useMutation, useQuery } from '@apollo/client'
+// import { FaMusic } from 'react-icons/fa'
+import { useMutation } from '@apollo/client'
 import { ADD_SONG } from '../mutations/songMutations'
 import { GET_SONGS } from '../queries/songQueries'
-import { GET_SET_BY_USER, GET_SETS } from '../queries/setQueries'
 import Modal from 'react-modal'
-// import { songModal, songModal2 } from '../../src/styles/headerStyles'
 
 Modal.setAppElement('#root')
 
@@ -20,38 +18,22 @@ export default function AddSongModal({ loading, error, data }) {
   // const [modalIsOpen, setIsOpen] = useState(false)
   const [addSong] = useMutation(ADD_SONG, {
     refetchQueries: [
-      GET_SET_BY_USER,
-      'slutByUser',
-      GET_SETS,
-      'getSets',
+      // GET_SET_BY_USER,
+      // 'slutByUser',
+      // GET_SETS,
+      // 'getSets',
       GET_SONGS,
-      '',
+      'getSongs',
     ],
     variables: { name, lyrics, setId, status, length },
-    update(cache, { data: { addSong } }) {
-      console.log('SAWNG CASWHHHS', cache)
-      const { songs } = cache.readQuery({ query: GET_SONGS })
-      console.log('SONGS CACHE: ', songs)
-      cache.writeQuery({
-        query: GET_SONGS,
-        data: { songs: [...songs, addSong] },
-      })
-    },
+    // update(cache, { data: { addSong } }) {
+    //     const { songs } = cache.readQuery({ query: GET_SONGS })
+    //   cache.writeQuery({
+    //     query: GET_SONGS,
+    //     data: { songs: [...songs, addSong] },
+    //   })
+    // },
   })
-  // const [addSong] = useMutation(ADD_SONG, {
-  //   variables: { name, lyrics, setId, status, length },
-  //   update(cache, { data: { addSong } }) {
-  //     console.log('SAWNG CASWHHHS', cache)
-  //     const { songs } = cache.readQuery({ query: GET_SONGS })
-  //     console.log('SONGS CACHE: ', songs)
-  //     cache.writeQuery({
-  //       query: GET_SONGS,
-  //       data: { songs: [...songs, addSong] },
-  //     })
-  //   },
-  // })
-  // console.log('HOT SHOOT SONG MODAL', data)
-  // const { loading, error, data } = useQuery(GET_SETS)
 
   // function openModal() {
   //   setIsOpen(true)

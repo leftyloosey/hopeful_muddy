@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useMutation, gql } from '@apollo/client'
 import { AUTH_TOKEN } from '../constants'
-// import { loginStyles } from '../../src/styles/headerStyles'
 
 const Login = () => {
   const ADD_USER = gql`

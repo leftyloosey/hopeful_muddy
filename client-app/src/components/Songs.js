@@ -8,7 +8,7 @@ export default function Songs() {
 
   if (loading) return <Spinner />
   if (error) return <p>something is wrong!</p>
-  console.log('songs page: ', data)
+
   if (data.songs.length > 0) {
     let sortedByName = [...data.songs]
     sortedByName?.sort((a, b) => a.name.localeCompare(b.name))
@@ -19,6 +19,7 @@ export default function Songs() {
   } else {
     return 0
   }
+
   return (
     <>
       {data.songs.length > 0 ? (

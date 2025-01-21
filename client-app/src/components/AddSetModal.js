@@ -1,41 +1,23 @@
 import { useState } from 'react'
 // import { useNavigate } from 'react-router-dom'
-import { FaList } from 'react-icons/fa'
+// import { FaList } from 'react-icons/fa'
 import { useMutation } from '@apollo/client'
 import { ADD_SET } from '../mutations/setMutations'
 import { GET_SETS } from '../queries/setQueries'
-// import { setModal } from '../../src/styles/headerStyles'
-
-// import Modal from 'react-modal'
-
-// import { GET_USERS } from '../queries/userQueries'
-
-// import { button } from '../../src/styles/headerStyles'
 
 // Modal.setAppElement('#root')
 
-export default function AddSetModal({ data2, loading2, error2, userId }) {
+export default function AddSetModal({ loading2, error2, userId }) {
   const [name, setName] = useState('')
-  const [sluserId, setSluserId] = useState(userId)
-  // const [modalIsOpen, setIsOpen] = useState(false)
-  // setSluserId(userId)
-  console.log('add set user id: ', userId)
-  console.log('add set data2: ', data2)
+  const [sluserId] = useState(userId)
 
   const [addSet, { data, loading, error }] = useMutation(ADD_SET, {
     variables: { name: name, userId: userId },
     refetchQueries: [GET_SETS, 'slutByUser'],
-    onCompleted: () => console.log('data from addset cache: ', data),
-    update(cache, { data: { addSet } }) {
-      console.log(data)
-
-      console.log(cache.readQuery({ query: GET_SETS }))
-      // console.log('SETS cache: ', sets)
-      // cache.writeQuery({
-      //   query: GET_SETS,
-      //   data: { sets: [...sets, addSet] },
-      // })
-    },
+    // onCompleted: () => console.log('data from addset cache: ', data),
+    // update(cache, { data: { addSet } }) {
+    // const { sets } = cache.readQuery({ query: GET_SETS })
+    // },
   })
 
   // function openModal() {
@@ -56,7 +38,6 @@ export default function AddSetModal({ data2, loading2, error2, userId }) {
     }
 
     addSet(name, sluserId)
-    // addSet(name, userId)
     setName('')
 
     // closeModal()
@@ -82,7 +63,6 @@ export default function AddSetModal({ data2, loading2, error2, userId }) {
             // style={customStyles}
           > */}
           <div>
-            <p className='text-white text-2xl'>EHEYEY</p>
             <div>
               <form onSubmit={onSubmit}>
                 <div>

@@ -6,7 +6,8 @@ import InfoBox from '../components/InfoBox'
 import SongSetButton from '../components/SongSetButton'
 // import Songs from '../components/Songs'
 // import Sets from '../components/Sets'
-import { GET_USERS, GET_SET_BY_USER } from '../queries/setQueries'
+import { GET_SET_BY_USER } from '../queries/setQueries'
+// import { GET_SONGS } from '../queries/songQueries'
 import { AUTH_TOKEN } from '../constants'
 // import { dayCode } from '../utils/decode'
 import { useState } from 'react'
@@ -24,22 +25,33 @@ export default function Home() {
 
   const token = localStorage.getItem(AUTH_TOKEN)
   const stuff = dayCode(token)
-  console.log(stuff)
+  // console.log(stuff)
   const { _id } = stuff.data
-  const { data, loading, error, refetch } = useQuery(GET_SET_BY_USER, {
+  // const { refetch } = useQuery(GET_SONGS)
+  const refetch = () => {
+    return 1
+  }
+
+  const { data, loading, error } = useQuery(GET_SET_BY_USER, {
     variables: { userId: _id },
   })
   const handleChange = () => {
     refetch()
+    // console.log(refetch())
+
     if (setValue) {
+      // refetch()
+
       setSet(false)
       setSong(true)
     } else if (!setValue) {
+      // refetch()
+      // console.log(refetch())
       setSet(true)
       setSong(false)
     }
   }
-  console.log('HOME SET_BY_USER: ', data)
+  // console.log('HOME SET_BY_USER: ', data)
   if (!token) {
     return <Login />
   }
@@ -52,6 +64,7 @@ export default function Home() {
         <div className='flex flex-row h-66 bg-white'>
           {/* <InfoBox songValue={songValue} /> */}
           <InfoBox
+            refetch={refetch}
             data={data}
             loading={loading}
             error={error}

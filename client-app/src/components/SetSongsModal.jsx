@@ -42,7 +42,7 @@ const SetSongsModal = ({ filteredSongs }) => {
                   // e.preventDefault()
                   // e.stopPropagation()
                   setLyrics(song.lyrics)
-                  setIsOpen(true)
+                  openModal()
                 }}
               >
                 {song.name}

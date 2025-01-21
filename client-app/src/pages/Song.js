@@ -10,7 +10,7 @@ import EditSongForm from '../components/EditSongForm'
 export default function Song() {
   const { id } = useParams()
   const { loading, error, data } = useQuery(GET_SONG, { variables: { id } })
-  console.log(data)
+  // console.log(data)
   // console.log(data.song)
   // console.log(data.song.name)
   const buttonStyle = {

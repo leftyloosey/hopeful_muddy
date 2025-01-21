@@ -11,26 +11,24 @@ import SetSongsModal from './SetSongsModal'
 
 // Modal.setAppElement('#root')
 
-export default function SetRow({ set }) {
-  // const [modalIsOpen, setIsOpen] = useState(false)
-  const [which, setWhich] = useState()
+export default function SetRow({ set, refetch2 }) {
+  const [screenSongs, setScreenSongs] = useState()
 
-  const { loading, error, data } = useQuery(GET_SONGS_BY_SET, {
+  // const [modalIsOpen, setIsOpen] = useState(false)
+
+  const { loading, error, data, refetch } = useQuery(GET_SONGS_BY_SET, {
     variables: { set: set.id },
   })
+
+  if (refetch2) refetch()
+
   const [deleteSet] = useMutation(DELETE_SET, {
     variables: { id: set.id },
     refetchQueries: [GET_SET_BY_USER, 'slutByUser'],
     // onCompleted: () => reset(),
     update(cache, { data: { deleteSet } }) {
-      // console.log(cache.readQuery({ query: GET_SONGS_BY_SET }))
-      // reset()
-      // console.log(data)
-      // console.log(cache)
       // const { sets } = cache.readQuery({  query: GET_SONGS_BY_SET })
       // const { sets } = cache.readQuery({ query: GET_SET_BY_USER })
-      // console.log(sets)s
-      // reset()
       // cache.writeQuery({
       //   query: GET_SETS,
       //   data: { sets: sets.filter((set) => set.id !== deleteSet.id) },
@@ -50,8 +48,8 @@ export default function SetRow({ set }) {
         >
           <div className='flex flex-row justify-between pt-4'>
             <button
-              onFocus={() => setWhich(data)}
-              onBlur={() => setWhich(null)}
+              onFocus={() => setScreenSongs(data)}
+              onBlur={() => setScreenSongs(null)}
             >
               {set.name}
             </button>
@@ -59,12 +57,10 @@ export default function SetRow({ set }) {
               <FaTrash />
             </button>
           </div>
-          <div className='ml-44 text-white bg-white'>
-            {/* {renderPage(which)} */}
-          </div>
+          <div className='ml-44 text-white bg-white'></div>
         </div>
       )}
-      <div className='ml-16 bg-white'>{renderPage(which)}</div>
+      <div className='ml-16 bg-white'>{renderPage(screenSongs)}</div>
     </>
   )
 }
