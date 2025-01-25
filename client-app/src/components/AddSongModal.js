@@ -52,7 +52,7 @@ export default function AddSongModal({ loading, error, data }) {
       return alert('Please fill in all fields')
     }
 
-    console.log(name, lyrics, setId, status, length)
+    // console.log(name, lyrics, setId, status, length)
 
     addSong(name, lyrics, setId, status, length).catch(error)
 

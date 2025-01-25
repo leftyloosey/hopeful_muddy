@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
 import { GET_SONG } from '../queries/songQueries'
 import { GET_SETS } from '../queries/setQueries'
@@ -6,58 +6,60 @@ import { UPDATE_SONG } from '../mutations/songMutations'
 // import { editSong } from '../styles/headerStyles'
 
 export default function EditSongForm({ songTitle, song }) {
-  // export default function EditSongForm({ songTitle, filteredArray, song }) {
   const { data } = useQuery(GET_SETS)
-  console.log('SONG in EDITSONG', song)
-  console.log('SongTitle in EDITSONG', songTitle)
-  if (songTitle) {
-    function byTitle(song) {
-      return song.name === songTitle
-    }
-    song = song.find(byTitle)
-  }
 
-  // console.log(song)
   const [name, setName] = useState(song.name)
-  const [description, setDescription] = useState(song.description)
+  const [lyrics, setLyrics] = useState(song.lyrics)
   const [status, setStatus] = useState(song.status)
   const [length, setLength] = useState(song.length)
-  const [set, setSet] = useState(song.set.name)
+  const [set, setSet] = useState(song.set)
 
+  const [currentTitle, setCurrentTitle] = useState(songTitle)
+
+  console.log(songTitle)
   const [updateSong] = useMutation(UPDATE_SONG, {
-    variables: { id: song.id, name, description, status, length, setId: set },
-    refetchQueries: [{ query: GET_SONG, variables: { id: song.id } }],
+    variables: { id: song.id, name, lyrics, status, length, setId: set },
+    // refetchQueries: [GET_SETS, 'getSets'],
+    refetchQueries: [{ query: GET_SETS }],
+    // refetchQueries: [{ query: GET_SONG, variables: { id: song.id } }],
   })
-
+  console.log(data)
   const onSubmit = (e) => {
     e.preventDefault()
 
     // if (!name || !description || !status || !length) {
     //   return alert('please complete fields.')
     // }
-    updateSong(name, description, status, length, set)
+    setCurrentTitle(name)
+    updateSong(name, lyrics, status, length, set)
+    // setName('')
+    // setLyrics('')
   }
 
   return (
-    <div key={song.id}>
+    <div className='bg-purple-300' key={song.id}>
+      {currentTitle}
       <form onSubmit={onSubmit}>
         <div>
-          <label className='form-label'>new name: </label>
+          <label className='form-label'>
+            <span className='text-2xl'>〔</span>new name:
+          </label>
           <input
             type='text'
             className='form-control'
             id='name'
             value={name}
             onChange={(e) => setName(e.target.value)}
+            // onClick={(e) => e.target.value=''}
           />
         </div>
         <div>
-          <label className='form-label'>description: </label>
+          <label className='form-label'>lyrics: </label>
           <input
             className='form-control'
             id='description'
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={lyrics}
+            onChange={(e) => setLyrics(e.target.value)}
           ></input>
         </div>
 
@@ -102,6 +104,7 @@ export default function EditSongForm({ songTitle, song }) {
               </option>
             ))}
           </select>
+          <span className='text-2xl'>〕</span>
         </div>
 
         <button type='submit'>Submit</button>

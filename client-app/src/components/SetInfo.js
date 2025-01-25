@@ -4,11 +4,10 @@ export default function SetInfo({ set }) {
   // console.log(set)
   return (
     <>
-      <ul className='list-group'>
-        <li className='list-group-item'>
-          <FaList className='icon' /> {set}
-        </li>
-      </ul>
+      <div className='flex flex-row gap-x-4'>
+        {set}
+        <FaList className='icon' />
+      </div>
     </>
   )
 }

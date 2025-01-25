@@ -1,10 +1,16 @@
-import Spinner from './Spinner'
 import { useQuery } from '@apollo/client'
 import { GET_SONGS } from '../queries/songQueries'
 import SongCard from './SongCard'
+import Spinner from './Spinner'
 
-export default function Songs() {
-  const { loading, error, data } = useQuery(GET_SONGS)
+const Songs = ({
+  choiceFromSongCard,
+  setChoiceFromSongCard,
+  loading,
+  error,
+  data,
+}) => {
+  // const { loading, error, data } = useQuery(GET_SONGS)
 
   if (loading) return <Spinner />
   if (error) return <p>something is wrong!</p>
@@ -23,9 +29,14 @@ export default function Songs() {
   return (
     <>
       {data.songs.length > 0 ? (
-        <div className='min-w-36 w-36 max-w-36'>
+        <div className='w-36 min-w-36 max-w-36 h-64 min-h-64 max-h-64'>
           {data.songs.map((song) => (
-            <SongCard key={song.id} song={song} />
+            <SongCard
+              choiceFromSongCard={choiceFromSongCard}
+              setChoiceFromSongCard={setChoiceFromSongCard}
+              key={song.id}
+              song={song}
+            />
           ))}
         </div>
       ) : (
@@ -34,3 +45,5 @@ export default function Songs() {
     </>
   )
 }
+
+export default Songs

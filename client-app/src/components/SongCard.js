@@ -1,40 +1,42 @@
 import { useState } from 'react'
-import { FaMusic } from 'react-icons/fa'
+import { FaClosedCaptioning, FaMusic } from 'react-icons/fa'
 import Modal from 'react-modal'
 // import SetSongsModal from './SetSongsModal'
 import EditSongForm from './EditSongForm'
-import DeleteSongButton from './DeleteSongButton'
 import SetInfo from './SetInfo'
+import DeleteSongButton from './DeleteSongButton'
 
 Modal.setAppElement('#root')
 
-export default function SongCard({ song }) {
+const SongCard = ({ choiceFromSongCard, setChoiceFromSongCard, song }) => {
   const [modalIsOpen, setIsOpen] = useState(false)
-
+  // setCongs(song)
   function openModal() {
     setIsOpen(true)
   }
-
+  console.log('songcard song', song)
   function closeModal() {
     setIsOpen(false)
   }
-
-  function afterOpenModal() {}
-  // console.log(song)
   return (
     <div className='bg-white opacity-90 h-16 border-b-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl'>
       <div onClick={openModal}>
-        <div className='flex flex-row gap-x-1 h-16 justify-evenly items-center'>
-          {song?.name}
-          <i>{song?.status}</i>
-          <p className=''>
-            <strong className=''>{song?.set.name}</strong>
-          </p>
-          <FaMusic className='icon' />
+        <div className='flex flex-row gap-x-1 h-16 justify-between items-center'>
+          <div className='flex flex-row justify-between'>
+            <FaMusic className='icon mr-4' />
+            <button onClick={() => setChoiceFromSongCard(song)} className=''>
+              {song?.name}
+            </button>
+            {/* <span className='ml-2'>{song?.status}</span> */}
+          </div>
+
+          <span className='font-extralight'>
+            <i>{song?.set.name}</i>
+          </span>
         </div>
       </div>
 
-      <Modal
+      {/* <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
@@ -42,7 +44,7 @@ export default function SongCard({ song }) {
         <SetInfo set={song?.set?.name} />
         <DeleteSongButton songId={song?.id} />
         <EditSongForm songTitle={song?.title} song={song} />
-      </Modal>
+      </Modal> */}
     </div>
   )
 }
@@ -68,3 +70,4 @@ export default function SongCard({ song }) {
 //     </div>
 //   )
 // }
+export default SongCard

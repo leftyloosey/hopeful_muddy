@@ -1,19 +1,25 @@
+import { useState } from 'react'
+
 import { useQuery } from '@apollo/client'
+import { GET_SET_BY_USER } from '../queries/setQueries'
+import { GET_SONGS } from '../queries/songQueries'
+
+import { AUTH_TOKEN } from '../constants'
+import { dayCode } from '../utils/decode'
+
+import Header from '../components/Header'
 import Login from '../components/Login'
+import InfoBox from '../components/InfoBox'
+
+// import SetInfo from './SetInfo'
+// import EditSongForm from './EditSongForm'
+// import DeleteSongButton from '../components/DeleteSongButton'
+
+import RadioButton from '../components/RadioButton'
+import SongSetButton from '../components/SongSetButton'
+
 import AddSetModal from '../components/AddSetModal'
 import AddSongModal from '../components/AddSongModal'
-import InfoBox from '../components/InfoBox'
-import SongSetButton from '../components/SongSetButton'
-// import Songs from '../components/Songs'
-// import Sets from '../components/Sets'
-import { GET_SET_BY_USER } from '../queries/setQueries'
-// import { GET_SONGS } from '../queries/songQueries'
-import { AUTH_TOKEN } from '../constants'
-// import { dayCode } from '../utils/decode'
-import { useState } from 'react'
-import RadioButton from '../components/RadioButton'
-import { dayCode } from '../utils/decode'
-import Header from '../components/Header'
 
 export default function Home() {
   const [songValue, setSong] = useState(false)
@@ -21,37 +27,30 @@ export default function Home() {
   // const [visible, setVisible] = useState(true)
   console.log('home rerender')
 
-  // console.log(songValue)
-
   const token = localStorage.getItem(AUTH_TOKEN)
-  const stuff = dayCode(token)
-  // console.log(stuff)
-  const { _id } = stuff.data
-  // const { refetch } = useQuery(GET_SONGS)
-  const refetch = () => {
-    return 1
-  }
+  const unToken = dayCode(token)
+
+  const { _id } = unToken.data
 
   const { data, loading, error } = useQuery(GET_SET_BY_USER, {
     variables: { userId: _id },
   })
+  const refetch = () => {
+    return 1
+  }
+
   const handleChange = () => {
     refetch()
-    // console.log(refetch())
 
     if (setValue) {
-      // refetch()
-
       setSet(false)
       setSong(true)
     } else if (!setValue) {
-      // refetch()
-      // console.log(refetch())
       setSet(true)
       setSong(false)
     }
   }
-  // console.log('HOME SET_BY_USER: ', data)
+
   if (!token) {
     return <Login />
   }
@@ -60,20 +59,16 @@ export default function Home() {
     <div className='flex flex-col justify-center items-center overflow-x-hidden'>
       <Header />
 
-      <div className='bg-gradient-to-t from-cyan-600 flex flex-col items-center h-dvh w-screen sm:w-3/4'>
-        <div className='flex flex-row h-66 bg-white'>
-          {/* <InfoBox songValue={songValue} /> */}
+      <div className='bg-gradient-to-t from-stone-950 flex flex-col items-center h-dvh w-screen sm:w-3/4'>
+        <div className=''>
           <InfoBox
             refetch={refetch}
-            data={data}
-            loading={loading}
-            error={error}
+            data2={data}
+            loading2={loading}
+            error2={error}
             songValue={songValue}
             _id={_id}
           />
-          {/* <div className='bg-white flex h-64 min-w-72 opacity-90 border-2 border-solid border-slate-600'>
-            hiWEfawefawefawfwe
-          </div> */}
         </div>
 
         <div className='flex flex-col'>
@@ -84,13 +79,13 @@ export default function Home() {
           >
             ....
           </div>
-
           <div className='flex flex-row gap-x-28 mb-2'>
             <RadioButton
               label='Song'
               value={songValue}
               handleChange={handleChange}
             />
+
             <RadioButton
               label='Set'
               value={setValue}
@@ -99,13 +94,14 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={` mt-16 ${songValue ? '' : ''}`}>
+        <div className={`mt-16 ${songValue ? '' : ''}`}>
           {/* <div className={` mt-16 ${songValue ? '' : 'invisible'}`}> */}
           {/* {songValue ? <AddSongModal /> : <AddSetModal /s>} */}
 
           {songValue ? (
             <AddSongModal data={data} loading={loading} error={error} />
           ) : (
+            // <AddSongModal data={data} loading={loading} error={error} />
             <AddSetModal
               data2={data}
               loading={loading}
@@ -113,7 +109,6 @@ export default function Home() {
               userId={_id}
             />
           )}
-          {/* {songValue ? <AddSongModal /> : <AddSetModal userId={_id} />} */}
         </div>
         <SongSetButton songValue={songValue} />
       </div>

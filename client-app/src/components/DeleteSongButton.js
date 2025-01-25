@@ -21,9 +21,10 @@ export default function DeleteSongButton({ songId }) {
   })
 
   return (
-    <div>
-      <button onClick={deleteSong}>
-        <FaTrash className='icon' /> Delete Song
+    <div className='bg-orange-800'>
+      <button className='flex flex-row gap-x-4' onClick={deleteSong}>
+        Delete Song
+        <FaTrash className='icon' />
       </button>
     </div>
   )
