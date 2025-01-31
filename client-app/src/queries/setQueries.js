@@ -11,17 +11,6 @@ const GET_SETS = gql`
     }
   }
 `
-// const GET_SETS = gql`
-//   query getSets {
-//     sets {
-//       id
-//       name
-//       userId {
-//         id
-//       }
-//     }
-//   }
-// `
 const GET_USERS = gql`
   query getUsers {
     users {

@@ -1,44 +1,36 @@
 import { useState, useEffect } from 'react'
-import { useMutation, useQuery } from '@apollo/client'
-import { GET_SONG } from '../queries/songQueries'
+import { useMutation } from '@apollo/client'
 import { GET_SETS } from '../queries/setQueries'
 import { UPDATE_SONG } from '../mutations/songMutations'
-// import { editSong } from '../styles/headerStyles'
 
-export default function EditSongForm({ songTitle, song }) {
-  const { data } = useQuery(GET_SETS)
+export default function EditSongForm({ del, data, songTitle, song }) {
+  useEffect(() => {
+    setName(song.name)
+    setLyrics(song.lyrics)
+    setLength(song.length)
+    setStatus(song.status)
+    setSet(song.set.id)
+  }, [song.name, song.lyrics, song.status, song.length, song.set, songTitle])
 
   const [name, setName] = useState(song.name)
   const [lyrics, setLyrics] = useState(song.lyrics)
   const [status, setStatus] = useState(song.status)
   const [length, setLength] = useState(song.length)
-  const [set, setSet] = useState(song.set)
+  const [set, setSet] = useState(song.set.id)
 
-  const [currentTitle, setCurrentTitle] = useState(songTitle)
-
-  console.log(songTitle)
   const [updateSong] = useMutation(UPDATE_SONG, {
     variables: { id: song.id, name, lyrics, status, length, setId: set },
-    // refetchQueries: [GET_SETS, 'getSets'],
     refetchQueries: [{ query: GET_SETS }],
-    // refetchQueries: [{ query: GET_SONG, variables: { id: song.id } }],
   })
-  console.log(data)
   const onSubmit = (e) => {
     e.preventDefault()
-
     // if (!name || !description || !status || !length) {
     //   return alert('please complete fields.')
     // }
-    setCurrentTitle(name)
     updateSong(name, lyrics, status, length, set)
-    // setName('')
-    // setLyrics('')
   }
-
   return (
     <div className='bg-purple-300' key={song.id}>
-      {currentTitle}
       <form onSubmit={onSubmit}>
         <div>
           <label className='form-label'>
@@ -50,7 +42,6 @@ export default function EditSongForm({ songTitle, song }) {
             id='name'
             value={name}
             onChange={(e) => setName(e.target.value)}
-            // onClick={(e) => e.target.value=''}
           />
         </div>
         <div>

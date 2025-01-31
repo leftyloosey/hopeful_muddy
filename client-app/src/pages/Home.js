@@ -1,19 +1,16 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 
 import { useQuery } from '@apollo/client'
 import { GET_SET_BY_USER } from '../queries/setQueries'
-import { GET_SONGS } from '../queries/songQueries'
+// import { GET_SONGS } from '../queries/songQueries'
 
 import { AUTH_TOKEN } from '../constants'
 import { dayCode } from '../utils/decode'
+import { RefreshContext } from '../context/context'
 
 import Header from '../components/Header'
 import Login from '../components/Login'
 import InfoBox from '../components/InfoBox'
-
-// import SetInfo from './SetInfo'
-// import EditSongForm from './EditSongForm'
-// import DeleteSongButton from '../components/DeleteSongButton'
 
 import RadioButton from '../components/RadioButton'
 import SongSetButton from '../components/SongSetButton'
@@ -22,8 +19,10 @@ import AddSetModal from '../components/AddSetModal'
 import AddSongModal from '../components/AddSongModal'
 
 export default function Home() {
+  const refRetch = useContext(RefreshContext)
   const [songValue, setSong] = useState(false)
   const [setValue, setSet] = useState(true)
+
   // const [visible, setVisible] = useState(true)
   console.log('home rerender')
 
@@ -35,12 +34,12 @@ export default function Home() {
   const { data, loading, error } = useQuery(GET_SET_BY_USER, {
     variables: { userId: _id },
   })
-  const refetch = () => {
-    return 1
-  }
+  // const refetch = () => {
+  //   return 1
+  // }
 
   const handleChange = () => {
-    refetch()
+    refRetch()
 
     if (setValue) {
       setSet(false)
@@ -59,16 +58,18 @@ export default function Home() {
     <div className='flex flex-col justify-center items-center overflow-x-hidden'>
       <Header />
 
-      <div className='bg-gradient-to-t from-stone-950 flex flex-col items-center h-dvh w-screen sm:w-3/4'>
-        <div className=''>
-          <InfoBox
-            refetch={refetch}
-            data2={data}
-            loading2={loading}
-            error2={error}
-            songValue={songValue}
-            _id={_id}
-          />
+      <div className='flex flex-col items-center h-dvh w-screen sm:w-3/4'>
+        {/* <div className='bg-gradient-to-t from-stone-950 flex flex-col items-center h-dvh w-screen sm:w-3/4'> */}
+        <div className='border-solid border-2'>
+          <RefreshContext.Provider value={refRetch}>
+            <InfoBox
+              data2={data}
+              loading2={loading}
+              error2={error}
+              songValue={songValue}
+              _id={_id}
+            />
+          </RefreshContext.Provider>
         </div>
 
         <div className='flex flex-col'>

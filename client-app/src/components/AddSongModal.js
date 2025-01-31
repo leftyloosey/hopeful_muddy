@@ -3,65 +3,42 @@ import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { ADD_SONG } from '../mutations/songMutations'
 import { GET_SONGS } from '../queries/songQueries'
-import Modal from 'react-modal'
-
-Modal.setAppElement('#root')
 
 export default function AddSongModal({ loading, error, data }) {
-  // export default function AddSongModal() {
   const [name, setName] = useState('')
   const [lyrics, setLyrics] = useState('')
   const [setId, setSetId] = useState('')
   const [status, setStatus] = useState('opener')
   const [length, setLength] = useState('short')
 
-  // const [modalIsOpen, setIsOpen] = useState(false)
   const [addSong] = useMutation(ADD_SONG, {
-    refetchQueries: [
-      // GET_SET_BY_USER,
-      // 'slutByUser',
-      // GET_SETS,
-      // 'getSets',
-      GET_SONGS,
-      'getSongs',
-    ],
+    refetchQueries: [GET_SONGS, 'getSongs'],
     variables: { name, lyrics, setId, status, length },
-    // update(cache, { data: { addSong } }) {
-    //     const { songs } = cache.readQuery({ query: GET_SONGS })
-    //   cache.writeQuery({
-    //     query: GET_SONGS,
-    //     data: { songs: [...songs, addSong] },
-    //   })
-    // },
   })
-
-  // function openModal() {
-  //   setIsOpen(true)
-  // }
-
-  // function afterOpenModal() {}
-
-  // function closeModal() {
-  //   setIsOpen(false)
-  // }
 
   const onSubmit = (e) => {
     e.preventDefault()
 
-    if (name === '' || lyrics === '' || status === '' || length === '') {
+    if (
+      name === '' ||
+      lyrics === '' ||
+      status === '' ||
+      length === '' ||
+      setId === ''
+    ) {
       return alert('Please fill in all fields')
     }
 
-    // console.log(name, lyrics, setId, status, length)
+    console.log(name, lyrics, setId, status, length)
 
     addSong(name, lyrics, setId, status, length).catch(error)
-
+    if (!error) {
+    }
     setName('')
     setLyrics('')
-    setStatus('')
+    setStatus('opener')
     setSetId('')
-    setLength('')
-    // closeModal()
+    setLength('short')
   }
 
   if (loading) return null
@@ -71,19 +48,6 @@ export default function AddSongModal({ loading, error, data }) {
     <>
       {!loading && !error && (
         <>
-          {/* <button type='button' onClick={openModal}>
-            <div>
-              <FaMusic className='icon' />
-              <div>Add Song</div>
-            </div>
-          </button> */}
-
-          {/* <Modal
-            isOpen={modalIsOpen}
-            onAfterOpen={afterOpenModal}
-            onRequestClose={closeModal}
-            // style={customStyles}
-          > */}
           <div>
             <form onSubmit={onSubmit}>
               <div>
@@ -150,11 +114,6 @@ export default function AddSongModal({ loading, error, data }) {
                         {set.name}
                       </option>
                     ))}
-                    {/* {data.sets.map((set) => (
-                      <option key={set.id} value={set.id}>
-                        {set.name}
-                      </option>
-                    ))} */}
                   </select>
                 </div>
 
@@ -168,7 +127,6 @@ export default function AddSongModal({ loading, error, data }) {
               </div>
             </form>
           </div>
-          {/* </Modal> */}
         </>
       )}
     </>

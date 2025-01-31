@@ -1,17 +1,14 @@
-import { useQuery } from '@apollo/client'
-import { GET_SONGS } from '../queries/songQueries'
 import SongCard from './SongCard'
 import Spinner from './Spinner'
 
 const Songs = ({
+  setDel,
   choiceFromSongCard,
   setChoiceFromSongCard,
   loading,
   error,
   data,
 }) => {
-  // const { loading, error, data } = useQuery(GET_SONGS)
-
   if (loading) return <Spinner />
   if (error) return <p>something is wrong!</p>
 
@@ -29,9 +26,12 @@ const Songs = ({
   return (
     <>
       {data.songs.length > 0 ? (
-        <div className='w-36 min-w-36 max-w-36 h-64 min-h-64 max-h-64'>
+        // scroll needs to be here
+        <div className='w-36 min-w-36 max-w-36 h-64 min-h-64 max-h-64 overflow-y-scroll'>
+          {/* <div className='w-36 min-w-36 max-w-36 h-64 min-h-64 max-h-64'> */}
           {data.songs.map((song) => (
             <SongCard
+              setDel={setDel}
               choiceFromSongCard={choiceFromSongCard}
               setChoiceFromSongCard={setChoiceFromSongCard}
               key={song.id}

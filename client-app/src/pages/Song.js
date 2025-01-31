@@ -10,20 +10,7 @@ import EditSongForm from '../components/EditSongForm'
 export default function Song() {
   const { id } = useParams()
   const { loading, error, data } = useQuery(GET_SONG, { variables: { id } })
-  // console.log(data)
-  // console.log(data.song)
-  // console.log(data.song.name)
-  const buttonStyle = {
-    marginLeft: '1em',
-    // paddingBottom: '5px',
-    textDecoration: 'none',
-    color: 'black',
-  }
 
-  const border = {
-    borderStyle: 'solid',
-    borderWidth: '1px',
-  }
   if (loading) return <Spinner />
   if (error) return <p>nope. something wrong.</p>
 
@@ -31,10 +18,7 @@ export default function Song() {
     <>
       {!loading && !error && (
         <div>
-          <Link style={buttonStyle} to='/'>
-            Back
-          </Link>
-          <div style={border}>
+          <div>
             <div>
               <span>
                 Title: <strong> {data.song.name}</strong>
@@ -49,7 +33,7 @@ export default function Song() {
             <div>
               <SetInfo set={data.song.set} />
               <DeleteSongButton songId={data.song.id} />
-              <div style={border}></div>
+              <div></div>
 
               <EditSongForm
                 songTitle={data.song.name}

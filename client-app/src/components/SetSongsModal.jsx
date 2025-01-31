@@ -1,17 +1,8 @@
 import { useState } from 'react'
-// import EditSongForm from './EditSongForm'
 import Modal from 'react-modal'
-// import SetInfo from './SetInfo'
-// import DeleteSongButton from './DeleteSongButton'
-
 import Lyrics from './Lyrics'
 
 Modal.setAppElement('#root')
-
-// const border = {
-//   borderStyle: 'solid',
-//   borderWidth: '1px',
-// }
 
 const SetSongsModal = ({ filteredSongs }) => {
   const [modalIsOpen, setIsOpen] = useState(false)

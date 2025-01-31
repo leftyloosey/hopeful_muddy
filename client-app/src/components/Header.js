@@ -9,9 +9,9 @@ export default function Header() {
   return (
     <nav className='mt-10 text-orange-400 text-2xl flex flex-col justify-center items-center w-5/6'>
       <div className='gap-x-28 flex flex-row justify-between -translate-y-4'>
-        <div className=''>
-          <div className=''>Set Lists</div>
-        </div>
+        {/* <div className=''> */}
+        <div className=''>Set Lists</div>
+        {/* </div>  */}
         <div>
           {authToken ? (
             <button

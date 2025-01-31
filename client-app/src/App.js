@@ -71,8 +71,8 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/song/:id' element={<Song />} />
-              <Route path='*' element={<NotFound />} />
-              <Route path='/where' element={<Where />} />
+              {/* <Route path='*' element={<NotFound />} />
+              <Route path='/where' element={<Where />} /> */}
               <Route path='/login' element={<Login />} />
             </Routes>
             {/* <Header /> */}
