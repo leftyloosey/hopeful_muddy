@@ -33,7 +33,7 @@ export default function SetRow({ set }) {
           className={`bg-white opacity-90 h-16 min-w-36 max-w-36 border-b-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl hover:border-b-0'`}
         >
           <div className='flex flex-row justify-between'>
-            <div className='flex items-center pt-4'>
+            <div role='button' className='flex items-center pt-4'>
               <button className='' onClick={deleteSet}>
                 <FaTrash />
               </button>

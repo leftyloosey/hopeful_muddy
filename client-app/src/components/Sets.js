@@ -10,7 +10,7 @@ export default function Sets({ data, loading, error }) {
   return (
     <>
       {!loading && !error && (
-        <div className='w-36 min-w-36 max-w-36 h-64 min-h-64 max-h-64'>
+        <div className='w-36 min-w-36 max-w-36 h-64 min-h-64 max-h-64 overflow-y-scroll'>
           {data.setByUser.map((set) => (
             <SetRow key={set.id} set={set} songs={data} />
           ))}
