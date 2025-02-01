@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client'
 import { GET_SETS } from '../queries/setQueries'
 import { UPDATE_SONG } from '../mutations/songMutations'
 
-export default function EditSongForm({ del, data, songTitle, song }) {
+export default function EditSongForm({ data, songTitle, song }) {
   useEffect(() => {
     setName(song.name)
     setLyrics(song.lyrics)

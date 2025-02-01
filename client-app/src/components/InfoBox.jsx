@@ -3,6 +3,8 @@ import { useQuery } from '@apollo/client'
 import { GET_SONGS } from '../queries/songQueries'
 import { GET_SETS } from '../queries/setQueries'
 
+import { SongCardContext, SetCardContext } from '../context/context'
+
 import useOutsideClick from '../utils/outsideClick'
 
 import Songs from './Songs'
@@ -14,6 +16,7 @@ import DeleteSongButton from '../components/DeleteSongButton'
 const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
   const { loading, error, data } = useQuery(GET_SONGS)
   const { data: setData } = useQuery(GET_SETS)
+
   const [choiceFromSongCard, setChoiceFromSongCard] = useState(data?.songs[0])
   const [screenSongs, setScreenSongs] = useState()
   const [del, setDel] = useState(false)
@@ -21,6 +24,7 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
   const handleClickOutside = () => {
     setChoiceFromSongCard(null)
   }
+
   const ref = useOutsideClick(handleClickOutside)
 
   return (
@@ -28,24 +32,25 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
       <div className='flex flex-row h-72 min-h-72 max-h-72'>
         <div className='bg-yellow-300 min-w-36 w-36 max-w-36 '>
           {songValue ? (
-            <Songs
-              setDel={setDel}
-              choiceFromSongCard={choiceFromSongCard}
-              setChoiceFromSongCard={setChoiceFromSongCard}
-              data={data}
-              loading={loading}
-              error={error}
-            />
+            <SongCardContext.Provider
+              value={[choiceFromSongCard, setChoiceFromSongCard]}
+            >
+              <Songs
+                setDel={setDel}
+                data={data}
+                loading={loading}
+                error={error}
+              />
+            </SongCardContext.Provider>
           ) : (
-            <Sets
-              screenSongs={screenSongs}
-              setScreenSongs={setScreenSongs}
-              // refetch={regrab}
-              data={data2}
-              loading={loading2}
-              error={error2}
-              userId={_id}
-            />
+            <SetCardContext.Provider value={[screenSongs, setScreenSongs]}>
+              <Sets
+                data={data2}
+                loading={loading2}
+                error={error2}
+                userId={_id}
+              />
+            </SetCardContext.Provider>
           )}
         </div>
 
@@ -55,7 +60,6 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
               {choiceFromSongCard && !del && (
                 <div className='flex flex-col'>
                   <EditSongForm
-                    del={del}
                     songTitle={choiceFromSongCard?.name}
                     song={choiceFromSongCard}
                     songId={choiceFromSongCard?.id}

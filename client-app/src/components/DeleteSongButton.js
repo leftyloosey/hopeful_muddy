@@ -2,7 +2,11 @@ import { FaTrash } from 'react-icons/fa'
 import { GET_SONGS } from '../queries/songQueries'
 import { DELETE_SONG } from '../mutations/songMutations'
 import { useMutation } from '@apollo/client'
+// import { useContext } from 'react'
 
+// import { DelContext } from '../context/context'
+
+// export default function DeleteSongButton({ songId }) {
 export default function DeleteSongButton({ del, setDel, songId }) {
   const [deleteSong] = useMutation(DELETE_SONG, {
     variables: { id: songId },
@@ -13,6 +17,7 @@ export default function DeleteSongButton({ del, setDel, songId }) {
     // you eliminated this one and an error. howwhy
     refetchQueries: [{ query: GET_SONGS }],
   })
+  // const [del, setDel] = useContext(DelContext)
 
   return (
     <div className='bg-orange-800'>

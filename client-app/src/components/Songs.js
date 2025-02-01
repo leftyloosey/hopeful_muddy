@@ -1,14 +1,7 @@
-import SongCard from './SongCard'
+import SongCard from './SongRow'
 import Spinner from './Spinner'
 
-const Songs = ({
-  setDel,
-  choiceFromSongCard,
-  setChoiceFromSongCard,
-  loading,
-  error,
-  data,
-}) => {
+const Songs = ({ setDel, loading, error, data }) => {
   if (loading) return <Spinner />
   if (error) return <p>something is wrong!</p>
 
@@ -26,17 +19,10 @@ const Songs = ({
   return (
     <>
       {data.songs.length > 0 ? (
-        // scroll needs to be here
+        // song overflow scroll needs to be here
         <div className='w-36 min-w-36 max-w-36 h-64 min-h-64 max-h-64 overflow-y-scroll'>
-          {/* <div className='w-36 min-w-36 max-w-36 h-64 min-h-64 max-h-64'> */}
           {data.songs.map((song) => (
-            <SongCard
-              setDel={setDel}
-              choiceFromSongCard={choiceFromSongCard}
-              setChoiceFromSongCard={setChoiceFromSongCard}
-              key={song.id}
-              song={song}
-            />
+            <SongCard setDel={setDel} key={song.id} song={song} />
           ))}
         </div>
       ) : (

@@ -2,7 +2,6 @@ import { useState, useContext } from 'react'
 
 import { useQuery } from '@apollo/client'
 import { GET_SET_BY_USER } from '../queries/setQueries'
-// import { GET_SONGS } from '../queries/songQueries'
 
 import { AUTH_TOKEN } from '../constants'
 import { dayCode } from '../utils/decode'
@@ -34,9 +33,6 @@ export default function Home() {
   const { data, loading, error } = useQuery(GET_SET_BY_USER, {
     variables: { userId: _id },
   })
-  // const refetch = () => {
-  //   return 1
-  // }
 
   const handleChange = () => {
     refRetch()
@@ -102,7 +98,6 @@ export default function Home() {
           {songValue ? (
             <AddSongModal data={data} loading={loading} error={error} />
           ) : (
-            // <AddSongModal data={data} loading={loading} error={error} />
             <AddSetModal
               data2={data}
               loading={loading}

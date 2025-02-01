@@ -1,12 +1,19 @@
+import { useContext } from 'react'
 import { FaMusic } from 'react-icons/fa'
 
-const SongCard = ({ setDel, setChoiceFromSongCard, song }) => {
+import { SongCardContext } from '../context/context'
+
+const SongCard = ({ setDel, song }) => {
+  // eslint-disable-next-line no-unused-vars
+  const [choiceFromSongCard, setChoiceFromSongCard] =
+    useContext(SongCardContext)
+
   return (
     <div className='bg-white opacity-90 h-16 border-b-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl'>
       <div>
         <div
+          role='button'
           onClick={() => {
-            console.log('songcard click')
             setDel(false)
             setChoiceFromSongCard(song)
           }}

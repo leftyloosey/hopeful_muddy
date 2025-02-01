@@ -5,13 +5,17 @@ import { DELETE_SET } from '../mutations/setMutations'
 import { GET_SET_BY_USER } from '../queries/setQueries'
 import { GET_SONGS_BY_SET } from '../queries/songQueries'
 import { useQuery } from '@apollo/client'
-import { RefreshContext } from '../context/context'
+import { RefreshContext, SetCardContext } from '../context/context'
 
-export default function SetRow({ setScreenSongs, set }) {
+export default function SetRow({ set }) {
   const { loading, error, data, refetch } = useQuery(GET_SONGS_BY_SET, {
     variables: { set: set.id },
   })
   const refRetch = useContext(RefreshContext)
+
+  // eslint-disable-next-line no-unused-vars
+  const [screenSongs, setScreenSongs] = useContext(SetCardContext)
+
   if (refRetch) {
     refetch()
   }
