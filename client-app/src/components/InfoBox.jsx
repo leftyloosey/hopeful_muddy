@@ -29,8 +29,10 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
 
   return (
     <div ref={ref}>
-      <div className='flex flex-row h-72 min-h-72 max-h-72'>
-        <div className='bg-yellow-300 min-w-36 w-36 max-w-36 '>
+      <div className='flex flex-row '>
+        {/* <div className='flex flex-row h-72 min-h-72 max-h-72'> */}
+        <div className=''>
+          {/* <div className='bg-yellow-300 min-w-36 w-36 max-w-36 '> */}
           {songValue ? (
             <SongCardContext.Provider
               value={[choiceFromSongCard, setChoiceFromSongCard]}
@@ -54,7 +56,8 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
           )}
         </div>
 
-        <div className='min-w-36 w-36 max-w-36 bg-red-700'>
+        <div className=''>
+          {/* <div className='min-w-36 w-36 max-w-36 ml-16'> */}
           {songValue ? (
             <>
               {choiceFromSongCard && !del && (
@@ -78,9 +81,9 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
               )}
             </>
           ) : (
-            <>
+            <div className=''>
               <SetSongsModal filteredSongs={screenSongs} />
-            </>
+            </div>
           )}
         </div>
       </div>

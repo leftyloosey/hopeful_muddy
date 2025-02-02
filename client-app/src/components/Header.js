@@ -7,7 +7,7 @@ export default function Header() {
   const authToken = localStorage.getItem(AUTH_TOKEN)
 
   return (
-    <nav className='mt-10 text-orange-400 text-2xl flex flex-col justify-center items-center w-5/6'>
+    <nav className='mt-10 text-2xl flex flex-col justify-center items-center w-5/6 underline'>
       <div className='gap-x-28 flex flex-row justify-between -translate-y-4'>
         {/* <div className=''> */}
         <div className=''>Set Lists</div>
@@ -15,7 +15,8 @@ export default function Header() {
         <div>
           {authToken ? (
             <button
-              className='duration-200 border-2 border-solid border-orange-400 rounded-2xl pt-0 p-2 shadow-sm shadow-orange-400 -translate-y-1 hover:translate-y-1 hover:shadow-sm hover:border-0'
+              className='duration-200 border-2 border-solid border-gray-900 rounded-2xl pt-0 p-2 shadow-sm shadow-gray-900 -translate-y-1 hover:translate-y-1 hover:shadow-sm hover:border-0'
+              // className='duration-200 border-2 border-solid border-orange-400 rounded-2xl pt-0 p-2 shadow-sm shadow-orange-400 -translate-y-1 hover:translate-y-1 hover:shadow-sm hover:border-0'
               onClick={() => {
                 localStorage.removeItem(AUTH_TOKEN)
                 navigate(`/login`)
@@ -24,7 +25,8 @@ export default function Header() {
               logout
             </button>
           ) : (
-            <button className='duration-200 border-2 border-solid border-orange-400 rounded-2xl pt-0 p-2 shadow-sm shadow-orange-400 -translate-y-1 hover:translate-y-1 hover:shadow-sm hover:border-0'>
+            <button className='duration-200 border-2 border-solid border-gray-900 rounded-2xl pt-0 p-2 shadow-sm shadow-gray-900 -translate-y-1 hover:translate-y-1 hover:shadow-sm hover:border-0'>
+              {/* <button className='duration-200 border-2 border-solid border-orange-400 rounded-2xl pt-0 p-2 shadow-sm shadow-orange-400 -translate-y-1 hover:translate-y-1 hover:shadow-sm hover:border-0'> */}
               <Link to='/login'>login</Link>
             </button>
           )}

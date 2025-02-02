@@ -10,7 +10,6 @@ export default function AddSetModal({ loading2, error2, userId }) {
   const [addSet, { loading, error }] = useMutation(ADD_SET, {
     variables: { name: name, userId: userId },
     refetchQueries: [GET_SETS, 'slutByUser'],
-    // onCompleted: () => console.log('data from addset cache: ', data),
     // update(cache, { data: { addSet } }) {
     // const { sets } = cache.readQuery({ query: GET_SETS })
     // },

@@ -5,15 +5,20 @@ const SongSetButton = ({ songValue }) => {
   return (
     <div>
       {!songValue ? (
-        <button type='button'>
+        <button className=' ' type='button'>
           <div className=''>
-            <FaList style={{ color: '#f97316' }} className='icon text-2xl' />
+            <FaList style={{ color: '#00e676' }} className='icon text-2xl' />
           </div>
         </button>
       ) : (
-        <button type='button'>
-          <div>
-            <FaMusic style={{ color: '#f97316' }} className='icon text-2xl' />
+        <button type=''>
+          <div className='btn'>
+            <FaMusic
+              style={{
+                color: '#00e676',
+              }}
+              className='text-2xl '
+            />
           </div>
         </button>
       )}

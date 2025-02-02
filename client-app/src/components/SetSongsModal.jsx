@@ -21,26 +21,28 @@ const SetSongsModal = ({ filteredSongs }) => {
   }
   return (
     <>
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
-        {renderPage(lyrics)}
-      </Modal>
-      {filteredSongs &&
-        filteredSongs.songBySet.map((song, index) => (
-          <div key={song.id}>
-            <p>
-              <button
-                onMouseDown={(e) => {
-                  // e.preventDefault()
-                  // e.stopPropagation()
-                  setLyrics(song.lyrics)
-                  openModal()
-                }}
-              >
-                {song.name}
-              </button>
-            </p>
-          </div>
-        ))}
+      <div className='ml-16'>
+        <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+          {renderPage(lyrics)}
+        </Modal>
+        {filteredSongs &&
+          filteredSongs.songBySet.map((song, index) => (
+            <div key={song.id}>
+              <div>
+                <button
+                  onMouseDown={(e) => {
+                    // e.preventDefault()
+                    // e.stopPropagation()
+                    setLyrics(song.lyrics)
+                    openModal()
+                  }}
+                >
+                  {song.name}
+                </button>
+              </div>
+            </div>
+          ))}
+      </div>
     </>
   )
 }

@@ -30,7 +30,7 @@ export default function EditSongForm({ data, songTitle, song }) {
     updateSong(name, lyrics, status, length, set)
   }
   return (
-    <div key={song.id}>
+    <div className='' key={song.id}>
       <form onSubmit={onSubmit}>
         <div>
           <label className='form-label'>

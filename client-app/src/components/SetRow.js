@@ -30,19 +30,23 @@ export default function SetRow({ set }) {
     <>
       {!loading && !error && (
         <div
+          role='button'
+          onFocus={() => setScreenSongs(data)}
+          onBlur={() => setScreenSongs(null)}
           className={`bg-white opacity-90 h-16 min-w-36 max-w-36 border-b-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl hover:border-b-0'`}
         >
           <div className='flex flex-row justify-between'>
-            <div role='button' className='flex items-center pt-4'>
-              <button className='' onClick={deleteSet}>
+            <div className='flex items-center pt-4'>
+              <button className='text-red-400' onClick={deleteSet}>
                 <FaTrash />
               </button>
-              <button
-                onFocus={() => setScreenSongs(data)}
-                onBlur={() => setScreenSongs(null)}
+              <span
+              // className='w-32 h-14 bg-red-'
+              // onFocus={() => setScreenSongs(data)}
+              // onBlur={() => setScreenSongs(null)}
               >
                 {set.name}
-              </button>
+              </span>
             </div>
           </div>
         </div>

@@ -2,22 +2,13 @@ import { FaTrash } from 'react-icons/fa'
 import { GET_SONGS } from '../queries/songQueries'
 import { DELETE_SONG } from '../mutations/songMutations'
 import { useMutation } from '@apollo/client'
-// import { useContext } from 'react'
 
-// import { DelContext } from '../context/context'
-
-// export default function DeleteSongButton({ songId }) {
-export default function DeleteSongButton({ del, setDel, songId }) {
+export default function DeleteSongButton({ setDel, songId }) {
   const [deleteSong] = useMutation(DELETE_SONG, {
     variables: { id: songId },
-    // onCompleted: () => alert('song deleted'),
-    // onCompleted: () => navigate('/'),
-
-    // here be pirates. rememher, this one had more.
-    // you eliminated this one and an error. howwhy
+    // here be pirates
     refetchQueries: [{ query: GET_SONGS }],
   })
-  // const [del, setDel] = useContext(DelContext)
 
   return (
     <div className='bg-orange-800'>
