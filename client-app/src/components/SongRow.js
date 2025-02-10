@@ -1,12 +1,14 @@
 import { useContext } from 'react'
-import { FaMusic } from 'react-icons/fa'
+// import { FaMusic } from 'react-icons/fa'
 
 import { SongCardContext } from '../context/context'
 
-const SongRow = ({ setDel, song }) => {
+const SongRow = ({ sawng, setDel, song }) => {
+  // const [choiceFromSongCard, setChoiceFromSongCard] = sawng
   // eslint-disable-next-line no-unused-vars
   const [choiceFromSongCard, setChoiceFromSongCard] =
     useContext(SongCardContext)
+  if (!song) return <p>no song</p>
 
   return (
     <div
@@ -18,9 +20,9 @@ const SongRow = ({ setDel, song }) => {
       className='bg-white opacity-90 h-16 border-b-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl'
     >
       <div>
-        <div className='flex flex-row gap-x-1 justify-between items-center'>
-          <div className='flex flex-row justify-between'>
-            <FaMusic />
+        <div className='flex flex-row h-16 items-center gap-x-1 justify-between'>
+          <div className=''>
+            {/* <FaMusic /> */}
             {song?.name}
           </div>
           <span className='font-extralight'>

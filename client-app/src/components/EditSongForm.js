@@ -30,11 +30,11 @@ export default function EditSongForm({ data, songTitle, song }) {
     updateSong(name, lyrics, status, length, set)
   }
   return (
-    <div className='' key={song.id}>
+    <div className='pl-4 bg-white' key={song.id}>
       <form onSubmit={onSubmit}>
         <div>
           <label className='form-label'>
-            <span className='text-2xl'>〔</span>new name:
+            <span className='zorbit'>〔</span>new name:
           </label>
           <input
             type='text'
@@ -44,7 +44,7 @@ export default function EditSongForm({ data, songTitle, song }) {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-        <div>
+        <div className='pl-6'>
           <label className='form-label'>lyrics: </label>
           <input
             className='form-control'
@@ -54,7 +54,7 @@ export default function EditSongForm({ data, songTitle, song }) {
           ></input>
         </div>
 
-        <div>
+        <div className='pl-6'>
           <label className='form-label'>Status</label>
           <select
             id='status'
@@ -68,7 +68,7 @@ export default function EditSongForm({ data, songTitle, song }) {
           </select>
         </div>
 
-        <div>
+        <div className='pl-6'>
           <label className='form-label'>Length</label>
           <select
             id='length'
@@ -81,7 +81,7 @@ export default function EditSongForm({ data, songTitle, song }) {
           </select>
         </div>
 
-        <div>
+        <div className='pl-6'>
           <label className='form-label'>Set</label>
           <select
             id='set'
@@ -95,10 +95,12 @@ export default function EditSongForm({ data, songTitle, song }) {
               </option>
             ))}
           </select>
-          <span className='text-2xl'>〕</span>
+          <span className='zorbit'>〕</span>
         </div>
 
-        <button type='submit'>Submit</button>
+        <button className='pl-12 pt-2' type='submit'>
+          Submit
+        </button>
       </form>
     </div>
   )

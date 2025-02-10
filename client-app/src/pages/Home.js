@@ -21,8 +21,7 @@ export default function Home() {
   const refRetch = useContext(RefreshContext)
   const [songValue, setSong] = useState(false)
   const [setValue, setSet] = useState(true)
-
-  // const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(false)
   console.log('home rerender')
 
   const token = localStorage.getItem(AUTH_TOKEN)
@@ -67,14 +66,13 @@ export default function Home() {
             />
           </RefreshContext.Provider>
         </div>
-
         <div className='flex flex-col'>
           <div
-            className={`duration-200 text-orange-400 flex flex-row gap-x-44 mb-2 ml-3 ${
+            className={`duration-200 flex flex-row gap-x-44 mb-2 ${
               songValue ? '' : 'translate-x-40'
             }`}
           >
-            ....
+            __
           </div>
           <div className='flex flex-row gap-x-28 mb-2'>
             <RadioButton
@@ -90,12 +88,27 @@ export default function Home() {
             />
           </div>
         </div>
+        <div className={`duration-75 mt-16 h-16 ${visible ? '' : 'h-64'}`}>
+          {/* <div className={`mt-16 h-64 ${songValue ? '' : ''}`}> */}
 
-        <div className={`mt-16 ${songValue ? '' : ''}`}>
-          {/* <div className={` mt-16 ${songValue ? '' : 'invisible'}`}> */}
-          {/* {songValue ? <AddSongModal /> : <AddSetModal /s>} */}
+          {!visible ? (
+            <div>
+              {songValue ? (
+                <AddSongModal data={data} loading={loading} error={error} />
+              ) : (
+                <AddSetModal
+                  data2={data}
+                  loading={loading}
+                  error={error}
+                  userId={_id}
+                />
+              )}
+            </div>
+          ) : (
+            <></>
+          )}
 
-          {songValue ? (
+          {/* {songValue ? (
             <AddSongModal data={data} loading={loading} error={error} />
           ) : (
             <AddSetModal
@@ -104,9 +117,15 @@ export default function Home() {
               error={error}
               userId={_id}
             />
-          )}
+          )} */}
         </div>
-        <SongSetButton songValue={songValue} />
+        <div className=''>
+          <SongSetButton
+            visible={visible}
+            setVisible={setVisible}
+            songValue={songValue}
+          />
+        </div>
       </div>
     </div>
   )

@@ -12,14 +12,22 @@ export default function SetRow({ set }) {
     variables: { set: set.id },
   })
   const refRetch = useContext(RefreshContext)
-
   // eslint-disable-next-line no-unused-vars
   const [screenSongs, setScreenSongs] = useContext(SetCardContext)
-
   if (refRetch) {
+    console.log('heyoo refresh')
     refetch()
   }
+  // const [scr, setScr] = useState(false)
 
+  // const handle = () => {
+  //   setScr(!scr)
+  //   if (scr) {
+  //     setScreenSongs(data)
+  //   } else {
+  //     setScreenSongs(null)
+  //   }
+  // }
   const [deleteSet] = useMutation(DELETE_SET, {
     variables: { id: set.id },
     refetchQueries: [GET_SET_BY_USER, 'slutByUser'],
@@ -29,15 +37,26 @@ export default function SetRow({ set }) {
   return (
     <>
       {!loading && !error && (
-        <div
-          role='button'
-          onFocus={() => setScreenSongs(data)}
+        <button
+          // role='button'
+          // onClick={() => {
+          //   handle()
+          // }}
+          onFocus={() => {
+            setScreenSongs(data)
+          }}
           onBlur={() => setScreenSongs(null)}
           className={`bg-white opacity-90 h-16 min-w-36 max-w-36 border-b-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl hover:border-b-0'`}
         >
           <div className='flex flex-row justify-between'>
             <div className='flex items-center pt-4'>
-              <button className='text-red-400' onClick={deleteSet}>
+              <button
+                className=''
+                onClick={() => {
+                  setScreenSongs(null)
+                  deleteSet()
+                }}
+              >
                 <FaTrash />
               </button>
               <span
@@ -49,7 +68,7 @@ export default function SetRow({ set }) {
               </span>
             </div>
           </div>
-        </div>
+        </button>
       )}
     </>
   )

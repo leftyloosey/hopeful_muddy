@@ -1,9 +1,13 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useQuery } from '@apollo/client'
 import { GET_SONGS } from '../queries/songQueries'
 import { GET_SETS } from '../queries/setQueries'
 
-import { SongCardContext, SetCardContext } from '../context/context'
+import {
+  SongCardContext,
+  SetCardContext,
+  RefreshContext,
+} from '../context/context'
 
 import useOutsideClick from '../utils/outsideClick'
 
@@ -15,11 +19,19 @@ import DeleteSongButton from '../components/DeleteSongButton'
 
 const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
   const { loading, error, data } = useQuery(GET_SONGS)
-  const { data: setData } = useQuery(GET_SETS)
+  const { data: setData, refetch } = useQuery(GET_SETS)
 
   const [choiceFromSongCard, setChoiceFromSongCard] = useState(data?.songs[0])
   const [screenSongs, setScreenSongs] = useState()
   const [del, setDel] = useState(false)
+  // setScreenSongs(setData)
+  const refRetch = useContext(RefreshContext)
+  if (refRetch) {
+    // setDel(false)
+    console.log('info refresh!!!')
+    refetch()
+    // setChoiceFromSongCard(null)
+  }
 
   const handleClickOutside = () => {
     setChoiceFromSongCard(null)
@@ -38,6 +50,7 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
               value={[choiceFromSongCard, setChoiceFromSongCard]}
             >
               <Songs
+                // sawng={[choiceFromSongCard, setChoiceFromSongCard]}
                 setDel={setDel}
                 data={data}
                 loading={loading}

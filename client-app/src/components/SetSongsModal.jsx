@@ -7,7 +7,6 @@ Modal.setAppElement('#root')
 const SetSongsModal = ({ filteredSongs }) => {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [lyrics, setLyrics] = useState()
-
   function openModal() {
     setIsOpen(true)
   }

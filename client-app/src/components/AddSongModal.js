@@ -117,11 +117,7 @@ export default function AddSongModal({ loading, error, data }) {
                   </select>
                 </div>
 
-                <button
-                  type='submit'
-                  data-bs-dismiss='modal'
-                  className='btn btn-primary'
-                >
+                <button type='submit' data-bs-dismiss='modal' className='bt'>
                   Submit
                 </button>
               </div>
