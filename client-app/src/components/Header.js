@@ -9,10 +9,10 @@ export default function Header() {
   const authToken = localStorage.getItem(AUTH_TOKEN)
 
   return (
-    <nav className='mt-10 text-2xl flex flex-col justify-center items-center w-5/6'>
+    <nav className='mt-10 flex flex-col justify-center items-center w-5/6'>
       <div className='gap-x-28 flex flex-row justify-between -translate-y-4'>
         {/* <div className=''> */}
-        <div className='flex flex-col'>
+        <div className='flex flex-col text-2xl '>
           Set Lists
           <div
             className={`text-white text-nowrap text-xs decoration-black duration-150 underline ${

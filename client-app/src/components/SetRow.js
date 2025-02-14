@@ -35,7 +35,7 @@ export default function SetRow({ set }) {
   })
 
   return (
-    <>
+    <div className='border-r-2 border-solid border-gray-700'>
       {!loading && !error && (
         <button
           // role='button'
@@ -49,7 +49,7 @@ export default function SetRow({ set }) {
           className={`bg-white opacity-90 h-16 min-w-36 max-w-36 border-b-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl hover:border-b-0'`}
         >
           <div className='flex flex-row justify-between'>
-            <div className='flex items-center pt-4'>
+            <div className='flex items-center'>
               <button
                 className=''
                 onClick={() => {
@@ -70,6 +70,6 @@ export default function SetRow({ set }) {
           </div>
         </button>
       )}
-    </>
+    </div>
   )
 }

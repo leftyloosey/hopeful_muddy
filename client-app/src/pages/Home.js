@@ -55,7 +55,7 @@ export default function Home() {
 
       <div className='flex flex-col items-center h-dvh w-screen sm:w-3/4'>
         {/* <div className='bg-gradient-to-t from-stone-950 flex flex-col items-center h-dvh w-screen sm:w-3/4'> */}
-        <div className='border-solid border-2 bg-gray-300 bg-opacity-35 w-screen'>
+        <div className='border-solid border-2 bg-gray-300 bg-opacity-35 w-96 h-80 min-h-80'>
           <RefreshContext.Provider value={refRetch}>
             <InfoBox
               data2={data}

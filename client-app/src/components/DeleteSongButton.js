@@ -6,6 +6,7 @@ import { FaTrash } from 'react-icons/fa'
 import { GET_SONGS } from '../queries/songQueries'
 import { DELETE_SONG } from '../mutations/songMutations'
 import { useMutation } from '@apollo/client'
+import { GET_SET_BY_USER } from '../queries/setQueries'
 
 export default function DeleteSongButton({ setDel, songId }) {
   const refRetch = useContext(RefreshContext)
@@ -13,7 +14,9 @@ export default function DeleteSongButton({ setDel, songId }) {
   const [deleteSong] = useMutation(DELETE_SONG, {
     variables: { id: songId },
     // here be pirates
-    refetchQueries: [{ query: GET_SONGS }],
+    refetchQueries: [GET_SET_BY_USER, 'slutByUser'],
+    // refetchQueries: [GET_SONGS, 'getSongs', GET_SET_BY_USER, 'slutByUser'],
+    // refetchQueries: [{ query: GET_SONGS }],
   })
 
   return (
@@ -21,10 +24,11 @@ export default function DeleteSongButton({ setDel, songId }) {
       <button
         className='flex flex-row gap-x-4'
         onMouseDown={() => {
+          // refRetch()
           deleteSong()
           setDel(true)
-          refRetch()
         }}
+        onMouseUp={() => refRetch()}
       >
         Delete Song
         <FaTrash className='icon' />

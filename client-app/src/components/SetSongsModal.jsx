@@ -19,15 +19,15 @@ const SetSongsModal = ({ filteredSongs }) => {
     return <Lyrics lyrics={lyrics} />
   }
   return (
-    <>
-      <div className='ml-16'>
+    <div className=''>
+      <div className=''>
         <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
           {renderPage(lyrics)}
         </Modal>
         {filteredSongs &&
           filteredSongs.songBySet.map((song, index) => (
             <div key={song.id}>
-              <div>
+              <div className=''>
                 <button
                   onMouseDown={(e) => {
                     // e.preventDefault()
@@ -42,7 +42,7 @@ const SetSongsModal = ({ filteredSongs }) => {
             </div>
           ))}
       </div>
-    </>
+    </div>
   )
 }
 

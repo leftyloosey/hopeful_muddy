@@ -1,7 +1,18 @@
+import { useState, useEffect } from 'react'
+
 import SongRow from './SongRow'
 import Spinner from './Spinner'
 
 const Songs = ({ sawng, setDel, loading, error, data }) => {
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true)
+    }, 100)
+
+    return () => clearTimeout(timer)
+  }, [])
   if (loading) return <Spinner />
   if (error) return <p>something is wrong!</p>
 
@@ -17,7 +28,12 @@ const Songs = ({ sawng, setDel, loading, error, data }) => {
   // }
 
   return (
-    <>
+    // <div className='bg-red-400'
+    <div
+      className={`bg-re-400 duration-500 ${
+        isVisible ? 'translate-x-' : 'text-red-300 relativ -translate-x-64'
+      }`}
+    >
       {data.songs.length > 0 ? (
         // song overflow scroll needs to be here
         <div className='w-36 min-w-36 max-w-36 h-64 min-h-64 max-h-64 overflow-y-scroll'>
@@ -30,7 +46,7 @@ const Songs = ({ sawng, setDel, loading, error, data }) => {
           <p>no songs</p>
         </div>
       )}
-    </>
+    </div>
   )
 }
 
