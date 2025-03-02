@@ -17,7 +17,7 @@ const SongRow = ({ sawng, setDel, song }) => {
         setDel(false)
         setChoiceFromSongCard(song)
       }}
-      className='bg-white opacity-90 h-16 border-b-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl'
+      className='bg-white opacity-90 h-16 border-b-2 border-r-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl'
     >
       <div>
         <div className='flex flex-row h-16 items-center gap-x-1 justify-between'>
@@ -26,7 +26,7 @@ const SongRow = ({ sawng, setDel, song }) => {
             {song?.name}
           </div>
           <span className='font-extralight'>
-            <i>{song?.set.name}</i>
+            <i>{song?.set?.name}</i>
           </span>
         </div>
       </div>

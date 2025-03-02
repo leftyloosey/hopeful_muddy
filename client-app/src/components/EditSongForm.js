@@ -30,11 +30,12 @@ export default function EditSongForm({ data, songTitle, song }) {
     updateSong(name, lyrics, status, length, set)
   }
   return (
-    <div className='pl-4 bg-white' key={song.id}>
+    <div className='bg-white' key={song.id}>
       <form onSubmit={onSubmit}>
         <div>
-          <label className='form-label'>
-            <span className='zorbit'>〔</span>new name:
+          <label className=' form-label'>
+            {/* <span className='zorbit'>〔</span> */}
+            new name:
           </label>
           <input
             type='text'
@@ -44,7 +45,7 @@ export default function EditSongForm({ data, songTitle, song }) {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-        <div className='pl-6'>
+        <div className=''>
           <label className='form-label'>lyrics: </label>
           <input
             className='form-control'
@@ -54,8 +55,8 @@ export default function EditSongForm({ data, songTitle, song }) {
           ></input>
         </div>
 
-        <div className='pl-6'>
-          <label className='form-label'>Status</label>
+        <div className=''>
+          {/* <label className='form-label'>Status</label> */}
           <select
             id='status'
             className='form-select'
@@ -68,8 +69,8 @@ export default function EditSongForm({ data, songTitle, song }) {
           </select>
         </div>
 
-        <div className='pl-6'>
-          <label className='form-label'>Length</label>
+        <div className=''>
+          {/* <label className='form-label'>Length</label> */}
           <select
             id='length'
             className='form-select'
@@ -81,8 +82,8 @@ export default function EditSongForm({ data, songTitle, song }) {
           </select>
         </div>
 
-        <div className='pl-6'>
-          <label className='form-label'>Set</label>
+        <div className=''>
+          {/* <label className='form-label'>Set</label> */}
           <select
             id='set'
             value={set}
@@ -95,7 +96,7 @@ export default function EditSongForm({ data, songTitle, song }) {
               </option>
             ))}
           </select>
-          <span className='zorbit'>〕</span>
+          {/* <span className='zorbit'>〕</span> */}
         </div>
 
         <button className='pl-12 pt-2' type='submit'>

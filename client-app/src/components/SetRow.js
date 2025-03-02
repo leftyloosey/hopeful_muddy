@@ -3,7 +3,7 @@ import { FaTrash } from 'react-icons/fa'
 import { useMutation } from '@apollo/client'
 import { DELETE_SET } from '../mutations/setMutations'
 import { GET_SET_BY_USER } from '../queries/setQueries'
-import { GET_SONGS_BY_SET } from '../queries/songQueries'
+import { GET_SONGS, GET_SONGS_BY_SET } from '../queries/songQueries'
 import { useQuery } from '@apollo/client'
 import { RefreshContext, SetCardContext } from '../context/context'
 
@@ -30,23 +30,23 @@ export default function SetRow({ set }) {
   // }
   const [deleteSet] = useMutation(DELETE_SET, {
     variables: { id: set.id },
-    refetchQueries: [GET_SET_BY_USER, 'slutByUser'],
+    refetchQueries: [GET_SET_BY_USER, 'slutByUser', GET_SONGS, 'getSongs'],
     // update(cache, { data: { deleteSet } }) {},
   })
 
   return (
-    <div className='border-r-2 border-solid border-gray-700'>
+    <div className=''>
       {!loading && !error && (
-        <button
+        <div
           // role='button'
           // onClick={() => {
-          //   handle()
+          //   setScreenSongs(data)
           // }}
-          onFocus={() => {
-            setScreenSongs(data)
-          }}
+          // onFocus={() => {
+          //   setScreenSongs(data)
+          // }}
           onBlur={() => setScreenSongs(null)}
-          className={`bg-white opacity-90 h-16 min-w-36 max-w-36 border-b-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl hover:border-b-0'`}
+          className={`bg-white -ml-0.5  opacity-90 h-16  min-w-40 max-w-40 border-r-2 border-b-2 border-l-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl hover:border-b-0'`}
         >
           <div className='flex flex-row justify-between'>
             <div className='flex items-center'>
@@ -59,16 +59,16 @@ export default function SetRow({ set }) {
               >
                 <FaTrash />
               </button>
-              <span
-              // className='w-32 h-14 bg-red-'
-              // onFocus={() => setScreenSongs(data)}
-              // onBlur={() => setScreenSongs(null)}
+              <button
+                className='w-32 h-14 bg-red-00'
+                onFocus={() => setScreenSongs(data)}
+                onBlur={() => setScreenSongs(null)}
               >
                 {set.name}
-              </span>
+              </button>
             </div>
           </div>
-        </button>
+        </div>
       )}
     </div>
   )

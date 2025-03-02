@@ -30,8 +30,8 @@ const Songs = ({ sawng, setDel, loading, error, data }) => {
   return (
     // <div className='bg-red-400'
     <div
-      className={`bg-re-400 duration-500 ${
-        isVisible ? 'translate-x-' : 'text-red-300 relativ -translate-x-64'
+      className={`duration-500 ${
+        isVisible ? 'translate-x-' : '-translate-x-16'
       }`}
     >
       {data.songs.length > 0 ? (

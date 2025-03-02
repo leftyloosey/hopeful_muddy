@@ -19,12 +19,12 @@ export default function Sets({ songValue, data, loading, error }) {
 
   return (
     <div
-      className={`bg-yellw-400 ml-60 absolute duration-500 ${
-        isVisible ? 'translate-x-' : 'text-red-300 relativ translate-x-64'
+      className={`ml-12 duration-500 ${
+        isVisible ? 'translate-x-' : 'translate-x-16'
       }`}
     >
       {!loading && !error && (
-        <div className='w-36 min-w-36 max-w-36 h-64 min-h-64 max-h-64 overflow-y-scroll'>
+        <div className='w-64 min-w-64 max-w-64 h-64 min-h-64 max-h-64 overflow-y-scroll'>
           {data.setByUser.map((set) => (
             <SetRow key={set.id} set={set} songs={data} />
           ))}

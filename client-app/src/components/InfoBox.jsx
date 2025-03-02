@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery } from '@apollo/client'
 import { GET_SONGS } from '../queries/songQueries'
 import { GET_SETS } from '../queries/setQueries'
@@ -6,7 +6,7 @@ import { GET_SETS } from '../queries/setQueries'
 import {
   SongCardContext,
   SetCardContext,
-  RefreshContext,
+  // RefreshContext,
 } from '../context/context'
 
 import useOutsideClick from '../utils/outsideClick'
@@ -17,35 +17,34 @@ import SetSongsModal from './SetSongsModal'
 import EditSongForm from './EditSongForm'
 import DeleteSongButton from '../components/DeleteSongButton'
 
-const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
-  const { loading, error, data, refetch: refetch2 } = useQuery(GET_SONGS)
-  const { data: setData, refetch } = useQuery(GET_SETS)
+import right_bracket from '../assets/images/right_bracket1.jpg'
+import left_bracket from '../assets/images/left_bracket1.jpg'
 
+const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
+  const { loading, error, data } = useQuery(GET_SONGS)
+  const { data: setData } = useQuery(GET_SETS)
   const [choiceFromSongCard, setChoiceFromSongCard] = useState(data?.songs[0])
+  // const [choiceFromSongCard, setChoiceFromSongCard] = useState(data?.songs[0])
   const [screenSongs, setScreenSongs] = useState()
   const [del, setDel] = useState(false)
-  // setScreenSongs(setData)
-  const refRetch = useContext(RefreshContext)
-  if (refRetch) {
-    // setDel(false)
-    refetch2()
+  const [pushRight, setPushRight] = useState(false)
+  const [bronco, setBronco] = useState(false)
 
-    refetch()
-    // setChoiceFromSongCard(null)
-  }
+  useEffect(() => {
+    return () => {
+      setBronco(!bronco)
+    }
+  }, [del, bronco])
 
   const handleClickOutside = () => {
     setChoiceFromSongCard(null)
   }
 
   const ref = useOutsideClick(handleClickOutside)
-
   return (
-    <div ref={ref} className=''>
-      <div className='flex flex-row '>
-        {/* <div className='flex flex-row h-72 min-h-72 max-h-72'> */}
-        <div className=''>
-          {/* <div className='bg-yellow-300 min-w-36 w-36 max-w-36 '> */}
+    <div ref={ref} className='w-full'>
+      <div className='justify-center flex flex-row'>
+        <div className='flex flex-row'>
           {songValue ? (
             <div>
               <SongCardContext.Provider
@@ -62,10 +61,13 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
             </div>
           ) : (
             <div className='flex flex-row'>
-              <div className='ml-16 absolute w-36 h-64 flex flex-col'>
-                <SetSongsModal filteredSongs={screenSongs} />
+              {/* <div className='slabby'> */}
+              <div className={`${pushRight ? 'slabby duration-500' : ''}`}>
+                <SetSongsModal
+                  setPushRight={setPushRight}
+                  filteredSongs={screenSongs}
+                />
               </div>
-              {/* <div className=''> */}
               <SetCardContext.Provider value={[screenSongs, setScreenSongs]}>
                 <Sets
                   songValue={songValue}
@@ -75,23 +77,31 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
                   userId={_id}
                 />
               </SetCardContext.Provider>
-              {/* </div> */}
             </div>
           )}
         </div>
-        <div className=''>
+
+        <div className='duration-500'>
           {/* <div className='min-w-36 w-36 max-w-36 ml-16'> */}
           {songValue ? (
             <div>
               {choiceFromSongCard && !del && (
                 <div className='flex flex-col'>
-                  <EditSongForm
-                    songTitle={choiceFromSongCard?.name}
-                    song={choiceFromSongCard}
-                    songId={choiceFromSongCard?.id}
-                    data={setData}
-                  />
+                  <div className='flex flex-row'>
+                    <div>
+                      <img src={left_bracket} alt='left_bracket' />
+                    </div>
 
+                    <EditSongForm
+                      songTitle={choiceFromSongCard?.name}
+                      song={choiceFromSongCard}
+                      songId={choiceFromSongCard?.id}
+                      data={setData}
+                    />
+                    <div className=''>
+                      <img src={right_bracket} alt='right_bracket' />
+                    </div>
+                  </div>
                   <div className='pt-2'>
                     {/* <SetInfo set={choiceFromSongCard?.set?.name} /> */}
                     <DeleteSongButton

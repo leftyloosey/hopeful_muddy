@@ -11,6 +11,8 @@ import Header from '../components/Header'
 import Login from '../components/Login'
 import InfoBox from '../components/InfoBox'
 
+import LogoutButton from '../components/LogoutButton'
+
 import RadioButton from '../components/RadioButton'
 import SongSetButton from '../components/SongSetButton'
 
@@ -55,26 +57,27 @@ export default function Home() {
 
       <div className='flex flex-col items-center h-dvh w-screen sm:w-3/4'>
         {/* <div className='bg-gradient-to-t from-stone-950 flex flex-col items-center h-dvh w-screen sm:w-3/4'> */}
-        <div className='border-solid border-2 bg-gray-300 bg-opacity-35 w-96 h-80 min-h-80'>
-          <RefreshContext.Provider value={refRetch}>
-            <InfoBox
-              data2={data}
-              loading2={loading}
-              error2={error}
-              songValue={songValue}
-              _id={_id}
-            />
-          </RefreshContext.Provider>
-        </div>
+        {/* <div className='w-screen h-80 min-h-80'> */}
+        {/* <div className='border-solid border-2 bg-gray-300 bg-opacity-35 w-screen h-80 min-h-80'> */}
+        <RefreshContext.Provider value={refRetch}>
+          <InfoBox
+            data2={data}
+            loading2={loading}
+            error2={error}
+            songValue={songValue}
+            _id={_id}
+          />
+        </RefreshContext.Provider>
+        {/* </div> */}
         <div className='flex flex-col'>
           <div
-            className={`duration-200 flex flex-row gap-x-44 mb-2 ${
-              songValue ? '' : 'translate-x-40'
+            className={`duration-200 flex flex-row ml-3  ${
+              songValue ? '' : 'translate-x-32'
             }`}
           >
-            __
+            .
           </div>
-          <div className='flex flex-row gap-x-28 mb-2'>
+          <div className='flex flex-row gap-x-24 mb-2'>
             <RadioButton
               label='Song'
               value={songValue}
@@ -119,13 +122,14 @@ export default function Home() {
             />
           )} */}
         </div>
-        <div className=''>
+        <div className='flex flex-col'>
           <SongSetButton
             visible={visible}
             setVisible={setVisible}
             songValue={songValue}
           />
         </div>
+        {visible ? <LogoutButton /> : <></>}
       </div>
     </div>
   )

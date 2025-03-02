@@ -14,7 +14,9 @@ export default function DeleteSongButton({ setDel, songId }) {
   const [deleteSong] = useMutation(DELETE_SONG, {
     variables: { id: songId },
     // here be pirates
-    refetchQueries: [GET_SET_BY_USER, 'slutByUser'],
+    // refetchQueries: [GET_SET_BY_USER, 'slutByUser'],
+    refetchQueries: [GET_SONGS, 'getSongs'],
+
     // refetchQueries: [GET_SONGS, 'getSongs', GET_SET_BY_USER, 'slutByUser'],
     // refetchQueries: [{ query: GET_SONGS }],
   })
@@ -28,7 +30,7 @@ export default function DeleteSongButton({ setDel, songId }) {
           deleteSong()
           setDel(true)
         }}
-        onMouseUp={() => refRetch()}
+        onMouseUp={() => setDel(false)}
       >
         Delete Song
         <FaTrash className='icon' />

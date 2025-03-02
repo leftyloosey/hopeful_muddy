@@ -7,9 +7,20 @@ body {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  padding: 20px 20px;
-  /* padding: 0 1em; */
+  /* padding: 20px 20px; */
+  padding: 0 0.5em;
   border: 1px solid black;
+  /* height: 60px; */
+  /* width: 60px; */
+}
+.btn:hover {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  /* padding: 20px 20px; */
+  padding: 0 0.5em;
+  border: 1px solid white;
   /* height: 60px; */
   /* width: 60px; */
 }
@@ -27,8 +38,16 @@ body {
 }
 
 .zorbit {
-  font-size: 3rem /* 24px */;
-  line-height: 4rem /* 32px */;
+  font-size: 2rem /* 24px */;
+  line-height: 3rem /* 32px */;
+}
+.norbit {
+  margin-left: 4rem;
+  /* padding-left: 4rem; */
+}
+.slabby {
+  margin-left: 4rem;
+  /* padding-left: 4rem; */
 }
 
 @tailwind base;
