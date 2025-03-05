@@ -43,11 +43,13 @@ body {
 }
 .norbit {
   margin-left: 4rem;
-  /* padding-left: 4rem; */
+}
+.plorbit {
+  /* translate: var(--tw-translate-x) 5px; */
+  transform: skewX(1deg) skewY(1deg);
 }
 .slabby {
-  margin-left: 4rem;
-  /* padding-left: 4rem; */
+  margin-left: 16rem;
 }
 
 @tailwind base;

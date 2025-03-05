@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import SongRow from './SongRow'
 import Spinner from './Spinner'
 
-const Songs = ({ sawng, setDel, loading, error, data }) => {
+const Songs = ({ wobble, setWobble, setDel, loading, error, data }) => {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -38,7 +38,13 @@ const Songs = ({ sawng, setDel, loading, error, data }) => {
         // song overflow scroll needs to be here
         <div className='w-36 min-w-36 max-w-36 h-64 min-h-64 max-h-64 overflow-y-scroll'>
           {data.songs.map((song) => (
-            <SongRow sawng={sawng} setDel={setDel} key={song.id} song={song} />
+            <SongRow
+              wobble={wobble}
+              setWobble={setWobble}
+              setDel={setDel}
+              key={song.id}
+              song={song}
+            />
           ))}
         </div>
       ) : (

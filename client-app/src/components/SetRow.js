@@ -46,7 +46,7 @@ export default function SetRow({ set }) {
           //   setScreenSongs(data)
           // }}
           onBlur={() => setScreenSongs(null)}
-          className={`bg-white -ml-0.5  opacity-90 h-16  min-w-40 max-w-40 border-r-2 border-b-2 border-l-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl hover:border-b-0'`}
+          className={`bg-white duration-100 -ml-0.5  opacity-90 h-16  min-w-40 max-w-40 border-r-2 border-b-2 border-l-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl hover:border-b-0'`}
         >
           <div className='flex flex-row justify-between'>
             <div className='flex items-center'>

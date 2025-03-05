@@ -122,14 +122,15 @@ export default function Home() {
             />
           )} */}
         </div>
-        <div className='flex flex-col'>
+        <div className='flex flex-col gap-y-4'>
           <SongSetButton
             visible={visible}
             setVisible={setVisible}
             songValue={songValue}
           />
+          {visible && <LogoutButton />}
+          {/* {visible ? <LogoutButton /> : <></>} */}
         </div>
-        {visible ? <LogoutButton /> : <></>}
       </div>
     </div>
   )

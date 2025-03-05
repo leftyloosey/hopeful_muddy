@@ -29,6 +29,7 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
   const [del, setDel] = useState(false)
   const [pushRight, setPushRight] = useState(false)
   const [bronco, setBronco] = useState(false)
+  const [wobble, setWobble] = useState(false)
 
   useEffect(() => {
     return () => {
@@ -39,7 +40,7 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
   const handleClickOutside = () => {
     setChoiceFromSongCard(null)
   }
-
+  console.log(wobble)
   const ref = useOutsideClick(handleClickOutside)
   return (
     <div ref={ref} className='w-full'>
@@ -51,7 +52,8 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
                 value={[choiceFromSongCard, setChoiceFromSongCard]}
               >
                 <Songs
-                  // sawng={[choiceFromSongCard, setChoiceFromSongCard]}
+                  wobble={wobble}
+                  setWobble={setWobble}
                   setDel={setDel}
                   data={data}
                   loading={loading}
@@ -89,26 +91,37 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
                 <div className='flex flex-col'>
                   <div className='flex flex-row'>
                     <div>
-                      <img src={left_bracket} alt='left_bracket' />
+                      <img
+                        className={`${wobble ? '' : 'plorbit'}`}
+                        src={left_bracket}
+                        alt='left_bracket'
+                      />
+                    </div>
+                    <div className='flex flex-col duration-1000'>
+                      <EditSongForm
+                        wobble={wobble}
+                        setWobble={setWobble}
+                        songTitle={choiceFromSongCard?.name}
+                        song={choiceFromSongCard}
+                        songId={choiceFromSongCard?.id}
+                        data={setData}
+                      />
+                      <div className='mt-16'>
+                        <DeleteSongButton
+                          del={del}
+                          setDel={setDel}
+                          songId={choiceFromSongCard?.id}
+                        />
+                      </div>
                     </div>
 
-                    <EditSongForm
-                      songTitle={choiceFromSongCard?.name}
-                      song={choiceFromSongCard}
-                      songId={choiceFromSongCard?.id}
-                      data={setData}
-                    />
-                    <div className=''>
-                      <img src={right_bracket} alt='right_bracket' />
+                    <div>
+                      <img
+                        className={`${wobble ? 'plorbit' : ''}`}
+                        src={right_bracket}
+                        alt='right_bracket'
+                      />
                     </div>
-                  </div>
-                  <div className='pt-2'>
-                    {/* <SetInfo set={choiceFromSongCard?.set?.name} /> */}
-                    <DeleteSongButton
-                      del={del}
-                      setDel={setDel}
-                      songId={choiceFromSongCard?.id}
-                    />
                   </div>
                 </div>
               )}

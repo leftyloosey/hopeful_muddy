@@ -3,11 +3,12 @@ import { useContext } from 'react'
 
 import { SongCardContext } from '../context/context'
 
-const SongRow = ({ sawng, setDel, song }) => {
+const SongRow = ({ wobble, setWobble, setDel, song }) => {
   // const [choiceFromSongCard, setChoiceFromSongCard] = sawng
   // eslint-disable-next-line no-unused-vars
   const [choiceFromSongCard, setChoiceFromSongCard] =
     useContext(SongCardContext)
+
   if (!song) return <p>no song</p>
 
   return (
@@ -16,8 +17,9 @@ const SongRow = ({ sawng, setDel, song }) => {
       onClick={() => {
         setDel(false)
         setChoiceFromSongCard(song)
+        setWobble(!wobble)
       }}
-      className='bg-white opacity-90 h-16 border-b-2 border-r-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl'
+      className='bg-white duration-100 opacity-90 h-16 border-b-2 border-r-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl'
     >
       <div>
         <div className='flex flex-row h-16 items-center gap-x-1 justify-between'>
