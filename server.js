@@ -100,6 +100,7 @@ app.use(
 // app.use(express.static(path.join(__dirname, '../client-app/public/build')))
 // app.use(express.static(path.join(__dirname, '../client/build')))
 app.use(express.static('public'))
+// app.use(express.static('public'))
 // app.use(express.static('client-app/public/build'))
 // app.use(express.static('client-app/build'))
 
