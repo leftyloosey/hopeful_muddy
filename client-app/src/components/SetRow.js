@@ -60,7 +60,7 @@ export default function SetRow({ set }) {
                 <FaTrash />
               </button>
               <button
-                className='w-32 h-14 bg-red-00'
+                className='w-32 h-14 bg-red-'
                 onFocus={() => setScreenSongs(data)}
                 onTouchStart={() => setScreenSongs(data)}
                 onBlur={() => setScreenSongs(null)}
