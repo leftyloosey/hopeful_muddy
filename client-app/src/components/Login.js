@@ -62,8 +62,8 @@ const Login = () => {
     },
     onCompleted: async (data) => {
       const { email } = data.addUser
-      // const rawResponse = await fetch('http://localhost:8000/create', {
-      const rawResponse = await fetch('/create', {
+      const rawResponse = await fetch('http://localhost:8000/create', {
+        // const rawResponse = await fetch('/create', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

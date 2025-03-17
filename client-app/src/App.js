@@ -1,9 +1,5 @@
-// import { hot } from 'react-hot-loader/root';
-// import Header from './components/Header'
-// import Where from './components/Where'
 import Home from './pages/Home'
-// import Song from './pages/Song'
-// import NotFound from './pages/NotFound'
+
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Login from './components/Login'
@@ -66,16 +62,10 @@ function App() {
       <ApolloProvider client={client}>
         <Router>
           <div className='font-grotesk'>
-            {/* <div className='container h-dvh bg-stone-700 flex-col items-center'> */}
-            {/* <div className='container h-dvh bg-gradient-to-b from-cyan-600 to-white'> */}
             <Routes>
               <Route path='/' element={<Home />} />
-              {/* <Route path='/song/:id' element={<Song />} /> */}
-              {/* <Route path='*' element={<NotFound />} />
-              <Route path='/where' element={<Where />} /> */}
               <Route path='/login' element={<Login />} />
             </Routes>
-            {/* <Header /> */}
           </div>
         </Router>
       </ApolloProvider>

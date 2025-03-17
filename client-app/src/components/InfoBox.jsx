@@ -39,11 +39,12 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
 
   const handleClickOutside = () => {
     setChoiceFromSongCard(null)
+    setScreenSongs(null)
   }
   console.log(wobble)
   const ref = useOutsideClick(handleClickOutside)
   return (
-    <div ref={ref} className='w-full'>
+    <div ref={ref} className=' bg-red-'>
       <div className='justify-center flex flex-row'>
         <div className='flex flex-row'>
           {songValue ? (

@@ -45,8 +45,8 @@ export default function SetRow({ set }) {
           // onFocus={() => {
           //   setScreenSongs(data)
           // }}
-          onBlur={() => setScreenSongs(null)}
-          className={`bg-white duration-100 -ml-0.5  opacity-90 h-16  min-w-40 max-w-40 border-r-2 border-b-2 border-l-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl hover:border-b-0'`}
+          // onBlur={() => setScreenSongs(null)}
+          className={`bg-white duration-100 -ml-0.5 opacity-90 h-16  min-w-40 max-w-40 border-r-2 border-b-2 border-l-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl hover:border-b-0'`}
         >
           <div className='flex flex-row justify-between'>
             <div className='flex items-center'>
@@ -61,9 +61,10 @@ export default function SetRow({ set }) {
               </button>
               <button
                 className='w-32 h-14 bg-red-'
-                onFocus={() => setScreenSongs(data)}
-                onTouchStart={() => setScreenSongs(data)}
-                onBlur={() => setScreenSongs(null)}
+                // onFocus={() => setScreenSongs(data)}
+                onClick={() => setScreenSongs(data)}
+                // onTouchStart={() => setScreenSongs(data)}
+                // onBlur={() => setScreenSongs(null)}
               >
                 {set.name}
               </button>

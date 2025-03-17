@@ -25,11 +25,13 @@ const context = async () => {
   return { db }
 }
 
-// app.use('/graphql', graphqlHTTP({
+// app.use(
+//   '/graphql',
+//   graphqlHTTP({
 //     schema,
 //     graphiql: process.env.NODE_ENV === 'production',
-
-// }))
+//   })
+// )
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
