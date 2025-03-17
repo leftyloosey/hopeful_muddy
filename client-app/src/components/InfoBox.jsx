@@ -25,7 +25,7 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
   const { data: setData } = useQuery(GET_SETS)
   const [choiceFromSongCard, setChoiceFromSongCard] = useState(data?.songs[0])
   // const [choiceFromSongCard, setChoiceFromSongCard] = useState(data?.songs[0])
-  const [screenSongs, setScreenSongs] = useState()
+  const [screenSongs, setScreenSongs] = useState(null)
   const [del, setDel] = useState(false)
   const [pushRight, setPushRight] = useState(false)
   const [bronco, setBronco] = useState(false)
@@ -34,19 +34,16 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
   useEffect(() => {
     return () => {
       setBronco(!bronco)
+      setScreenSongs(null)
     }
   }, [del, bronco])
 
   const handleClickOutside = () => {
-    // setScreenSongs(null)
     setChoiceFromSongCard(null)
   }
-  const handleClickOutside2 = () => {
-    setScreenSongs(null)
-  }
+
   console.log(wobble)
   const ref = useOutsideClick(handleClickOutside)
-  const ref2 = useOutsideClick(handleClickOutside2)
   return (
     <div ref={ref} className=' bg-red-'>
       <div className='justify-center flex flex-row'>
@@ -67,7 +64,7 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
               </SongCardContext.Provider>
             </div>
           ) : (
-            <div ref={ref2} className='flex flex-row'>
+            <div className='flex flex-row'>
               {/* <div className='slabby'> */}
               <div className={`${pushRight ? 'slabby duration-500' : ''}`}>
                 <SetSongsModal
