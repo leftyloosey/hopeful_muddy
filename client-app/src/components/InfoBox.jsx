@@ -38,11 +38,15 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
   }, [del, bronco])
 
   const handleClickOutside = () => {
-    setScreenSongs(null)
+    // setScreenSongs(null)
     setChoiceFromSongCard(null)
+  }
+  const handleClickOutside2 = () => {
+    setScreenSongs(null)
   }
   console.log(wobble)
   const ref = useOutsideClick(handleClickOutside)
+  const ref2 = useOutsideClick(handleClickOutside2)
   return (
     <div ref={ref} className=' bg-red-'>
       <div className='justify-center flex flex-row'>
@@ -63,7 +67,7 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
               </SongCardContext.Provider>
             </div>
           ) : (
-            <div className='flex flex-row'>
+            <div ref={ref2} className='flex flex-row'>
               {/* <div className='slabby'> */}
               <div className={`${pushRight ? 'slabby duration-500' : ''}`}>
                 <SetSongsModal

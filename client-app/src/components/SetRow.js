@@ -64,7 +64,7 @@ export default function SetRow({ set }) {
                 // onFocus={() => setScreenSongs(data)}
                 onClick={() => setScreenSongs(data)}
                 // onTouchStart={() => setScreenSongs(data)}
-                // onBlur={() => setScreenSongs(null)}
+                onBlur={() => setScreenSongs(null)}
               >
                 {set.name}
               </button>
