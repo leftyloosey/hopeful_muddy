@@ -38,8 +38,8 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
   }, [del, bronco])
 
   const handleClickOutside = () => {
-    setChoiceFromSongCard(null)
     setScreenSongs(null)
+    setChoiceFromSongCard(null)
   }
   console.log(wobble)
   const ref = useOutsideClick(handleClickOutside)
