@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import SetRow from './SetRow'
-import Spinner from './Spinner'
+// import Spinner from './Spinner'
 
 export default function Sets({ songValue, data, loading, error }) {
   const [isVisible, setIsVisible] = useState(false)
@@ -12,7 +12,7 @@ export default function Sets({ songValue, data, loading, error }) {
 
     return () => clearTimeout(timer)
   }, [])
-  if (loading) return <Spinner />
+  if (loading) return <span>Loading</span>
   if (error) {
     return <p>something wrong</p>
   }

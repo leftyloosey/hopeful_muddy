@@ -10,9 +10,11 @@ const useOutsideClick = (callback) => {
     }
 
     document.addEventListener('click', handleClick)
+    document.addEventListener('touch', handleClick)
 
     return () => {
       document.removeEventListener('click', handleClick)
+      document.removeEventListener('touch', handleClick)
     }
   }, [ref, callback])
 

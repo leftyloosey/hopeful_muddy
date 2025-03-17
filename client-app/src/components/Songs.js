@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 import SongRow from './SongRow'
-import Spinner from './Spinner'
+// import Spinner from './Spinner'
 
 const Songs = ({ wobble, setWobble, setDel, loading, error, data }) => {
   const [isVisible, setIsVisible] = useState(false)
@@ -13,7 +13,7 @@ const Songs = ({ wobble, setWobble, setDel, loading, error, data }) => {
 
     return () => clearTimeout(timer)
   }, [])
-  if (loading) return <Spinner />
+  if (loading) return <span>Loading</span>
   if (error) return <p>something is wrong!</p>
 
   // if (data?.songs?.length > 0) {
