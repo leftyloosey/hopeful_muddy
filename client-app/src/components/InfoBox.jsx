@@ -39,6 +39,7 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
   }, [del, bronco])
 
   const handleClickOutside = () => {
+    setScreenSongs(null)
     setChoiceFromSongCard(null)
   }
 
