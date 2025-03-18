@@ -1,5 +1,6 @@
 body {
   /* background-color: rgb(68 64 60 / var(--tw-bg-opacity, 1)); */
+  background-color: rgb(68 64 60 / var(--tw-bg-opacity, 1));
 }
 
 .btn {
@@ -49,7 +50,7 @@ body {
   transform: skewX(1deg) skewY(1deg);
 }
 .slabby {
-  margin-left: 16rem;
+  margin-left: 8.5rem;
 }
 
 @tailwind base;

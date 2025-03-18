@@ -3,11 +3,7 @@ import { useQuery } from '@apollo/client'
 import { GET_SONGS } from '../queries/songQueries'
 import { GET_SETS } from '../queries/setQueries'
 
-import {
-  SongCardContext,
-  SetCardContext,
-  // RefreshContext,
-} from '../context/context'
+import { SongCardContext, SetCardContext } from '../context/context'
 
 import useOutsideClick from '../utils/outsideClick'
 
@@ -24,7 +20,6 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
   const { loading, error, data } = useQuery(GET_SONGS)
   const { data: setData } = useQuery(GET_SETS)
   const [choiceFromSongCard, setChoiceFromSongCard] = useState(data?.songs[0])
-  // const [choiceFromSongCard, setChoiceFromSongCard] = useState(data?.songs[0])
   const [screenSongs, setScreenSongs] = useState(null)
   const [del, setDel] = useState(false)
   const [pushRight, setPushRight] = useState(false)
@@ -43,7 +38,6 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
     setChoiceFromSongCard(null)
   }
 
-  console.log(wobble)
   const ref = useOutsideClick(handleClickOutside)
   return (
     <div ref={ref} className=' bg-red-'>
@@ -75,6 +69,7 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
               </div>
               <SetCardContext.Provider value={[screenSongs, setScreenSongs]}>
                 <Sets
+                  pushRight={pushRight}
                   songValue={songValue}
                   data={data2}
                   loading={loading2}
@@ -87,12 +82,11 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
         </div>
 
         <div className='duration-500'>
-          {/* <div className='min-w-36 w-36 max-w-36 ml-16'> */}
           {songValue ? (
             <div>
               {choiceFromSongCard && !del && (
-                <div className='flex flex-col'>
-                  <div className='flex flex-row'>
+                <div className='flex flex-col '>
+                  <div className='flex flex-row '>
                     <div>
                       <img
                         className={`${wobble ? '' : 'plorbit'}`}
@@ -131,9 +125,6 @@ const InfoBox = ({ data2, loading2, error2, songValue, _id }) => {
             </div>
           ) : (
             <></>
-            // <div className='-translate--64'>
-            //   <SetSongsModal filteredSongs={screenSongs} />
-            // </div>
           )}
         </div>
       </div>

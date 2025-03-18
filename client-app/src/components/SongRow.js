@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 // import { FaMusic } from 'react-icons/fa'
 
 import { SongCardContext } from '../context/context'
@@ -19,15 +19,16 @@ const SongRow = ({ wobble, setWobble, setDel, song }) => {
         setChoiceFromSongCard(song)
         setWobble(!wobble)
       }}
-      className='bg-white duration-100 opacity-90 h-16 border-b-2 border-r-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl'
+      className='bg-white duration-100 w-44 md:w-64 h-16 border-b-2 border-dashed ease-in-out hover:-translate-y-1 hover:shadow-2xl'
     >
       <div>
-        <div className='flex flex-row h-16 items-center gap-x-1 justify-between'>
+        <div>
+          {/* <div className='flex flex-col md:flex-row md: h-16 items-center justify-between'> */}
           <div className=''>
             {/* <FaMusic /> */}
             {song?.name}
           </div>
-          <span className='font-extralight'>
+          <span className='font-extralight text-sm'>
             <i>{song?.set?.name}</i>
           </span>
         </div>

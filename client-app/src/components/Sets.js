@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react'
 import SetRow from './SetRow'
 // import Spinner from './Spinner'
 
-export default function Sets({ songValue, data, loading, error }) {
+export default function Sets({ data, loading, error }) {
   const [isVisible, setIsVisible] = useState(false)
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true)
@@ -19,14 +18,16 @@ export default function Sets({ songValue, data, loading, error }) {
 
   return (
     <div
-      className={`ml-12 duration-500 ${
+      className={`mr-16 duration-500 ${
         isVisible ? 'translate-x-' : 'translate-x-16'
       }`}
     >
       {!loading && !error && (
-        <div className='w-64 min-w-64 max-w-64 h-64 min-h-64 max-h-64 overflow-y-scroll'>
+        <div className='h-64 min-h-64 max-h-64 overflow-y-scroll min-w-32 '>
+          {/* <div className=' h-64 min-h-64 max-h-64 overflow-y-scroll'> */}
+          {/* <div className='w-64 min-w-64 max-w-64 h-64 min-h-64 max-h-64 overflow-y-scroll'> */}
           {data.setByUser.map((set) => (
-            <SetRow key={set.id} set={set} songs={data} />
+            <SetRow isVisible={isVisible} key={set.id} set={set} songs={data} />
           ))}
         </div>
       )}

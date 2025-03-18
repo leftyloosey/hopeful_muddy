@@ -28,7 +28,7 @@ const SetSongsModal = ({ setPushRight, filteredSongs }) => {
   }, [filteredSongs, setPushRight])
 
   return (
-    <div className='border-solid border-b-2 norbit zorbit'>
+    <div className='border-r-2 border-solid norbit zorbit'>
       <div className=''>
         <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
           {renderPage(lyrics)}
@@ -37,7 +37,7 @@ const SetSongsModal = ({ setPushRight, filteredSongs }) => {
           filteredSongs.songBySet.map((song, index) => (
             <div className='' key={song.id}>
               <button
-                className=' border-b-2 border-solid'
+                className='text-nowrap border-b- border-soli'
                 onMouseDown={(e) => {
                   // e.preventDefault()
                   // e.stopPropagation()

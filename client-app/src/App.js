@@ -8,8 +8,8 @@ import { AUTH_TOKEN } from './constants'
 import { HttpLink } from '@apollo/client'
 
 const httpLink = new HttpLink({
-  // uri: 'http://localhost:8000/graphql',
-  uri: '/graphql',
+  uri: 'http://localhost:8000/graphql',
+  // uri: '/graphql',
   // Additional options
 })
 
@@ -39,7 +39,6 @@ const cache = new InMemoryCache({
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem(AUTH_TOKEN)
-  // console.log('HI TOKEN', token)
   return {
     headers: {
       ...headers,
@@ -49,8 +48,8 @@ const authLink = setContext((_, { headers }) => {
 })
 
 const client = new ApolloClient({
-  // uri: 'http://localhost:8000/graphql',
-  uri: '/graphql',
+  uri: 'http://localhost:8000/graphql',
+  // uri: '/graphql',
   link: authLink.concat(httpLink),
 
   cache: cache,

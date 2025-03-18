@@ -24,7 +24,6 @@ export default function Home() {
   const [songValue, setSong] = useState(false)
   const [setValue, setSet] = useState(true)
   const [visible, setVisible] = useState(false)
-  console.log('home rerender')
 
   const token = localStorage.getItem(AUTH_TOKEN)
   const unToken = dayCode(token)
@@ -55,10 +54,8 @@ export default function Home() {
     <div className='flex flex-col justify-center items-center overflow-x-hidden'>
       <Header />
 
-      <div className='flex flex-col items-center h-dvh w-screen sm:w-3/4'>
-        {/* <div className='bg-gradient-to-t from-stone-950 flex flex-col items-center h-dvh w-screen sm:w-3/4'> */}
-        {/* <div className='w-screen h-80 min-h-80'> */}
-        {/* <div className='border-solid border-2 bg-gray-300 bg-opacity-35 w-screen h-80 min-h-80'> */}
+      <div className='flex flex-col items-center bg-white w-5/6'>
+        {/* <div className='flex flex-col items-center h-dvh w-96 sm:w-3/4'> */}
         <RefreshContext.Provider value={refRetch}>
           <InfoBox
             data2={data}
@@ -68,7 +65,6 @@ export default function Home() {
             _id={_id}
           />
         </RefreshContext.Provider>
-        {/* </div> */}
         <div className='flex flex-col'>
           <div
             className={`duration-200 flex flex-row ml-3  ${
@@ -92,8 +88,6 @@ export default function Home() {
           </div>
         </div>
         <div className={`duration-75 mt-16 h-16 ${visible ? '' : 'h-64'}`}>
-          {/* <div className={`mt-16 h-64 ${songValue ? '' : ''}`}> */}
-
           {!visible ? (
             <div>
               {songValue ? (
@@ -110,17 +104,6 @@ export default function Home() {
           ) : (
             <></>
           )}
-
-          {/* {songValue ? (
-            <AddSongModal data={data} loading={loading} error={error} />
-          ) : (
-            <AddSetModal
-              data2={data}
-              loading={loading}
-              error={error}
-              userId={_id}
-            />
-          )} */}
         </div>
         <div className='flex flex-col gap-y-4'>
           <SongSetButton
@@ -129,7 +112,6 @@ export default function Home() {
             songValue={songValue}
           />
           {visible && <LogoutButton />}
-          {/* {visible ? <LogoutButton /> : <></>} */}
         </div>
       </div>
     </div>

@@ -36,7 +36,8 @@ const Songs = ({ wobble, setWobble, setDel, loading, error, data }) => {
     >
       {data.songs.length > 0 ? (
         // song overflow scroll needs to be here
-        <div className='w-36 min-w-36 max-w-36 h-64 min-h-64 max-h-64 overflow-y-scroll'>
+        <div className='max-w-44 h-64 min-h-64 max-h-64 overflow-y-scroll md:max-w-64'>
+          {/* <div className='w-36 min-w-36 max-w-36 h-64 min-h-64 max-h-64 overflow-y-scroll'> */}
           {data.songs.map((song) => (
             <SongRow
               wobble={wobble}
@@ -48,7 +49,7 @@ const Songs = ({ wobble, setWobble, setDel, loading, error, data }) => {
           ))}
         </div>
       ) : (
-        <div className='w-36 min-w-36 max-w-36 h-64 min-h-64 max-h-64 overflow-y-scroll'>
+        <div className='h-64 min-h-64 max-h-64 overflow-y-scroll'>
           <p>no songs</p>
         </div>
       )}
