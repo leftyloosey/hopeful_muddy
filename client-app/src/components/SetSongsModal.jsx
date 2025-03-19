@@ -28,7 +28,12 @@ const SetSongsModal = ({ setPushRight, filteredSongs }) => {
   }, [filteredSongs, setPushRight])
 
   return (
-    <div className='border-r-2 border-solid norbit zorbit'>
+    <div
+      className={`${
+        filteredSongs ? 'border-r-2 border-solid h-64' : ''
+      } norbit zorbit`}
+    >
+      {/* <div className='border-r-2 border-solid norbit zorbit'> */}
       <div className=''>
         <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
           {renderPage(lyrics)}
