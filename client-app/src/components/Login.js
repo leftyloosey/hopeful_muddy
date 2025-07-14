@@ -52,8 +52,8 @@ const Login = () => {
         email = ' '
       }
 
-      // const rawResponse = await fetch('/login', {
-      const rawResponse = await fetch('http://localhost:8000/login', {
+      const rawResponse = await fetch('/login', {
+        // const rawResponse = await fetch('http://localhost:8000/login', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
