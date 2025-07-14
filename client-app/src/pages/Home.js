@@ -25,10 +25,21 @@ export default function Home() {
   const [setValue, setSet] = useState(true)
   const [visible, setVisible] = useState(false)
 
-  const token = localStorage.getItem(AUTH_TOKEN)
-  const unToken = dayCode(token)
+  let token = localStorage.getItem(AUTH_TOKEN)
+  let _id
+  try {
+    const unToken = dayCode(token)
+    _id = unToken.data._id
+  } catch (error) {
+    _id = ''
+  }
 
-  const { _id } = unToken.data
+  // let _id
+  // if (unToken) {
+  //   _id = unToken.data._id
+  // } else {
+  //   _id = ''
+  // }
 
   const { data, loading, error } = useQuery(GET_SET_BY_USER, {
     variables: { userId: _id },
@@ -46,7 +57,7 @@ export default function Home() {
     }
   }
 
-  if (!token) {
+  if (!data) {
     return <Login />
   }
 
@@ -54,7 +65,7 @@ export default function Home() {
     <div className='flex flex-col justify-center items-center overflow-x-hidden'>
       <Header />
 
-      <div className='flex flex-col items-center bg-white w-5/6'>
+      <div className='flex flex-col items-center bg-white w-[90vw]'>
         {/* <div className='flex flex-col items-center h-dvh w-96 sm:w-3/4'> */}
         <RefreshContext.Provider value={refRetch}>
           <InfoBox
@@ -105,7 +116,7 @@ export default function Home() {
             <></>
           )}
         </div>
-        <div className='flex flex-col gap-y-4'>
+        <div className='flex flex-col gap-y-6'>
           <SongSetButton
             visible={visible}
             setVisible={setVisible}

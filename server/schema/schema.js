@@ -48,11 +48,42 @@ const SetType = new GraphQLObjectType({
     },
   }),
 })
+
+// const OnionType = new GraphQLUnionType({
+//   name: 'IdOrNo',
+//   types: [SetType, GraphQLString],
+//   resolveType(value) {
+//     if (value instanceof SetType) {
+//       return SetType
+//     }
+//     if (value instanceof GraphQLString) {
+//       return GraphQLString
+//     }
+//   },
+// })
+
 // const SetType = new GraphQLObjectType({
 //   name: 'Set',
 //   fields: () => ({
 //     id: { type: GraphQLID },
 //     name: { type: GraphQLString },
+//   }),
+// })
+
+// const SongType = new GraphQLObjectType({
+//   name: 'Song',
+//   fields: () => ({
+//     id: { type: GraphQLID },
+//     name: { type: GraphQLString },
+//     status: { type: GraphQLString },
+//     lyrics: { type: GraphQLString },
+//     length: { type: GraphQLString },
+//     set: {
+//       type: new GraphQLList(SetType),
+//       resolve(parent, args) {
+//         return Set.find()
+//       },
+//     },
 //   }),
 // })
 
@@ -138,30 +169,17 @@ const mutation = new GraphQLObjectType({
     logUser: {
       type: UserType,
       args: {
-        // id: { type: GraphQLNonNull(GraphQLID) },
         email: { type: GraphQLString },
-        // password: { type: GraphQLString },
+        password: { type: GraphQLString },
       },
       resolve(parent, args) {
-        // User.find({ email: args.email })
-        // return User.findOne({ id: args.id })
         return User.findOne({
           email: args.email,
-          // password: args.password
+          password: args.password,
         }).exec()
-        // return User.findOne(
-
-        //     args.email,
-        //     // {
-        //     // $match: {
-        //     //     email: args.email,
-
-        //     // },
-        //     // },
-        //     { new: true }
-        //     );
       },
     },
+
     addSet: {
       type: SetType,
       args: {
@@ -187,12 +205,58 @@ const mutation = new GraphQLObjectType({
         Song.find({ setId: args.id }).then((Song) => {
           Song.forEach((song) => {
             song.remove()
+            // song.$set('setId', null)
+            // song.save().then((result) => {
+            //   console.log(result)
+            // })
           })
         })
 
         return Set.findByIdAndRemove(args.id)
       },
     },
+    // addSong: {
+    //   type: SongType,
+    //   args: {
+    //     name: { type: GraphQLNonNull(GraphQLString) },
+    //     lyrics: { type: GraphQLNonNull(GraphQLString) },
+    //     status: {
+    //       type: new GraphQLEnumType({
+    //         name: 'SongStatus',
+    //         values: {
+    //           closer: { value: 'closer' },
+    //           opener: { value: 'opener' },
+    //           other: { value: 'other' },
+    //         },
+    //       }),
+    //       defaultValue: 'opener',
+    //     },
+    //     length: {
+    //       type: new GraphQLEnumType({
+    //         name: 'SongLength',
+    //         values: {
+    //           short: { value: 'short' },
+    //           long: { value: 'long' },
+    //         },
+    //       }),
+    //       defaultValue: 'short',
+    //     },
+    //     setId: { type: new GraphQLList(SetType) },
+    //     // setId: { type: GraphQLNonNull(GraphQLID) },
+    //   },
+    //   resolve(parent, args) {
+    //     const song = new Song({
+    //       name: args.name,
+    //       lyrics: args.lyrics,
+    //       length: args.length,
+    //       status: args.status,
+    //       setId: args.setId,
+    //     })
+
+    //     return song.save()
+    //   },
+    // },
+
     addSong: {
       type: SongType,
       args: {
@@ -219,6 +283,7 @@ const mutation = new GraphQLObjectType({
           }),
           defaultValue: 'short',
         },
+        // setId: { type: new GraphQLList(SetType) },
         setId: { type: GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
@@ -242,6 +307,50 @@ const mutation = new GraphQLObjectType({
         return Song.findByIdAndRemove(args.id)
       },
     },
+    // updateSong: {
+    //   type: SongType,
+    //   args: {
+    //     id: { type: GraphQLNonNull(GraphQLID) },
+    //     setId: { type: GraphQLID },
+    //     name: { type: GraphQLString },
+    //     lyrics: { type: GraphQLString },
+    //     status: {
+    //       type: new GraphQLEnumType({
+    //         name: 'SongStatusUpdate',
+    //         values: {
+    //           closer: { value: 'closer' },
+    //           opener: { value: 'opener' },
+    //           other: { value: 'other' },
+    //         },
+    //       }),
+    //     },
+    //     length: {
+    //       type: new GraphQLEnumType({
+    //         name: 'SongLengthUpdate',
+    //         values: {
+    //           short: { value: 'short' },
+    //           long: { value: 'long' },
+    //         },
+    //       }),
+    //     },
+    //   },
+    //   resolve(parent, args) {
+    //     return Song.findByIdAndUpdate(
+    //       args.id,
+    //       {
+    //         $set: {
+    //           name: args.name,
+    //           lyrics: args.lyrics,
+    //           status: args.status,
+    //           length: args.length,
+    //           // setId: args.setId,
+    //         },
+    //         $push: { setId: args.setId },
+    //       },
+    //       { new: true }
+    //     )
+    //   },
+    // },
     updateSong: {
       type: SongType,
       args: {

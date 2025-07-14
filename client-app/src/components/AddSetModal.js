@@ -32,11 +32,14 @@ export default function AddSetModal({ loading2, error2, userId }) {
     <>
       {!loading && !error && (
         <>
-          <div>
+          <div className='flex flex-col '>
             <form onSubmit={onSubmit}>
               <div>
-                <label className='form-label'>Set Name: </label>
+                <label className='form-label font-semibold text-gray-400 text-sm'>
+                  Set Name:{' '}
+                </label>
                 <input
+                  autoComplete='off'
                   type='text'
                   className='form-control'
                   id='name'
@@ -44,8 +47,11 @@ export default function AddSetModal({ loading2, error2, userId }) {
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
-
-              <button type='submit'>Submit</button>
+              <div className='flex justify-center mt-28 font-semibold text-gray-400 text-sm'>
+                <button className='btn' type='submit'>
+                  Submit
+                </button>
+              </div>
             </form>
           </div>
         </>

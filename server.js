@@ -43,7 +43,7 @@ app.use(express.json())
 //   }
 // );
 
-app.post('/login', (req, res) => {
+app.post('/login', (req, res, next) => {
   const obj = req.body
   const obj1 = JSON.stringify({ obj })
   const obj2 = JSON.parse(obj1)
@@ -53,20 +53,23 @@ app.post('/login', (req, res) => {
     if (result) {
       const jwt = signToken(result)
       res.status(200).json(jwt)
+      // next()
     } else {
       console.log('oh no!')
       res.status(500).json({ message: 'oh no!' })
+      // next()
     }
   })
 })
 
-app.post('/create', (req, res) => {
+app.post('/create', (req, res, next) => {
   const obj = req.body
+
   const obj1 = JSON.stringify({ obj })
   const obj2 = JSON.parse(obj1)
   const { email } = obj2.obj
   const jwt = signToken(email)
-  res.status(200).json(jwt)
+  // res.status(200).json(jwt)
 
   User.findOne({ email }, (err, result) => {
     if (result) {

@@ -7,7 +7,7 @@ import { GET_SONGS } from '../queries/songQueries'
 export default function AddSongModal({ loading, error, data }) {
   const [name, setName] = useState('')
   const [lyrics, setLyrics] = useState('')
-  const [setId, setSetId] = useState('')
+  const [setId, setSetId] = useState(data.setByUser[0].id)
   const [status, setStatus] = useState('opener')
   const [length, setLength] = useState('short')
 
@@ -15,19 +15,19 @@ export default function AddSongModal({ loading, error, data }) {
     refetchQueries: [GET_SONGS, 'getSongs'],
     variables: { name, lyrics, setId, status, length },
   })
-
+  // console.log(data.setByUser[0].id)
   const onSubmit = (e) => {
     e.preventDefault()
 
-    if (
-      name === '' ||
-      lyrics === '' ||
-      status === '' ||
-      length === '' ||
-      setId === ''
-    ) {
-      return alert('Please fill in all fields')
-    }
+    // if (
+    //   name === '' ||
+    //   lyrics === '' ||
+    //   status === '' ||
+    //   length === '' ||
+    //   setId === ''
+    // ) {
+    //   return alert('Please fill in all fields')
+    // }
 
     console.log(name, lyrics, setId, status, length)
 
@@ -48,12 +48,15 @@ export default function AddSongModal({ loading, error, data }) {
     <>
       {!loading && !error && (
         <>
-          <div>
+          <div className='flex flex-col'>
             <form onSubmit={onSubmit}>
               <div>
-                <div className='mb-3'>
-                  <label className='form-label'>Song Name: </label>
+                <div className='mb-1'>
+                  <label className='form-label font-semibold text-gray-400 text-sm'>
+                    New Song Name:{' '}
+                  </label>
                   <input
+                    autoComplete='off'
                     type='text'
                     className='form-control'
                     id='name'
@@ -61,9 +64,12 @@ export default function AddSongModal({ loading, error, data }) {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
-                <div>
-                  <label className='form-label'>Lyrics: </label>
+                <div className='mb-4'>
+                  <label className='form-label font-semibold text-gray-400 text-sm'>
+                    Lyrics:{' '}
+                  </label>
                   <input
+                    autoComplete='off'
                     className='form-control'
                     id='description'
                     value={lyrics}
@@ -72,9 +78,9 @@ export default function AddSongModal({ loading, error, data }) {
                 </div>
               </div>
 
-              <div>
+              <div className='font-semibold text-gray-400 text-sm'>
                 <div>
-                  <label className='form-label'>Status</label>
+                  {/* <label className='form-label'>Status</label> */}
                   <select
                     id='status'
                     className='form-select'
@@ -87,8 +93,8 @@ export default function AddSongModal({ loading, error, data }) {
                   </select>
                 </div>
 
-                <div className='mb-3'>
-                  <label className='form-label'>Length</label>
+                <div className=''>
+                  {/* <label className='form-label'>Length</label> */}
                   <select
                     id='length'
                     className='form-select'
@@ -101,14 +107,18 @@ export default function AddSongModal({ loading, error, data }) {
                 </div>
 
                 <div className='mb-3'>
-                  <label className='form-label'>Set</label>
+                  {/* <label className='form-label'>Set</label> */}
                   <select
+                    // multiple
                     id='setId'
                     className='form-select'
                     value={setId}
-                    onChange={(e) => setSetId(e.target.value)}
+                    onChange={(e) => {
+                      console.log(e.target.value)
+                      setSetId(e.target.value)
+                    }}
                   >
-                    <option value=''>Select Set</option>
+                    {/* <option value=''>Select Set</option> */}
                     {data.setByUser.map((set) => (
                       <option key={set.id} value={set.id}>
                         {set.name}
@@ -116,10 +126,11 @@ export default function AddSongModal({ loading, error, data }) {
                     ))}
                   </select>
                 </div>
-
-                <button type='submit' data-bs-dismiss='modal' className='bt'>
-                  Submit
-                </button>
+                <div className='flex justify-center'>
+                  <button type='submit' data-bs-dismiss='modal' className='btn'>
+                    Submit
+                  </button>
+                </div>
               </div>
             </form>
           </div>

@@ -16,9 +16,15 @@ const SongSchema = new mongoose.Schema({
     enum: ['closer', 'opener', 'other'],
   },
   setId: {
+    // type: [],
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Set',
+    // default: 'none',
   },
+  // userId: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'User',
+  // },
 })
 
 module.exports = mongoose.model('Song', SongSchema)
